@@ -65,13 +65,7 @@ public final class UwArray {
 			return defaultValue;
 		}
 
-		T returnValue = array[index];
-
-		if (returnValue == null) {
-			return defaultValue;
-		}
-
-		return returnValue;
+		return UwObject.getIfNull(array[index], defaultValue);
 	}
 
 	/**
@@ -84,22 +78,16 @@ public final class UwArray {
 	 * @return					value assigned to the index or default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> supplier) {
-		T returnValue = getOrNull(index, array);
-
-		if (returnValue == null) {
-			return UwObject.applyIfNotNull(supplier, Supplier::get);
-		}
-
-		return returnValue;
+		return UwObject.getIfNull(getOrNull(index, array), supplier);
 	}
 
 	/**
-	 * Null-safely get a value from an array by its index or return null.
+	 * Null-safely get a value from an array by its index or return {@code null}.
 	 *
 	 * @param index				index of the value
 	 * @param array				array from which return the value
 	 * @param <T>				value type
-	 * @return					value assigned to the index or null
+	 * @return					value assigned to the index or {@code null}
 	 */
 	public static <T> T getOrNull(Integer index, T[] array) {
 		return getOrElse(index, array, (T) null);

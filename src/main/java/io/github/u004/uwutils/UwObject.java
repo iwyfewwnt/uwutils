@@ -34,9 +34,9 @@ public final class UwObject {
 	/**
 	 * Apply argument to the specified function if it's not null or return a default value.
 	 *
-	 * @param object			argument to be applied
+	 * @param object			argument to apply
 	 * @param function			function to which apply argument
-	 * @param defaultValue		default value to be returned on failure
+	 * @param defaultValue		default value to return on failure
 	 * @param <T>				argument type
 	 * @param <R>				return type
 	 * @return					result of the function applying or default value
@@ -89,6 +89,40 @@ public final class UwObject {
 	 */
 	public static <T, R> R applyIfNotNull(T object, Function<T, R> function) {
 		return applyIfNotNull(object, function, (R) null);
+	}
+
+	/**
+	 * Get default value if the specified object is {@code null}.
+	 *
+	 * @param object		object value to null-check
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				object if object isn't {@code null}
+	 * 						else default value
+	 */
+	public static <T> T getIfNull(T object, T defaultValue) {
+		if (object == null) {
+			return defaultValue;
+		}
+
+		return object;
+	}
+
+	/**
+	 * Get default value if the specified object is {@code null}.
+	 *
+	 * @param object		object value to null-check
+	 * @param supplier		supplier from which get the default value
+	 * @param <T>			object type
+	 * @return				object if object isn't {@code null}
+	 * 						else default value
+	 */
+	public static <T> T getIfNull(T object, Supplier<T> supplier) {
+		if (object == null) {
+			return applyIfNotNull(supplier, Supplier::get);
+		}
+
+		return object;
 	}
 
 	private UwObject() {
