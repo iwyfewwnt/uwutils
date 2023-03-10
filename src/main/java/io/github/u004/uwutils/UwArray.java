@@ -18,7 +18,6 @@ package io.github.u004.uwutils;
 
 import io.vavr.control.Option;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.function.Supplier;
 
@@ -44,11 +43,7 @@ public final class UwArray {
 	 * 					that wrapped in {@link Option}
 	 */
 	public static <T> Option<T> get(Integer index, T[] array) {
-		if (ObjectUtils.anyNull(index, array)) {
-			return Option.none();
-		}
-
-		return Option.of(ArrayUtils.get(array, index));
+		return Option.of(getOrNull(index, array));
 	}
 
 	/**
@@ -60,8 +55,10 @@ public final class UwArray {
 	 * @param <T>				value type
 	 * @return					value assigned to the index or default value
 	 */
-	public static <T> T getRaw(Integer index, T[] array, T defaultValue) {
-		return get(index, array).getOrElse(defaultValue);
+	public static <T> T getOrElse(Integer index, T[] array, T defaultValue) {
+		T returnValue = getOrNull(index, array);
+
+		return returnValue != null ? returnValue : defaultValue;
 	}
 
 	/**
@@ -73,8 +70,10 @@ public final class UwArray {
 	 * @param <T>				value type
 	 * @return					value assigned to the index or default value
 	 */
-	public static <T> T getRaw(Integer index, T[] array, Supplier<T> supplier) {
-		return getRaw(index, array, (T) UwObject.applyIfNotNull(supplier, Supplier::get));
+	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> supplier) {
+		T defaultValue = UwObject.applyIfNotNull(supplier, Supplier::get);
+
+		return getOrElse(index, array, defaultValue);
 	}
 
 	/**
@@ -85,8 +84,14 @@ public final class UwArray {
 	 * @param <T>				value type
 	 * @return					value assigned to the index or null
 	 */
-	public static <T> T getRaw(Integer index, T[] array) {
-		return getRaw(index, array, (T) null);
+	public static <T> T getOrNull(Integer index, T[] array) {
+		// ArrayUtils#get is null-safe for array param,
+		//  so we check only for the index one
+		if (index == null) {
+			return null;
+		}
+
+		return ArrayUtils.get(array, index);
 	}
 
 	private UwArray() {
