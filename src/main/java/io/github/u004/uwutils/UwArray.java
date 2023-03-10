@@ -18,6 +18,7 @@ package io.github.u004.uwutils;
 
 import io.vavr.control.Option;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -89,6 +90,100 @@ public final class UwArray {
 	 */
 	public static <T> T getOrNull(Integer index, T[] array) {
 		return getOrElse(index, array, (T) null);
+	}
+
+	/**
+	 * An {@link java.util.Iterator} implementation for fixed Java arrays.
+	 *
+	 * @param <T>	element type
+	 */
+	public static final class Iterator<T> implements java.util.Iterator<T> {
+
+		/**
+		 * An array of elements.
+		 */
+		private final T[] array;
+
+		/**
+		 * Current element index.
+		 */
+		private int index;
+
+		/**
+		 * Initialize an {@link UwArray.Iterator} instance.
+		 *
+		 * @param array		array of elements
+		 */
+		public Iterator(T[] array) {
+			this.array = array;
+			this.index = -1;
+		}
+
+		/**
+		 * Initialize an {@link UwArray.Iterator} instance.
+		 *
+		 * <p>Wraps {@link UwArray.Iterator#Iterator(Object[])}
+		 * w/ {@code null} as the array of elements.
+		 */
+		public Iterator() {
+			this(null);
+		}
+
+		/**
+		 * Check if this array has a next element.
+		 *
+		 * @return		true if this array isn't {@code null}
+		 * 				and current index {@literal <} this array length
+		 */
+		@Override
+		public boolean hasNext() {
+			return this.array != null
+					&& this.index < this.array.length;
+		}
+
+		/**
+		 * Get next element of the array or return {@code null}.
+		 *
+		 * <p><b>Doesn't throw any internal exception.</b>
+		 *
+		 * @return		next element or {@code null}
+		 */
+		@Override
+		public T next() {
+			return getOrNull(++this.index, this.array);
+		}
+
+		/**
+		 * Reset current element w/ assigning it to {@code null}.
+		 *
+		 * <p><b>Doesn't throw any internal exception.</b>
+		 */
+		@Override
+		public void remove() {
+			if (this.array == null
+					|| this.index < 0
+					|| this.index >= this.array.length) {
+				return;
+			}
+
+			this.array[this.index] = null;
+		}
+
+		/**
+		 * Perform the given action for each remaining element.
+		 *
+		 * <p><b>Doesn't throw any internal exception.</b>
+		 *
+		 * @param action	action to perform for each remaining element
+		 */
+		@Override
+		public void forEachRemaining(Consumer<? super T> action) {
+			if (action == null) {
+				return;
+			}
+
+			java.util.Iterator.super.forEachRemaining(action);
+		}
 	}
 
 	private UwArray() {
