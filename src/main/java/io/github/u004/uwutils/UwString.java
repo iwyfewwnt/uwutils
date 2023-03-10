@@ -16,8 +16,6 @@
 
 package io.github.u004.uwutils;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 /**
  * A string utility.
  *
@@ -35,17 +33,19 @@ public final class UwString {
 	 *
 	 * @param str		string to operate with
 	 * @param count		number of characters to trim
-	 * @return			new string, empty or the same string
+	 * @return			new, empty or the same string
 	 */
 	public static String trim(String str, Integer count) {
-		if (ObjectUtils.anyNull(str, count)
-				|| count > str.length() / 2
-		) {
+		if (str == null) {
 			return "";
 		}
 
-		if (count <= 0) {
+		if (count == null || count <= 0) {
 			return str;
+		}
+
+		if (count > str.length() / 2) {
+			return "";
 		}
 
 		return str.substring(count, str.length() - count);
