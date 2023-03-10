@@ -221,7 +221,7 @@ public final class UwArray {
 		@Override
 		public boolean hasNext() {
 			return this.array != null
-					&& this.index < this.array.length;
+					&& this.index < this.array.length - 1;
 		}
 
 		/**
