@@ -36,13 +36,13 @@ public final class UwBean {
 	 * Find all subclasses of service provider interface.
 	 *
 	 * @param clazz				interface class
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @param throwOnFail		if {@code true} will throw exception if the one is occurred, if null default is true
 	 * @param <T>				interface type
 	 * @return					list of subclasses or null
 	 */
-	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz, ClassLoader context, Boolean throwOnFail) {
-		context = ObjectUtils.defaultIfNull(context, UDefault.CONTEXT);
+	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz, ClassLoader classLoader, Boolean throwOnFail) {
+		classLoader = ObjectUtils.defaultIfNull(classLoader, UDefault.CLASS_LOADER);
 		throwOnFail = ObjectUtils.defaultIfNull(throwOnFail, UDefault.THROW_ON_FAIL);
 
 		List<String> strings = UwResource.findSpiContent(clazz);
@@ -55,7 +55,7 @@ public final class UwBean {
 
 		for (String str : strings) {
 			try {
-				result.add(context.loadClass(str).asSubclass(clazz));
+				result.add(classLoader.loadClass(str).asSubclass(clazz));
 			} catch (Throwable throwable) {
 				if (throwOnFail) {
 					throw new RuntimeException(throwable);
@@ -76,12 +76,12 @@ public final class UwBean {
 	 * <p>Wraps {@link UwBean#findSpiTypes(Class, ClassLoader, Boolean)}.
 	 *
 	 * @param clazz				interface class
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @param <T>				interface type
 	 * @return					list of subclasses or null
 	 */
-	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz, ClassLoader context) {
-		return findSpiTypes(clazz, context, null);
+	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz, ClassLoader classLoader) {
+		return findSpiTypes(clazz, classLoader, null);
 	}
 
 	/**

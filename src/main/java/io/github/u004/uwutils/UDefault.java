@@ -24,7 +24,7 @@ final class UDefault {
 	/**
 	 * A default class loader instance.
 	 */
-	public static final ClassLoader CONTEXT = Thread.currentThread()
+	public static final ClassLoader CLASS_LOADER = Thread.currentThread()
 			.getContextClassLoader();
 
 	/**

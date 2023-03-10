@@ -56,24 +56,24 @@ public final class UwResource {
 	 * Find content/s for the provided resource/s path.
 	 *
 	 * @param path				resource path
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @param throwOnFail		if {@code true} will throw exception if the one is occurred, if null default is true
 	 * @param splitContent		if {@code true} will split resource content by end of lines, if null default is false
 	 * @return					list of resource contents
 	 */
-	public static List<String> findContent(String path, ClassLoader context, Boolean throwOnFail, Boolean splitContent) {
+	public static List<String> findContent(String path, ClassLoader classLoader, Boolean throwOnFail, Boolean splitContent) {
 		if (path == null) {
 			return null;
 		}
 
 		List<String> result = new ArrayList<>();
 
-		context = ObjectUtils.defaultIfNull(context, UDefault.CONTEXT);
+		classLoader = ObjectUtils.defaultIfNull(classLoader, UDefault.CLASS_LOADER);
 		throwOnFail = ObjectUtils.defaultIfNull(throwOnFail, UDefault.THROW_ON_FAIL);
 		splitContent = ObjectUtils.defaultIfNull(splitContent, DEFAULT_SPLIT_CONTENT);
 
 		try {
-			Enumeration<URL> urls = context.getResources(path);
+			Enumeration<URL> urls = classLoader.getResources(path);
 
 			while (urls.hasMoreElements()) {
 				URL url = urls.nextElement();
@@ -108,12 +108,12 @@ public final class UwResource {
 	 * <p>Wraps {@link UwResource#findContent(String, ClassLoader, Boolean, Boolean)}.
 	 *
 	 * @param path				resource path
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @param throwOnFail		if {@code true} will throw exception if the one is occurred, if null default is true
 	 * @return					list of resource contents
 	 */
-	public static List<String> findContent(String path, ClassLoader context, Boolean throwOnFail) {
-		return findContent(path, context, throwOnFail, null);
+	public static List<String> findContent(String path, ClassLoader classLoader, Boolean throwOnFail) {
+		return findContent(path, classLoader, throwOnFail, null);
 	}
 
 	/**
@@ -122,11 +122,11 @@ public final class UwResource {
 	 * <p>Wraps {@link UwResource#findContent(String, ClassLoader, Boolean)}.
 	 *
 	 * @param path				resource path
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @return					list of resource contents
 	 */
-	public static List<String> findContent(String path, ClassLoader context) {
-		return findContent(path, context, null);
+	public static List<String> findContent(String path, ClassLoader classLoader) {
+		return findContent(path, classLoader, null);
 	}
 
 	/**
@@ -147,16 +147,16 @@ public final class UwResource {
 	 * <p>Wraps {@link UwResource#findContent(String, ClassLoader, Boolean, Boolean)}.
 	 *
 	 * @param clazz				class
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @param throwOnFail		if {@code true} will throw exception if the one is occurred, if null default is true
 	 * @return					list of SPI contents
 	 */
-	public static List<String> findSpiContent(Class<?> clazz, ClassLoader context, Boolean throwOnFail) {
+	public static List<String> findSpiContent(Class<?> clazz, ClassLoader classLoader, Boolean throwOnFail) {
 		if (clazz == null) {
 			return null;
 		}
 
-		return findContent(String.format(SPI_PATH_FMT, clazz.getName()), context, throwOnFail, true);
+		return findContent(String.format(SPI_PATH_FMT, clazz.getName()), classLoader, throwOnFail, true);
 	}
 
 	/**
@@ -165,11 +165,11 @@ public final class UwResource {
 	 * <p>Wraps {@link UwResource#findSpiContent(Class, ClassLoader, Boolean)}.
 	 *
 	 * @param clazz				class
-	 * @param context			class loader, if null default is current thread class loader
+	 * @param classLoader		class loader, if null default is current thread class loader
 	 * @return					list of SPI contents
 	 */
-	public static List<String> findSpiContent(Class<?> clazz, ClassLoader context) {
-		return findSpiContent(clazz, context, null);
+	public static List<String> findSpiContent(Class<?> clazz, ClassLoader classLoader) {
+		return findSpiContent(clazz, classLoader, null);
 	}
 
 	/**
