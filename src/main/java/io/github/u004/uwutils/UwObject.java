@@ -25,14 +25,12 @@ import java.util.function.Supplier;
  * <p>{@code UwObject} is the utility class
  * that provide functionality to operate
  * with objects.
- *
- * @since 0.1.0
  */
 @SuppressWarnings("unused")
 public final class UwObject {
 
 	/**
-	 * Apply argument to the specified function if it's not null or return a default value.
+	 * Safely apply argument to the specified function if argument isn't {@code null} or return a default value.
 	 *
 	 * @param object			argument to apply
 	 * @param function			function to which apply argument
@@ -46,17 +44,11 @@ public final class UwObject {
 			return defaultValue;
 		}
 
-		R returnValue = function.apply(object);
-
-		if (returnValue == null) {
-			return defaultValue;
-		}
-
-		return returnValue;
+		return getIfNull(function.apply(object), defaultValue);
 	}
 
 	/**
-	 * Apply argument to the specified function it's not null or return a default value.
+	 * Safely apply argument to the specified function if argument isn't {@code null} or return a default value.
 	 *
 	 * @param object		argument to apply
 	 * @param function		function to which apply argument
@@ -66,22 +58,16 @@ public final class UwObject {
 	 * @return				result of the function applying or default value
 	 */
 	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, Supplier<R> supplier) {
-		R returnValue = applyIfNotNull(object, function);
-
-		if (returnValue == null) {
-			return applyIfNotNull(supplier, Supplier::get);
-		}
-
-		return returnValue;
+		return getIfNull(applyIfNotNull(object, function), supplier);
 	}
 
 	/**
-	 * Apply argument to the specified function if it's not null or return {@code null}.
+	 * Safely apply argument to the specified function if argument isn't {@code null} or return {@code null}.
 	 *
 	 * <p>Wraps {@link UwObject#applyIfNotNull(Object, Function, Object)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param object			argument to be applied
+	 * @param object			argument to apply
 	 * @param function			function to which apply argument
 	 * @param <T>				argument type
 	 * @param <R>				return type
@@ -92,13 +78,13 @@ public final class UwObject {
 	}
 
 	/**
-	 * Get default value if the specified object is {@code null}.
+	 * Get a default value if the specified object is {@code null}.
 	 *
 	 * @param object		object value to null-check
 	 * @param defaultValue	default value to return on failure
 	 * @param <T>			object type
-	 * @return				object if object isn't {@code null}
-	 * 						else default value
+	 * @return				default value if object is {@code null}
+	 * 						else the object
 	 */
 	public static <T> T getIfNull(T object, T defaultValue) {
 		if (object == null) {
@@ -109,13 +95,13 @@ public final class UwObject {
 	}
 
 	/**
-	 * Get default value if the specified object is {@code null}.
+	 * Get a default value if the specified object is {@code null}.
 	 *
 	 * @param object		object value to null-check
 	 * @param supplier		supplier from which get the default value
 	 * @param <T>			object type
-	 * @return				object if object isn't {@code null}
-	 * 						else default value
+	 * @return				default value if object is {@code null}
+	 * 						else the object
 	 */
 	public static <T> T getIfNull(T object, Supplier<T> supplier) {
 		if (object == null) {
