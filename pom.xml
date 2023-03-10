@@ -9,8 +9,8 @@
     <version>0.1.3_1-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>Common utilities</description>
-    <url>https://github.com/u004/uwutils</url>
+    <description>Safe common utilities w/ Java 8+ support</description>
+    <url>https://github.com/iwyfewwnt/uwutils</url>
 
     <licenses>
         <license>
@@ -22,15 +22,15 @@
 
     <developers>
         <developer>
-            <id>u004</id>
-            <url>https://github.com/u004</url>
+            <id>iwyfewwnt</id>
+            <url>https://github.com/iwyfewwnt</url>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/u004/uwutils.git</connection>
-        <developerConnection>scm:git:ssh://github.com:u004/uwutils.git</developerConnection>
-        <url>https://github.com/u004/uwutils/tree/master</url>
+        <connection>scm:git:git://github.com/iwyfewwnt/uwutils.git</connection>
+        <developerConnection>scm:git:ssh://github.com:iwyfewwnt/uwutils.git</developerConnection>
+        <url>https://github.com/iwyfewwnt/uwutils/tree/master</url>
     </scm>
 
     <distributionManagement>
@@ -171,8 +171,8 @@
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>${maven.gpg.version}</version>
                         <configuration>
-                            <keyname>6F1B21CF3810AD9A</keyname>
-                            <passphraseServerId>6F1B21CF3810AD9A</passphraseServerId>
+                            <keyname>6A79B65D1E24EA0F</keyname>
+                            <passphraseServerId>6A79B65D1E24EA0F</passphraseServerId>
                         </configuration>
                         <executions>
                             <execution>
