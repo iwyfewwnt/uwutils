@@ -93,7 +93,7 @@ public final class UwArray {
 	 * @return					value assigned to the index or null
 	 */
 	public static <T> T getOrNull(Integer index, T[] array) {
-		return getOrElse(index, array, null);
+		return getOrElse(index, array, (T) null);
 	}
 
 	private UwArray() {
