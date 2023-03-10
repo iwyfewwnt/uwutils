@@ -143,7 +143,8 @@ public final class UwArray {
 		 */
 		@Override
 		public void forEach(Consumer<? super T> action) {
-			if (action == null) {
+			if (this.array == null
+					|| action == null) {
 				return;
 			}
 
