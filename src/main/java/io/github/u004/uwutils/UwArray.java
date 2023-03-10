@@ -26,8 +26,6 @@ import java.util.function.Supplier;
  * <p>{@code UwArray} is the utility class
  * that provide functionality to operate
  * with arrays.
- *
- * @since 0.1.0
  */
 @SuppressWarnings("unused")
 public final class UwArray {
@@ -38,7 +36,7 @@ public final class UwArray {
 	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
 
 	/**
-	 * Null-safely get a value from an array by its index.
+	 * Safely get a value from an array by its index.
 	 *
 	 * @param index		index of the value
 	 * @param array		array from which return the value
@@ -51,13 +49,13 @@ public final class UwArray {
 	}
 
 	/**
-	 * Null-safely get a value from an array by its index or return a default value.
+	 * Safely get a value from an array by its index or return a default value.
 	 *
 	 * @param index				index of the value
 	 * @param array				array from which return the value
-	 * @param defaultValue 		default value to be returned on failure
+	 * @param defaultValue 		default value to return on failure
 	 * @param <T>				value type
-	 * @return					value assigned to the index or default value
+	 * @return					value assigned to the index or the default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, T defaultValue) {
 		if (index == null || array == null
@@ -69,20 +67,20 @@ public final class UwArray {
 	}
 
 	/**
-	 * Null-safely get a value from an array by its index or return a default value.
+	 * Safely get a value from an array by its index or return a default value.
 	 *
 	 * @param index				index of the value
 	 * @param array				array from which return the value
 	 * @param supplier 			supplier from which return the default value
 	 * @param <T>				value type
-	 * @return					value assigned to the index or default value
+	 * @return					value assigned to the index or the default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> supplier) {
 		return UwObject.getIfNull(getOrNull(index, array), supplier);
 	}
 
 	/**
-	 * Null-safely get a value from an array by its index or return {@code null}.
+	 * Safely get a value from an array by its index or return {@code null}.
 	 *
 	 * @param index				index of the value
 	 * @param array				array from which return the value
