@@ -56,9 +56,13 @@ public final class UwArray {
 	 * @return					value assigned to the index or default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, T defaultValue) {
-		T returnValue = getOrNull(index, array);
+		// ArrayUtils#get is null-safe for array param,
+		//  so we check only for the index one
+		if (index == null) {
+			return defaultValue;
+		}
 
-		return returnValue != null ? returnValue : defaultValue;
+		return ArrayUtils.get(array, index, defaultValue);
 	}
 
 //	/**
@@ -85,13 +89,7 @@ public final class UwArray {
 	 * @return					value assigned to the index or null
 	 */
 	public static <T> T getOrNull(Integer index, T[] array) {
-		// ArrayUtils#get is null-safe for array param,
-		//  so we check only for the index one
-		if (index == null) {
-			return null;
-		}
-
-		return ArrayUtils.get(array, index);
+		return getOrElse(index, array, null);
 	}
 
 	private UwArray() {
