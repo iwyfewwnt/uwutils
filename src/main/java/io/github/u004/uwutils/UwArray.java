@@ -93,10 +93,11 @@ public final class UwArray {
 	}
 
 	/**
-	 * An {@link java.util.Iterator} implementation for fixed Java arrays.
+	 * An {@link java.util.Iterator} implementation for fixed arrays.
 	 *
 	 * @param <T>	element type
 	 */
+	@SuppressWarnings("unused")
 	public static final class Iterator<T> implements java.util.Iterator<T> {
 
 		/**
