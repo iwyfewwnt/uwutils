@@ -17,6 +17,7 @@
 package io.github.u004.uwutils;
 
 import io.vavr.control.Option;
+import org.apache.commons.lang3.reflect.TypeUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
@@ -36,18 +37,17 @@ import java.util.stream.Stream;
 public final class UwReflect {
 
 	/**
-	 * Get generic types of the provided class.
+	 * Get generic types of the provided parameterized type.
 	 *
-	 * @param clazz		class
+	 * @param type		parameterized type
 	 * @return			array of generic types that wrapped in {@link Option}
 	 */
-	public static Option<Class<?>[]> getGenericTypes(Class<?> clazz) {
-		if (clazz == null) {
+	public static Option<Class<?>[]> getGenericTypes(ParameterizedType type) {
+		if (type == null) {
 			return Option.none();
 		}
 
-		Type[] types = ((ParameterizedType) clazz.getGenericSuperclass())
-				.getActualTypeArguments();
+		Type[] types = type.getActualTypeArguments();
 
 		if (types.length == 0) {
 			return Option.none();
@@ -62,6 +62,54 @@ public final class UwReflect {
 	}
 
 	/**
+	 * Get generic types of the provided type.
+	 *
+	 * @param type		type
+	 * @return			array of generic types that wrapped in {@link Option}
+	 */
+	public static Option<Class<?>[]> getGenericTypes(Type type) {
+		if (type == null || !TypeUtils.isAssignable(type, ParameterizedType.class)) {
+			return Option.none();
+		}
+
+		return getGenericTypes((ParameterizedType) type);
+	}
+
+	/**
+	 * Get generic types of the provided class.
+	 *
+	 * @param clazz		class
+	 * @return			array of generic types that wrapped in {@link Option}
+	 */
+	public static Option<Class<?>[]> getGenericTypes(Class<?> clazz) {
+		if (clazz == null) {
+			return Option.none();
+		}
+
+		return getGenericTypes(clazz.getGenericSuperclass());
+	}
+
+	/**
+	 * Get generic types of the provided parameterized type.
+	 *
+	 * @param type		parameterized type
+	 * @return			array of generic types or null
+	 */
+	public static Class<?>[] getGenericTypesRaw(ParameterizedType type) {
+		return getGenericTypes(type).getOrNull();
+	}
+
+	/**
+	 * Get generic types of the provided type.
+	 *
+	 * @param type		parameterized type
+	 * @return			array of generic types or null
+	 */
+	public static Class<?>[] getGenericTypesRaw(Type type) {
+		return getGenericTypes(type).getOrNull();
+	}
+
+	/**
 	 * Get generic types of the provided class.
 	 *
 	 * @param clazz		class
@@ -69,6 +117,30 @@ public final class UwReflect {
 	 */
 	public static Class<?>[] getGenericTypesRaw(Class<?> clazz) {
 		return getGenericTypes(clazz).getOrNull();
+	}
+
+	/**
+	 * Get generic type of the provided parameterized type by its index.
+	 *
+	 * @param type		parameterized type
+	 * @param index		index
+	 * @return			generic type that wrapped in {@link Option}
+	 */
+	public static Option<Class<?>> getGenericType(ParameterizedType type, Integer index) {
+		return getGenericTypes(type)
+				.flatMap(types -> UwArray.get(index, types));
+	}
+
+	/**
+	 * Get generic type of the provided type by its index.
+	 *
+	 * @param type		type
+	 * @param index		index
+	 * @return			generic type that wrapped in {@link Option}
+	 */
+	public static Option<Class<?>> getGenericType(Type type, Integer index) {
+		return getGenericTypes(type)
+				.flatMap(types -> UwArray.get(index, types));
 	}
 
 	/**
@@ -84,6 +156,30 @@ public final class UwReflect {
 	}
 
 	/**
+	 * Get 1st generic type of the provided parameterized type.
+	 *
+	 * <p>Wraps {@link UwReflect#getGenericType(ParameterizedType, Integer)}.
+	 *
+	 * @param type		parameterized type
+	 * @return			generic type that wrapped in {@link Option}
+	 */
+	public static Option<Class<?>> getGenericType(ParameterizedType type) {
+		return getGenericType(type, 0);
+	}
+
+	/**
+	 * Get 1st generic type of the provided type.
+	 *
+	 * <p>Wraps {@link UwReflect#getGenericType(Type, Integer)}.
+	 *
+	 * @param type		type
+	 * @return			generic type that wrapped in {@link Option}
+	 */
+	public static Option<Class<?>> getGenericType(Type type) {
+		return getGenericType(type, 0);
+	}
+
+	/**
 	 * Get 1st generic type of the provided class.
 	 *
 	 * <p>Wraps {@link UwReflect#getGenericType(Class, Integer)}.
@@ -93,6 +189,28 @@ public final class UwReflect {
 	 */
 	public static Option<Class<?>> getGenericType(Class<?> clazz) {
 		return getGenericType(clazz, 0);
+	}
+
+	/**
+	 * Get generic type of the provided parameterized type by its index.
+	 *
+	 * @param type		parameterized type
+	 * @param index		index
+	 * @return			generic type or null
+	 */
+	public static Class<?> getGenericTypeRaw(ParameterizedType type, Integer index) {
+		return getGenericType(type, index).getOrNull();
+	}
+
+	/**
+	 * Get generic type of the provided type by its index.
+	 *
+	 * @param type		type
+	 * @param index		index
+	 * @return			generic type or null
+	 */
+	public static Class<?> getGenericTypeRaw(Type type, Integer index) {
+		return getGenericType(type, index).getOrNull();
 	}
 
 	/**
@@ -107,13 +225,33 @@ public final class UwReflect {
 	}
 
 	/**
+	 * Get 1st generic type of the provided parameterized type.
+	 *
+	 * @param type		parameterized type
+	 * @return			generic type or null
+	 */
+	public static Class<?> getGenericTypeRaw(ParameterizedType type) {
+		return getGenericType(type).getOrNull();
+	}
+
+	/**
+	 * Get 1st generic type of the provided type.
+	 *
+	 * @param type		type
+	 * @return			generic type or null
+	 */
+	public static Class<?> getGenericTypeRaw(Type type) {
+		return getGenericType(type).getOrNull();
+	}
+
+	/**
 	 * Get 1st generic type of the provided class.
 	 *
 	 * @param clazz		class
 	 * @return			generic type or null
 	 */
 	public static Class<?> getGenericTypeRaw(Class<?> clazz) {
-		return getGenericTypeRaw(clazz, 0);
+		return getGenericType(clazz).getOrNull();
 	}
 
 	/**
