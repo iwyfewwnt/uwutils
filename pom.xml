@@ -54,7 +54,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <vavr.version>0.10.4</vavr.version>
-        <commons-lang3.version>3.12.0</commons-lang3.version>
+<!--        <commons-lang3.version>3.12.0</commons-lang3.version>-->
 
         <javadoc.stylesheet.filePath>${project.basedir}/src/main/resources/javadoc-drakula.css</javadoc.stylesheet.filePath>
 
@@ -72,11 +72,11 @@
             <artifactId>vavr</artifactId>
             <version>${vavr.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.commons</groupId>-->
+<!--            <artifactId>commons-lang3</artifactId>-->
+<!--            <version>${commons-lang3.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
