@@ -31,11 +31,6 @@ final class UDefault {
 	 */
 	public static final boolean THROW_ON_FAIL = true;
 
-	/**
-	 * A default array index value.
-	 */
-	public static final int ARRAY_INDEX = 0;
-
 	private static ClassLoader initContextClassLoader() {
 		try {
 			return Thread.currentThread()
