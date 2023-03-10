@@ -24,13 +24,28 @@ final class UDefault {
 	/**
 	 * A default class loader instance.
 	 */
-	public static final ClassLoader CLASS_LOADER = Thread.currentThread()
-			.getContextClassLoader();
+	public static final ClassLoader CLASS_LOADER = initContextClassLoader();
 
 	/**
 	 * A default throw on fail boolean value.
 	 */
 	public static final boolean THROW_ON_FAIL = true;
+
+	/**
+	 * A default array index value.
+	 */
+	public static final int ARRAY_INDEX = 0;
+
+	private static ClassLoader initContextClassLoader() {
+		try {
+			return Thread.currentThread()
+					.getContextClassLoader();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 	private UDefault() {
 		throw new UnsupportedOperationException();
