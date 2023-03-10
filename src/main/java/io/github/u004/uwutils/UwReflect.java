@@ -17,7 +17,6 @@
 package io.github.u004.uwutils;
 
 import io.vavr.control.Option;
-import org.apache.commons.lang3.reflect.TypeUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
@@ -68,11 +67,11 @@ public final class UwReflect {
 	 * @return			array of generic types that wrapped in {@link Option}
 	 */
 	public static Option<Class<?>[]> getGenericTypes(Type type) {
-		if (type == null || !TypeUtils.isAssignable(type, ParameterizedType.class)) {
-			return Option.none();
+		if (type instanceof ParameterizedType) {
+			return getGenericTypes((ParameterizedType) type);
 		}
 
-		return getGenericTypes((ParameterizedType) type);
+		return Option.none();
 	}
 
 	/**
