@@ -17,7 +17,6 @@
 package io.github.u004.uwutils;
 
 import io.vavr.control.Option;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.function.Supplier;
 
@@ -32,6 +31,11 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class UwArray {
+
+	/**
+	 * An empty class array instance.
+	 */
+	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
 
 	/**
 	 * Null-safely get a value from an array by its index.
@@ -56,13 +60,18 @@ public final class UwArray {
 	 * @return					value assigned to the index or default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, T defaultValue) {
-		// ArrayUtils#get is null-safe for array param,
-		//  so we check only for the index one
-		if (index == null) {
+		if (index == null || array == null
+				|| index < 0 || index >= array.length) {
 			return defaultValue;
 		}
 
-		return ArrayUtils.get(array, index, defaultValue);
+		T returnValue = array[index];
+
+		if (returnValue == null) {
+			return defaultValue;
+		}
+
+		return returnValue;
 	}
 
 	/**
