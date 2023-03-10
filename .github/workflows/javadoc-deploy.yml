@@ -1,0 +1,29 @@
+name: Javadoc Deploy
+
+on:
+  release:
+    types: [released]
+
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup
+        uses: actions/setup-java@v3
+        with:
+          java-version: 8
+          distribution: corretto
+
+      - name: Build
+        run: mvn javadoc:javadoc -Pjavadoc
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: target/site/apidocs
+          branch: docs
