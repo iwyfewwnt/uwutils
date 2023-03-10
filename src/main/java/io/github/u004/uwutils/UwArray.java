@@ -93,6 +93,28 @@ public final class UwArray {
 	}
 
 	/**
+	 * Create a new {@link java.lang.Iterable} instance for the provided array of elements.
+	 *
+	 * @param array		array of elements
+	 * @param <T>		element type
+	 * @return			new {@link java.lang.Iterable} instance
+	 */
+	public static <T> java.lang.Iterable<T> iterable(T[] array) {
+		return new Iterable<>(array);
+	}
+
+	/**
+	 * Create a new {@link java.util.Iterator} instance for the provided array of elements.
+	 *
+	 * @param array		array of elements
+	 * @param <T>		element type
+	 * @return			new {@link java.util.Iterator} instance
+	 */
+	public static <T> java.util.Iterator<T> iterator(T[] array) {
+		return new Iterator<>(array);
+	}
+
+	/**
 	 * An {@link java.lang.Iterable} implementation for fixed array.
 	 *
 	 * @param <T>	element type
