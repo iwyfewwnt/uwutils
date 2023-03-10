@@ -19,7 +19,7 @@ package io.github.u004.uwutils;
 import io.vavr.control.Option;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.function.Supplier;
+//import java.util.function.Supplier;
 
 /**
  * An array utility.
@@ -61,20 +61,20 @@ public final class UwArray {
 		return returnValue != null ? returnValue : defaultValue;
 	}
 
-	/**
-	 * Null-safely get a value from an array by its index or return default value.
-	 *
-	 * @param index				index of the value
-	 * @param array				array from which return the value
-	 * @param supplier 			supplier from which return the default value
-	 * @param <T>				value type
-	 * @return					value assigned to the index or default value
-	 */
-	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> supplier) {
-		T defaultValue = UwObject.applyIfNotNull(supplier, Supplier::get);
-
-		return getOrElse(index, array, defaultValue);
-	}
+//	/**
+//	 * Null-safely get a value from an array by its index or return default value.
+//	 *
+//	 * @param index				index of the value
+//	 * @param array				array from which return the value
+//	 * @param supplier 			supplier from which return the default value
+//	 * @param <T>				value type
+//	 * @return					value assigned to the index or default value
+//	 */
+//	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> supplier) {
+//		T defaultValue = UwObject.applyIfNotNull(supplier, Supplier::get);
+//
+//		return getOrElse(index, array, defaultValue);
+//	}
 
 	/**
 	 * Null-safely get a value from an array by its index or return null.
