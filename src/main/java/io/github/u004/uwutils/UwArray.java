@@ -93,7 +93,66 @@ public final class UwArray {
 	}
 
 	/**
-	 * An {@link java.util.Iterator} implementation for fixed arrays.
+	 * An {@link java.lang.Iterable} implementation for fixed array.
+	 *
+	 * @param <T>	element type
+	 */
+	public static final class Iterable<T> implements java.lang.Iterable<T> {
+
+		/**
+		 * An array of elements.
+		 */
+		private final T[] array;
+
+		/**
+		 * Initialize an {@link UwArray.Iterable} instance.
+		 *
+		 * @param array		array of elements
+		 */
+		public Iterable(T[] array) {
+			this.array = array;
+		}
+
+		/**
+		 * Initialize an {@link UwArray.Iterable} instance.
+		 *
+		 * <p>Wraps {@link UwArray.Iterable#Iterable(Object[])}
+		 * w/ {@code null} as the array of elements.
+		 *
+		 */
+		public Iterable() {
+			this(null);
+		}
+
+		/**
+		 * Return an iterator for this array of elements
+		 *
+		 * @return		iterator for this array of elements
+		 */
+		@Override
+		public java.util.Iterator<T> iterator() {
+			return new Iterator<>(this.array);
+		}
+
+		/**
+		 * Perform the given action for each element of this array.
+		 *
+		 * <p><b>Doesn't throw any internal exception.</b>
+		 *
+		 * @param action	action to perform for each element of this array
+		 */
+		@Override
+		public void forEach(Consumer<? super T> action) {
+			if (action == null) {
+				return;
+			}
+
+			java.lang.Iterable.super.forEach(action);
+		}
+	}
+
+	/**
+	 * An {@link java.util.Iterator} implementation for fixed array.
 	 *
 	 * @param <T>	element type
 	 */
