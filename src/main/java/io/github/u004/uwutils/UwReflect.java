@@ -80,13 +80,13 @@ public final class UwReflect {
 	 * Safely cast an array of objects to an array of their type or return an empty array.
 	 *
 	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Object[], Class[])}
-	 * w/ {@link UwArray#EMPTY_CLASS_ARRAY} as the default value.
+	 * w/ {@link UwArray#CLASS_EMPTY} as the default value.
 	 *
 	 * @param objects		array of objects to cast
 	 * @return				array of the object types or the empty array
 	 */
 	public static Class<?>[] toClassArrayOrEmpty(Object[] objects) {
-		return toClassArrayOrElse(objects, UwArray.EMPTY_CLASS_ARRAY);
+		return toClassArrayOrElse(objects, UwArray.CLASS_EMPTY);
 	}
 
 	/**
@@ -153,13 +153,13 @@ public final class UwReflect {
 	 * Safely cast an array of types to an array of classes or return an empty array.
 	 *
 	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Type[], Class[])}
-	 * w/ {@link UwArray#EMPTY_CLASS_ARRAY} as the default value.
+	 * w/ {@link UwArray#CLASS_EMPTY} as the default value.
 	 *
 	 * @param types		array of types to cast
 	 * @return			array of classes or the empty array
 	 */
 	public static Class<?>[] toClassArrayOrEmpty(Type[] types) {
-		return toClassArrayOrElse(types, UwArray.EMPTY_CLASS_ARRAY);
+		return toClassArrayOrElse(types, UwArray.CLASS_EMPTY);
 	}
 
 	/**
@@ -665,7 +665,7 @@ public final class UwReflect {
 			return defaultValue;
 		}
 
-		types = UwObject.getIfNull(types, UwArray.EMPTY_CLASS_ARRAY);
+		types = UwObject.getIfNull(types, UwArray.CLASS_EMPTY);
 
 		try {
 			return clazz.getConstructor(types);

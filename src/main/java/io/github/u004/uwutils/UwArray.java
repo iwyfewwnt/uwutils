@@ -34,7 +34,7 @@ public final class UwArray {
 	/**
 	 * An empty class array instance.
 	 */
-	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class<?>[0];
+	public static final Class<?>[] CLASS_EMPTY = new Class<?>[0];
 
 	/**
 	 * Safely get a value from an array by its index.
