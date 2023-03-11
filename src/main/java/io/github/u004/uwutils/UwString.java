@@ -16,6 +16,8 @@
 
 package io.github.u004.uwutils;
 
+import io.vavr.control.Option;
+
 /**
  * A string utility.
  *
@@ -29,14 +31,33 @@ package io.github.u004.uwutils;
 public final class UwString {
 
 	/**
-	 * Trim the specified number of characters at the beginning and end of string.
+	 * An empty string instance.
+	 */
+	public static final String EMPTY = "";
+
+	/**
+	 * Safely trim the specified number of characters at the beginning and end of string.
+	 *
+	 * @param str		string to trim
+	 * @param count		number of characters to trim
+	 * @return			trimmed string that wrapped in {@link Option}
+	 */
+	public static Option<String> trim(String str, Integer count) {
+		return Option.of(trimOrNull(str, count));
+	}
+
+	/**
+	 * Safely trim the specified number of characters at the beginning and end of string or return default value.
 	 *
 	 * @param str				string to trim
 	 * @param count				number of characters to trim
 	 * @param defaultValue		default value to return on failure
-	 * @return					default value, empty or new string
+	 * @return					default value, empty or trimmed string
 	 */
 	public static String trimOrElse(String str, Integer count, String defaultValue) {
+		// TODO: Add case where count's sign describes
+		//  the position & direction of the trimming
+
 		if (str == null
 				|| count == null
 				|| count <= 0) {
@@ -46,7 +67,7 @@ public final class UwString {
 		int length = str.length();
 
 		if (count > length / 2) {
-			return "";
+			return EMPTY;
 		}
 
 		try {
@@ -59,42 +80,42 @@ public final class UwString {
 	}
 
 	/**
-	 * Trim the specified number of characters at the beginning and end of string.
+	 * Safely trim the specified number of characters at the beginning and end of string or return an empty one.
 	 *
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
 	 * w/ empty string as the default value.
 	 *
 	 * @param str				string to trim
 	 * @param count				number of characters to trim
-	 * @return					empty or new string
+	 * @return					empty or trimmed string
 	 */
 	public static String trimOrEmpty(String str, Integer count) {
-		return trimOrElse(str, count, "");
+		return trimOrElse(str, count, EMPTY);
 	}
 
 	/**
-	 * Trim the specified number of characters at the beginning and end of string.
+	 * Safely trim the specified number of characters at the beginning and end of string or return {@code null}.
 	 *
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param str				string to trim
 	 * @param count				number of characters to trim
-	 * @return					{@code null}, empty or new string
+	 * @return					{@code null}, empty or trimmed string
 	 */
 	public static String trimOrNull(String str, Integer count) {
 		return trimOrElse(str, count, null);
 	}
 
 	/**
-	 * Trim the specified number of characters at the beginning and end of string.
+	 * Safely trim the specified number of characters at the beginning and end of string or return the same string.
 	 *
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
 	 * w/ the input string as the default value.
 	 *
 	 * @param str				string to trim
 	 * @param count				number of characters to trim
-	 * @return					same, empty or new string
+	 * @return					same, empty or trimmed string
 	 */
 	public static String trimOrSelf(String str, Integer count) {
 		return trimOrElse(str, count, str);
