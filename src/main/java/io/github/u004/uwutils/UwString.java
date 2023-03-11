@@ -50,27 +50,33 @@ public final class UwString {
 	 * Safely trim the specified number of characters at the beginning and end of string or return default value.
 	 *
 	 * @param str				string to trim
-	 * @param count				number of characters to trim
+	 * @param diff				number of characters to trim
 	 * @param defaultValue		default value to return on failure
 	 * @return					default value, empty or trimmed string
 	 */
-	public static String trimOrElse(String str, Integer count, String defaultValue) {
-		// TODO: Add case where count's sign describes
-		//  the position & direction of the trimming
-
-		if (str == null
-				|| count == null
-				|| count <= 0) {
+	public static String trimOrElse(String str, Integer diff, String defaultValue) {
+		if (str == null || diff == null) {
 			return defaultValue;
 		}
 
-		int length = str.length();
+		if (diff == 0) {
+			return str;
+		}
 
-		if (count > length / 2) {
+		int length = str.length();
+		int middle = length / 2;
+		int count = Math.abs(diff);
+
+		if (count > middle) {
 			return EMPTY;
 		}
 
 		try {
+			if (diff < 0) {
+				return str.substring(0, middle - count + length % 2)
+						+ str.substring(middle + count, length);
+			}
+
 			return str.substring(count, length - count);
 		} catch (IndexOutOfBoundsException e) {
 			e.printStackTrace();
