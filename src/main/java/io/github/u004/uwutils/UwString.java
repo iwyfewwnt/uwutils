@@ -66,14 +66,15 @@ public final class UwString {
 		int length = str.length();
 		int middle = length / 2;
 		int count = Math.abs(diff);
+		int lenmod = length % 2;
 
-		if (count > middle) {
+		if (count >= middle + Math.signum(diff) * lenmod) {
 			return EMPTY;
 		}
 
 		try {
 			if (diff < 0) {
-				return str.substring(0, middle - count + length % 2)
+				return str.substring(0, middle - count + lenmod)
 						+ str.substring(middle + count, length);
 			}
 
