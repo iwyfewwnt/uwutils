@@ -64,11 +64,12 @@ public final class UwString {
 		}
 
 		int count = Math.abs(diff);
+		int signum = Integer.signum(diff);
 		int length = str.length();
-		int lendiv = length / 2;
-		int lenmod = length % 2;
+		int lendiv = length >> 1;
+		int lenmod = length & 1;
 
-		if (count >= lendiv + Math.signum(diff) * lenmod) {
+		if (count >= lendiv + signum * lenmod) {
 			return EMPTY;
 		}
 
