@@ -39,11 +39,11 @@ public final class UwString {
 	 * Safely trim the specified number of characters at the beginning and end of string.
 	 *
 	 * @param str		string to trim
-	 * @param count		number of characters to trim
+	 * @param diff		number of characters to trim
 	 * @return			trimmed string that wrapped in {@link Option}
 	 */
-	public static Option<String> trim(String str, Integer count) {
-		return Option.of(trimOrNull(str, count));
+	public static Option<String> trim(String str, Integer diff) {
+		return Option.of(trimOrNull(str, diff));
 	}
 
 	/**
@@ -91,12 +91,12 @@ public final class UwString {
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
 	 * w/ empty string as the default value.
 	 *
-	 * @param str				string to trim
-	 * @param count				number of characters to trim
-	 * @return					empty or trimmed string
+	 * @param str		string to trim
+	 * @param diff		number of characters to trim
+	 * @return			empty or trimmed string
 	 */
-	public static String trimOrEmpty(String str, Integer count) {
-		return trimOrElse(str, count, EMPTY);
+	public static String trimOrEmpty(String str, Integer diff) {
+		return trimOrElse(str, diff, EMPTY);
 	}
 
 	/**
@@ -105,12 +105,12 @@ public final class UwString {
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param str				string to trim
-	 * @param count				number of characters to trim
-	 * @return					{@code null}, empty or trimmed string
+	 * @param str		string to trim
+	 * @param diff		number of characters to trim
+	 * @return			{@code null}, empty or trimmed string
 	 */
-	public static String trimOrNull(String str, Integer count) {
-		return trimOrElse(str, count, null);
+	public static String trimOrNull(String str, Integer diff) {
+		return trimOrElse(str, diff, null);
 	}
 
 	/**
@@ -119,12 +119,12 @@ public final class UwString {
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
 	 * w/ the input string as the default value.
 	 *
-	 * @param str				string to trim
-	 * @param count				number of characters to trim
-	 * @return					same, empty or trimmed string
+	 * @param str		string to trim
+	 * @param diff		number of characters to trim
+	 * @return			same, empty or trimmed string
 	 */
-	public static String trimOrSelf(String str, Integer count) {
-		return trimOrElse(str, count, str);
+	public static String trimOrSelf(String str, Integer diff) {
+		return trimOrElse(str, diff, str);
 	}
 
 	private UwString() {
