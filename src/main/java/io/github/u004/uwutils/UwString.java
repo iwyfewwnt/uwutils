@@ -63,19 +63,19 @@ public final class UwString {
 			return str;
 		}
 
-		int length = str.length();
-		int middle = length / 2;
 		int count = Math.abs(diff);
+		int length = str.length();
+		int lendiv = length / 2;
 		int lenmod = length % 2;
 
-		if (count >= middle + Math.signum(diff) * lenmod) {
+		if (count >= lendiv + Math.signum(diff) * lenmod) {
 			return EMPTY;
 		}
 
 		try {
 			if (diff < 0) {
-				return str.substring(0, middle - count + lenmod)
-						+ str.substring(middle + count, length);
+				return str.substring(0, lendiv - count + lenmod)
+						+ str.substring(lendiv + count, length);
 			}
 
 			return str.substring(count, length - count);
