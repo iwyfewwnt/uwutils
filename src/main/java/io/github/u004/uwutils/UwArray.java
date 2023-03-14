@@ -42,8 +42,7 @@ public final class UwArray {
 	 * @param index					index of the value
 	 * @param array					array from which get the value
 	 * @param <T>					value type
-	 * @return						value assigned to the index
-	 * 								that wrapped in {@link Option}
+	 * @return						value assigned to the index that wrapped in {@link Option}
 	 */
 	public static <T> Option<T> get(Integer index, T[] array) {
 		return Option.of(getOrNull(index, array));
