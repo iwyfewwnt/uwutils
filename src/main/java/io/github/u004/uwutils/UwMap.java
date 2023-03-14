@@ -38,6 +38,75 @@ import java.util.stream.BaseStream;
 public final class UwMap {
 
 	/**
+	 * Safely get a value from a map by its key.
+	 *
+	 * @param key					key assigned to the value
+	 * @param map					map from which get the value
+	 * @param <K>					key type
+	 * @param <T>					value type
+	 * @return						value assigned to the key that wrapped in {@link Option}
+	 */
+	public static <K, T> Option<T> get(K key, Map<K, T> map) {
+		return Option.of(getOrNull(key, map));
+	}
+
+	/**
+	 * Safely get a value from a map by its key or return a default one.
+	 *
+	 * @param key					key assigned to the value
+	 * @param map					map from which get the value
+	 * @param defaultValue			default value to return on failure
+	 * @param <K>					key type
+	 * @param <T>					value type
+	 * @return						value assigned to the key or the default one
+	 */
+	public static <K, T> T getOrElse(K key, Map<K, T> map, T defaultValue) {
+		if (map == null) {
+			return defaultValue;
+		}
+
+		T resultValue = null;
+
+		try {
+			resultValue = map.get(key);
+		} catch (ClassCastException | NullPointerException e) {
+			e.printStackTrace();
+		}
+
+		return UwObject.getIfNull(resultValue, defaultValue);
+	}
+
+	/**
+	 * Safely get a value from a map by its key or return a default one.
+	 *
+	 * @param key					key assigned to the value
+	 * @param map					map from which get the value
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <K>					key type
+	 * @param <T>					value type
+	 * @return						value assigned to the key or the default one
+	 */
+	public static <K, T> T getOrElse(K key, Map<K, T> map, Supplier<T> defaultValueSupplier) {
+		return UwObject.getIfNull(getOrNull(key, map), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely get a value from a map by its key or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwMap#getOrElse(Object, Map, Object)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param key					key assigned to the value
+	 * @param map					map from which get the value
+	 * @param <K>					key type
+	 * @param <T>					value type
+	 * @return						value assigned to the key or {@code null}
+	 */
+	public static <K, T> T getOrNull(K key, Map<K, T> map) {
+		return getOrElse(key, map, (T) null);
+	}
+
+	/**
 	 * Safely extend the provided map by mapping entries by theirs field.
 	 *
 	 * @param getter				supplier for getting an entry's field
