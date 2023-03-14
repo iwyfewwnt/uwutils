@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.u004.uwutils;
+package io.github.iwyfewwnt.uwutils;
 
 /**
  * A set of default values.

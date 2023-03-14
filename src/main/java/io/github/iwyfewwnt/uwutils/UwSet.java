@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.u004.uwutils;
+package io.github.iwyfewwnt.uwutils;
 
 import io.vavr.control.Option;
 
