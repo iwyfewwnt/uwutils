@@ -6,7 +6,7 @@
 
     <groupId>io.github.iwyfewwnt</groupId>
     <artifactId>uwutils</artifactId>
-    <version>0.1.3_1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Safe common utilities w/ Java 8+ support</description>
