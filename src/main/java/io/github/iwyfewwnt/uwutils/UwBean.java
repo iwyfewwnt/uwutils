@@ -93,7 +93,7 @@ public final class UwBean {
 					}
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | NullPointerException e) {
 			e.printStackTrace();
 		}
 
