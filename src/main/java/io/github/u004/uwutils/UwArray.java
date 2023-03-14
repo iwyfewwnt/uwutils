@@ -39,11 +39,11 @@ public final class UwArray {
 	/**
 	 * Safely get a value from an array by its index.
 	 *
-	 * @param index		index of the value
-	 * @param array		array from which return the value
-	 * @param <T>		value type
-	 * @return			value assigned to the index
-	 * 					that wrapped in {@link Option}
+	 * @param index					index of the value
+	 * @param array					array from which get the value
+	 * @param <T>					value type
+	 * @return						value assigned to the index
+	 * 								that wrapped in {@link Option}
 	 */
 	public static <T> Option<T> get(Integer index, T[] array) {
 		return Option.of(getOrNull(index, array));
@@ -52,11 +52,11 @@ public final class UwArray {
 	/**
 	 * Safely get a value from an array by its index or return a default value.
 	 *
-	 * @param index				index of the value
-	 * @param array				array from which return the value
-	 * @param defaultValue 		default value to return on failure
-	 * @param <T>				value type
-	 * @return					value assigned to the index or the default value
+	 * @param index					index of the value
+	 * @param array					array from which get the value
+	 * @param defaultValue 			default value to return on failure
+	 * @param <T>					value type
+	 * @return						value assigned to the index or the default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, T defaultValue) {
 		if (index == null || array == null
@@ -70,23 +70,26 @@ public final class UwArray {
 	/**
 	 * Safely get a value from an array by its index or return a default value.
 	 *
-	 * @param index				index of the value
-	 * @param array				array from which return the value
-	 * @param supplier 			supplier from which return the default value
-	 * @param <T>				value type
-	 * @return					value assigned to the index or the default value
+	 * @param index					index of the value
+	 * @param array					array from which get the value
+	 * @param defaultValueSupplier 	supplier from which get the default value
+	 * @param <T>					value type
+	 * @return						value assigned to the index or the default value
 	 */
-	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> supplier) {
-		return UwObject.getIfNull(getOrNull(index, array), supplier);
+	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> defaultValueSupplier) {
+		return UwObject.getIfNull(getOrNull(index, array), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely get a value from an array by its index or return {@code null}.
 	 *
-	 * @param index				index of the value
-	 * @param array				array from which return the value
-	 * @param <T>				value type
-	 * @return					value assigned to the index or {@code null}
+	 * <p>Wraps {@link UwArray#getOrElse(Integer, Object[], Object)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param index					index of the value
+	 * @param array					array from which get the value
+	 * @param <T>					value type
+	 * @return						value assigned to the index or {@code null}
 	 */
 	public static <T> T getOrNull(Integer index, T[] array) {
 		return getOrElse(index, array, (T) null);
