@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-import io.vavr.control.Option;
+//import io.vavr.control.Option;
 
 /**
  * A string utility.
@@ -35,16 +35,16 @@ public final class UwString {
 	 */
 	public static final String EMPTY = "";
 
-	/**
-	 * Safely trim the specified number of characters at the beginning and end of string.
-	 *
-	 * @param str		string to trim
-	 * @param diff		number of characters to trim
-	 * @return			trimmed string that wrapped in {@link Option}
-	 */
-	public static Option<String> trim(String str, Integer diff) {
-		return Option.of(trimOrNull(str, diff));
-	}
+//	/**
+//	 * Safely trim the specified number of characters at the beginning and end of string.
+//	 *
+//	 * @param str		string to trim
+//	 * @param diff		number of characters to trim
+//	 * @return			trimmed string that wrapped in {@link Option}
+//	 */
+//	public static Option<String> trim(String str, Integer diff) {
+//		return Option.of(trimOrNull(str, diff));
+//	}
 
 	/**
 	 * Safely trim the specified number of characters at the beginning and end of string or return default value.

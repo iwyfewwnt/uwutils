@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-import io.vavr.control.Option;
+//import io.vavr.control.Option;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -34,15 +34,15 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 public final class UwReflect {
 
-	/**
-	 * Safely cast an array of objects to an array of their types.
-	 *
-	 * @param objects	array of objects to cast
-	 * @return			array of the object types that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>[]> toClassArray(Object[] objects) {
-		return Option.of(toClassArrayOrNull(objects));
-	}
+//	/**
+//	 * Safely cast an array of objects to an array of their types.
+//	 *
+//	 * @param objects	array of objects to cast
+//	 * @return			array of the object types that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>[]> toClassArray(Object[] objects) {
+//		return Option.of(toClassArrayOrNull(objects));
+//	}
 
 	/**
 	 * Safely cast an array of objects to an array of their type or return a default value.
@@ -102,15 +102,15 @@ public final class UwReflect {
 		return toClassArrayOrElse(objects, (Class<?>[]) null);
 	}
 
-	/**
-	 * Safely cast an array of types to an array of classes.
-	 *
-	 * @param types		array of types to cast
-	 * @return			array of classes that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>[]> toClassArray(Type[] types) {
-		return Option.of(toClassArrayOrNull(types));
-	}
+//	/**
+//	 * Safely cast an array of types to an array of classes.
+//	 *
+//	 * @param types		array of types to cast
+//	 * @return			array of classes that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>[]> toClassArray(Type[] types) {
+//		return Option.of(toClassArrayOrNull(types));
+//	}
 
 	/**
 	 * Safely cast an array of types to an array of classes or return a default value.
@@ -176,35 +176,35 @@ public final class UwReflect {
 		return toClassArrayOrElse(types, (Class<?>[]) null);
 	}
 
-	/**
-	 * Safely get generic types of the provided parameterized type.
-	 *
-	 * @param type		parameterized type from which get the generic types
-	 * @return			array of generic types that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>[]> getGenericTypes(ParameterizedType type) {
-		return Option.of(getGenericTypesOrNull(type));
-	}
+//	/**
+//	 * Safely get generic types of the provided parameterized type.
+//	 *
+//	 * @param type		parameterized type from which get the generic types
+//	 * @return			array of generic types that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>[]> getGenericTypes(ParameterizedType type) {
+//		return Option.of(getGenericTypesOrNull(type));
+//	}
 
-	/**
-	 * Safely get generic types of the provided type.
-	 *
-	 * @param type		type from which get the generic types
-	 * @return			array of generic types that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>[]> getGenericTypes(Type type) {
-		return Option.of(getGenericTypesOrNull(type));
-	}
+//	/**
+//	 * Safely get generic types of the provided type.
+//	 *
+//	 * @param type		type from which get the generic types
+//	 * @return			array of generic types that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>[]> getGenericTypes(Type type) {
+//		return Option.of(getGenericTypesOrNull(type));
+//	}
 
-	/**
-	 * Safely get generic types of the provided class.
-	 *
-	 * @param clazz		class from which get the generic types
-	 * @return			array of generic types that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>[]> getGenericTypes(Class<?> clazz) {
-		return Option.of(getGenericTypesOrNull(clazz));
-	}
+//	/**
+//	 * Safely get generic types of the provided class.
+//	 *
+//	 * @param clazz		class from which get the generic types
+//	 * @return			array of generic types that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>[]> getGenericTypes(Class<?> clazz) {
+//		return Option.of(getGenericTypesOrNull(clazz));
+//	}
 
 	/**
 	 * Safely get generic types of the provided parameterized type or return a default value.
@@ -322,38 +322,38 @@ public final class UwReflect {
 		return getGenericTypesOrElse(clazz, (Class<?>[]) null);
 	}
 
-	/**
-	 * Safely get generic type of the provided parameterized type by its index.
-	 *
-	 * @param type		parameterized type from which get the generic type
-	 * @param index		index of the generic type
-	 * @return			generic type that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>> getGenericType(ParameterizedType type, Integer index) {
-		return Option.of(getGenericTypeOrNull(type, index));
-	}
+//	/**
+//	 * Safely get generic type of the provided parameterized type by its index.
+//	 *
+//	 * @param type		parameterized type from which get the generic type
+//	 * @param index		index of the generic type
+//	 * @return			generic type that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>> getGenericType(ParameterizedType type, Integer index) {
+//		return Option.of(getGenericTypeOrNull(type, index));
+//	}
 
-	/**
-	 * Safely get generic type of the provided type by its index.
-	 *
-	 * @param type		type from which get the generic type
-	 * @param index		index of the generic type
-	 * @return			generic type that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>> getGenericType(Type type, Integer index) {
-		return Option.of(getGenericTypeOrNull(type, index));
-	}
+//	/**
+//	 * Safely get generic type of the provided type by its index.
+//	 *
+//	 * @param type		type from which get the generic type
+//	 * @param index		index of the generic type
+//	 * @return			generic type that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>> getGenericType(Type type, Integer index) {
+//		return Option.of(getGenericTypeOrNull(type, index));
+//	}
 
-	/**
-	 * Safely get generic type of the provided class by its index.
-	 *
-	 * @param clazz		class from which get the generic type
-	 * @param index		index of the generic type
-	 * @return			generic type that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>> getGenericType(Class<?> clazz, Integer index) {
-		return Option.of(getGenericTypeOrNull(clazz, index));
-	}
+//	/**
+//	 * Safely get generic type of the provided class by its index.
+//	 *
+//	 * @param clazz		class from which get the generic type
+//	 * @param index		index of the generic type
+//	 * @return			generic type that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>> getGenericType(Class<?> clazz, Integer index) {
+//		return Option.of(getGenericTypeOrNull(clazz, index));
+//	}
 
 	/**
 	 * Safely get generic type of the provided parameterized type by its index or return a default value.
@@ -467,44 +467,44 @@ public final class UwReflect {
 		return getGenericTypeOrElse(clazz, index, (Class<?>) null);
 	}
 
-	/**
-	 * Safely get 1st generic type of the provided parameterized type.
-	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrNull(ParameterizedType, Integer)}
-	 * w/ {@code 0} as the index of the generic type.
-	 *
-	 * @param type		parameterized type from which get generic type
-	 * @return			generic type that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>> getGenericType(ParameterizedType type) {
-		return Option.of(getGenericTypeOrNull(type));
-	}
+//	/**
+//	 * Safely get 1st generic type of the provided parameterized type.
+//	 *
+//	 * <p>Wraps {@link UwReflect#getGenericTypeOrNull(ParameterizedType, Integer)}
+//	 * w/ {@code 0} as the index of the generic type.
+//	 *
+//	 * @param type		parameterized type from which get generic type
+//	 * @return			generic type that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>> getGenericType(ParameterizedType type) {
+//		return Option.of(getGenericTypeOrNull(type));
+//	}
 
-	/**
-	 * Safely get 1st generic type of the provided type.
-	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrNull(Type, Integer)}
-	 * w/ {@code 0} as the index of the generic type.
-	 *
-	 * @param type		type from which get the generic type
-	 * @return			generic type that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>> getGenericType(Type type) {
-		return Option.of(getGenericTypeOrNull(type));
-	}
+//	/**
+//	 * Safely get 1st generic type of the provided type.
+//	 *
+//	 * <p>Wraps {@link UwReflect#getGenericTypeOrNull(Type, Integer)}
+//	 * w/ {@code 0} as the index of the generic type.
+//	 *
+//	 * @param type		type from which get the generic type
+//	 * @return			generic type that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>> getGenericType(Type type) {
+//		return Option.of(getGenericTypeOrNull(type));
+//	}
 
-	/**
-	 * Safely get 1st generic type of the provided class.
-	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrNull(Class, Integer)}
-	 * w/ {@code 0} as the index of the generic type.
-	 *
-	 * @param clazz		class from which get the generic type
-	 * @return			generic type that wrapped in {@link Option}
-	 */
-	public static Option<Class<?>> getGenericType(Class<?> clazz) {
-		return Option.of(getGenericTypeOrNull(clazz));
-	}
+//	/**
+//	 * Safely get 1st generic type of the provided class.
+//	 *
+//	 * <p>Wraps {@link UwReflect#getGenericTypeOrNull(Class, Integer)}
+//	 * w/ {@code 0} as the index of the generic type.
+//	 *
+//	 * @param clazz		class from which get the generic type
+//	 * @return			generic type that wrapped in {@link Option}
+//	 */
+//	public static Option<Class<?>> getGenericType(Class<?> clazz) {
+//		return Option.of(getGenericTypeOrNull(clazz));
+//	}
 
 	/**
 	 * Safely get 1st generic type of the provided parameterized type or return a default value.
@@ -629,28 +629,28 @@ public final class UwReflect {
 		return getGenericTypeOrElse(clazz, (Class<?>) null);
 	}
 
-	/**
-	 * Safely get constructor of the provided class.
-	 *
-	 * @param clazz		class from which get the constructor
-	 * @param types		array of constructor argument types
-	 * @param <T>		object type
-	 * @return			constructor that wrapped in {@link Option}
-	 */
-	public static <T> Option<Constructor<T>> getConstructor(Class<T> clazz, Class<?>[] types) {
-		return Option.of(getConstructorOrNull(clazz, types));
-	}
+//	/**
+//	 * Safely get constructor of the provided class.
+//	 *
+//	 * @param clazz		class from which get the constructor
+//	 * @param types		array of constructor argument types
+//	 * @param <T>		object type
+//	 * @return			constructor that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Constructor<T>> getConstructor(Class<T> clazz, Class<?>[] types) {
+//		return Option.of(getConstructorOrNull(clazz, types));
+//	}
 
-	/**
-	 * Safely get default constructor of the provided class.
-	 *
-	 * @param clazz		class from which get the constructor
-	 * @param <T>		object type
-	 * @return			constructor that wrapped in {@link Option}
-	 */
-	public static <T> Option<Constructor<T>> getConstructor(Class<T> clazz) {
-		return Option.of(getConstructorOrNull(clazz));
-	}
+//	/**
+//	 * Safely get default constructor of the provided class.
+//	 *
+//	 * @param clazz		class from which get the constructor
+//	 * @param <T>		object type
+//	 * @return			constructor that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Constructor<T>> getConstructor(Class<T> clazz) {
+//		return Option.of(getConstructorOrNull(clazz));
+//	}
 
 	/**
 	 * Safely get constructor of the provided class or return a default value.
@@ -745,28 +745,28 @@ public final class UwReflect {
 		return getConstructorOrElse(clazz, (Constructor<T>) null);
 	}
 
-	/**
-	 * Safely create a new instance of the provided class.
-	 *
-	 * @param clazz			class from which create the new instance
-	 * @param arguments		array of constructor arguments
-	 * @param <T>			object type
-	 * @return				new instance that wrapped in {@link Option}
-	 */
-	public static <T> Option<T> newInstance(Class<T> clazz, Object[] arguments) {
-		return Option.of(newInstanceOrNull(clazz, arguments));
-	}
+//	/**
+//	 * Safely create a new instance of the provided class.
+//	 *
+//	 * @param clazz			class from which create the new instance
+//	 * @param arguments		array of constructor arguments
+//	 * @param <T>			object type
+//	 * @return				new instance that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<T> newInstance(Class<T> clazz, Object[] arguments) {
+//		return Option.of(newInstanceOrNull(clazz, arguments));
+//	}
 
-	/**
-	 * Safely create a new instance of the provided class by its default constructor.
-	 *
-	 * @param clazz			class from which create the new instance
-	 * @param <T>			object type
-	 * @return				new instance that wrapped in {@link Option}
-	 */
-	public static <T> Option<T> newInstance(Class<T> clazz) {
-		return Option.of(newInstanceOrNull(clazz));
-	}
+//	/**
+//	 * Safely create a new instance of the provided class by its default constructor.
+//	 *
+//	 * @param clazz			class from which create the new instance
+//	 * @param <T>			object type
+//	 * @return				new instance that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<T> newInstance(Class<T> clazz) {
+//		return Option.of(newInstanceOrNull(clazz));
+//	}
 
 	/**
 	 * Safely create a new instance of the provided class or return a default value.

@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-import io.vavr.control.Option;
+//import io.vavr.control.Option;
 
 import java.util.*;
 import java.util.function.Function;
@@ -33,16 +33,16 @@ import java.util.stream.*;
 @SuppressWarnings("unused")
 public final class UwSet {
 
-	/**
-	 * Safely convert a collection of objects to a set.
-	 *
-	 * @param collection			collection of objects
-	 * @param <T>					object type
-	 * @return						set of objects that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSet(Collection<T> collection) {
-		return Option.of(toSetOrNull(collection));
-	}
+//	/**
+//	 * Safely convert a collection of objects to a set.
+//	 *
+//	 * @param collection			collection of objects
+//	 * @param <T>					object type
+//	 * @return						set of objects that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Set<T>> toSet(Collection<T> collection) {
+//		return Option.of(toSetOrNull(collection));
+//	}
 
 	/**
 	 * Safely convert a collection of objects to a set or return a default value.
@@ -96,16 +96,16 @@ public final class UwSet {
 		return toSetOrElse(collection, (Set<T>) null);
 	}
 
-	/**
-	 * Safely convert an array of objects to a set.
-	 *
-	 * @param array					array of objects
-	 * @param <T>					object type
-	 * @return						set of objects that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSet(T[] array) {
-		return Option.of(toSetOrNull(array));
-	}
+//	/**
+//	 * Safely convert an array of objects to a set.
+//	 *
+//	 * @param array					array of objects
+//	 * @param <T>					object type
+//	 * @return						set of objects that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Set<T>> toSet(T[] array) {
+//		return Option.of(toSetOrNull(array));
+//	}
 
 	/**
 	 * Safely convert an array of objects to a set or return a default value.
@@ -166,16 +166,16 @@ public final class UwSet {
 		return toSetOrElse(array, (Set<T>) null);
 	}
 
-	/**
-	 * Safely convert a stream of objects to a set.
-	 *
-	 * @param stream				stream of objects
-	 * @param <T>					object type
-	 * @return						set of objects that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSet(Stream<T> stream) {
-		return Option.of(toSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of objects to a set.
+//	 *
+//	 * @param stream				stream of objects
+//	 * @param <T>					object type
+//	 * @return						set of objects that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Set<T>> toSet(Stream<T> stream) {
+//		return Option.of(toSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of objects to a set or return a default value.
@@ -236,15 +236,15 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<T>) null);
 	}
 
-	/**
-	 * Safely convert a stream of integers to a set.
-	 *
-	 * @param stream				stream of integers
-	 * @return						set of integers that wrapped in {@link Option}
-	 */
-	public static Option<Set<Integer>> toSet(IntStream stream) {
-		return Option.of(toSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of integers to a set.
+//	 *
+//	 * @param stream				stream of integers
+//	 * @return						set of integers that wrapped in {@link Option}
+//	 */
+//	public static Option<Set<Integer>> toSet(IntStream stream) {
+//		return Option.of(toSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of integers to a set or return a default value.
@@ -301,15 +301,15 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<Integer>) null);
 	}
 
-	/**
-	 * Safely convert a stream of doubles to a set.
-	 *
-	 * @param stream				stream of doubles
-	 * @return						set of doubles that wrapped in {@link Option}
-	 */
-	public static Option<Set<Double>> toSet(DoubleStream stream) {
-		return Option.of(toSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of doubles to a set.
+//	 *
+//	 * @param stream				stream of doubles
+//	 * @return						set of doubles that wrapped in {@link Option}
+//	 */
+//	public static Option<Set<Double>> toSet(DoubleStream stream) {
+//		return Option.of(toSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of doubles to a set or return a default value.
@@ -366,15 +366,15 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<Double>) (null));
 	}
 
-	/**
-	 * Safely convert a stream of longs to a set.
-	 *
-	 * @param stream				stream of longs
-	 * @return						set of longs that wrapped in {@link Option}
-	 */
-	public static Option<Set<Long>> toSet(LongStream stream) {
-		return Option.of(toSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of longs to a set.
+//	 *
+//	 * @param stream				stream of longs
+//	 * @return						set of longs that wrapped in {@link Option}
+//	 */
+//	public static Option<Set<Long>> toSet(LongStream stream) {
+//		return Option.of(toSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of longs to a set or return a default value.
@@ -431,16 +431,16 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<Long>) null);
 	}
 
-	/**
-	 * Safely convert a collection of objects to a synchronized set.
-	 *
-	 * @param collection			collection of objects
-	 * @param <T>					object type
-	 * @return						synchronized set of objects that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSynchronizedSet(Collection<T> collection) {
-		return Option.of(toSynchronizedSetOrNull(collection));
-	}
+//	/**
+//	 * Safely convert a collection of objects to a synchronized set.
+//	 *
+//	 * @param collection			collection of objects
+//	 * @param <T>					object type
+//	 * @return						synchronized set of objects that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Set<T>> toSynchronizedSet(Collection<T> collection) {
+//		return Option.of(toSynchronizedSetOrNull(collection));
+//	}
 
 	/**
 	 * Safely convert a collection of objects to a synchronized set or return a default value.
@@ -494,16 +494,16 @@ public final class UwSet {
 		return toSynchronizedSetOrElse(collection, (Set<T>) null);
 	}
 
-	/**
-	 * Safely convert an array of objects to a synchronized set.
-	 *
-	 * @param array					array of objects
-	 * @param <T>					object type
-	 * @return						synchronized set of objects that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSynchronizedSet(T[] array) {
-		return Option.of(toSynchronizedSetOrNull(array));
-	}
+//	/**
+//	 * Safely convert an array of objects to a synchronized set.
+//	 *
+//	 * @param array					array of objects
+//	 * @param <T>					object type
+//	 * @return						synchronized set of objects that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Set<T>> toSynchronizedSet(T[] array) {
+//		return Option.of(toSynchronizedSetOrNull(array));
+//	}
 
 	/**
 	 * Safely convert an array of objects to a synchronized set or return a default value.
@@ -564,16 +564,16 @@ public final class UwSet {
 		return toSynchronizedSetOrElse(array, (Set<T>) null);
 	}
 
-	/**
-	 * Safely convert a stream of objects to a synchronized set.
-	 *
-	 * @param stream				stream of objects
-	 * @param <T>					object type
-	 * @return						synchronized set of objects that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSynchronizedSet(Stream<T> stream) {
-		return Option.of(toSynchronizedSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of objects to a synchronized set.
+//	 *
+//	 * @param stream				stream of objects
+//	 * @param <T>					object type
+//	 * @return						synchronized set of objects that wrapped in {@link Option}
+//	 */
+//	public static <T> Option<Set<T>> toSynchronizedSet(Stream<T> stream) {
+//		return Option.of(toSynchronizedSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of objects to a synchronized set or return a default value.
@@ -634,15 +634,15 @@ public final class UwSet {
 		return toSynchronizedSetOrElse(stream, (Set<T>) null);
 	}
 
-	/**
-	 * Safely convert a stream of integers to a synchronized set.
-	 *
-	 * @param stream				stream of integers
-	 * @return						synchronized set of integers that wrapped in {@link Option}
-	 */
-	public static Option<Set<Integer>> toSynchronizedSet(IntStream stream) {
-		return Option.of(toSynchronizedSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of integers to a synchronized set.
+//	 *
+//	 * @param stream				stream of integers
+//	 * @return						synchronized set of integers that wrapped in {@link Option}
+//	 */
+//	public static Option<Set<Integer>> toSynchronizedSet(IntStream stream) {
+//		return Option.of(toSynchronizedSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of integers to a synchronized set or return a default value.
@@ -699,15 +699,15 @@ public final class UwSet {
 		return toSynchronizedSetOrElse(stream, (Set<Integer>) null);
 	}
 
-	/**
-	 * Safely convert a stream of doubles to a synchronized set.
-	 *
-	 * @param stream				stream of doubles
-	 * @return						synchronized set of doubles that wrapped in {@link Option}
-	 */
-	public static Option<Set<Double>> toSynchronizedSet(DoubleStream stream) {
-		return Option.of(toSynchronizedSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of doubles to a synchronized set.
+//	 *
+//	 * @param stream				stream of doubles
+//	 * @return						synchronized set of doubles that wrapped in {@link Option}
+//	 */
+//	public static Option<Set<Double>> toSynchronizedSet(DoubleStream stream) {
+//		return Option.of(toSynchronizedSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of doubles to a synchronized set or return a default value.
@@ -764,17 +764,15 @@ public final class UwSet {
 		return toSynchronizedSetOrElse(stream, (Set<Double>) (null));
 	}
 
-
-
-	/**
-	 * Safely convert a stream of longs to a synchronized set.
-	 *
-	 * @param stream				stream of longs
-	 * @return						synchronized set of longs that wrapped in {@link Option}
-	 */
-	public static Option<Set<Long>> toSynchronizedSet(LongStream stream) {
-		return Option.of(toSynchronizedSetOrNull(stream));
-	}
+//	/**
+//	 * Safely convert a stream of longs to a synchronized set.
+//	 *
+//	 * @param stream				stream of longs
+//	 * @return						synchronized set of longs that wrapped in {@link Option}
+//	 */
+//	public static Option<Set<Long>> toSynchronizedSet(LongStream stream) {
+//		return Option.of(toSynchronizedSetOrNull(stream));
+//	}
 
 	/**
 	 * Safely convert a stream of longs to a synchronized set or return a default value.
