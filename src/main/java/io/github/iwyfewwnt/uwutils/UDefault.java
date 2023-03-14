@@ -26,11 +26,6 @@ final class UDefault {
 	 */
 	public static final ClassLoader CLASS_LOADER = initContextClassLoader();
 
-	/**
-	 * A default throw on fail boolean value.
-	 */
-	public static final boolean THROW_ON_FAIL = true;
-
 	private static ClassLoader initContextClassLoader() {
 		try {
 			return Thread.currentThread()
