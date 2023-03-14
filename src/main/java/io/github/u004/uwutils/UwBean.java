@@ -16,85 +16,201 @@
 
 package io.github.u004.uwutils;
 
-import org.apache.commons.lang3.ObjectUtils;
+import io.vavr.control.Option;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * A bean utility.
  *
  * <p>{@code UwBean} is an alternative
  * to {@link java.util.ServiceLoader} class.
- *
- * @since 0.1.3
  */
 @SuppressWarnings("unused")
 public final class UwBean {
 
 	/**
-	 * Find all subclasses of service provider interface.
+	 * SPI path format string.
 	 *
-	 * @param clazz				interface class
-	 * @param classLoader		class loader, if null default is current thread class loader
-	 * @param throwOnFail		if {@code true} will throw exception if the one is occurred, if null default is true
-	 * @param <T>				interface type
-	 * @return					list of subclasses or null
+	 * <p>Arguments in order:
+	 * <ul>
+	 *     <li>String :: Class name.
+	 * </ul>
 	 */
-	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz, ClassLoader classLoader, Boolean throwOnFail) {
-		classLoader = ObjectUtils.defaultIfNull(classLoader, UDefault.CLASS_LOADER);
-		throwOnFail = ObjectUtils.defaultIfNull(throwOnFail, UDefault.THROW_ON_FAIL);
+	private static final String SPI_PATH_FMT = "META-INF/services/%s";
 
-		List<String> strings = UwResource.findSpiContent(clazz);
+	/**
+	 * Find all sub-class types of the specified service provider interface class.
+	 *
+	 * @param clazz					service provider interface class
+	 * @param classLoader			class loader to load classes by their names
+	 * @param <T>					interface type
+	 * @return						list of sub-class types that wrapped in {@link Option}
+	 */
+	public static <T> Option<List<Class<? extends T>>> findSpiTypes(Class<T> clazz, ClassLoader classLoader) {
+		return Option.of(findSpiTypesOrNull(clazz, classLoader));
+	}
 
-		if (strings == null) {
-			return null;
+	/**
+	 * Find all sub-class types of the specified service provider interface class or return a default value.
+	 *
+	 * @param clazz					service provider interface class
+	 * @param classLoader			class loader to load classes by their names
+	 * @param defaultValue			default value to return on failure
+	 * @param <T>					interface type
+	 * @return						list of sub-class types or the default value
+	 */
+	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, List<Class<? extends T>> defaultValue, ClassLoader classLoader) {
+		if (clazz == null) {
+			return defaultValue;
 		}
+
+		classLoader = UwObject.getIfNull(classLoader, UDefault.CLASS_LOADER);
 
 		List<Class<? extends T>> result = new ArrayList<>();
 
-		for (String str : strings) {
-			try {
-				result.add(classLoader.loadClass(str).asSubclass(clazz));
-			} catch (Throwable throwable) {
-				if (throwOnFail) {
-					throw new RuntimeException(throwable);
+		try {
+			Enumeration<URL> urls = classLoader.getResources(String.format(SPI_PATH_FMT, clazz.getName()));
+
+			while (urls.hasMoreElements()) {
+				String[] content = read(urls.nextElement())
+						.split("\\R");
+
+				//noinspection ForLoopReplaceableByForEach
+				for (int i = 0; i < content.length; i++) {
+					try {
+						result.add(classLoader.loadClass(content[i])
+								.asSubclass(clazz)
+						);
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
 				}
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		if (result.isEmpty()) {
-			return null;
+			return defaultValue;
 		}
 
 		return result;
 	}
 
 	/**
-	 * Find all subclasses of service provider interface.
+	 * Find all sub-class types of the specified service provider interface class or return a default value.
 	 *
-	 * <p>Wraps {@link UwBean#findSpiTypes(Class, ClassLoader, Boolean)}.
-	 *
-	 * @param clazz				interface class
-	 * @param classLoader		class loader, if null default is current thread class loader
-	 * @param <T>				interface type
-	 * @return					list of subclasses or null
+	 * @param clazz					service provider interface class
+	 * @param classLoader			class loader to load classes by their names
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					interface type
+	 * @return						list of sub-class types or the default value
 	 */
-	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz, ClassLoader classLoader) {
-		return findSpiTypes(clazz, classLoader, null);
+	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, Supplier<List<Class<? extends T>>> defaultValueSupplier, ClassLoader classLoader) {
+		return UwObject.getIfNull(findSpiTypesOrNull(clazz, classLoader), defaultValueSupplier);
 	}
 
 	/**
-	 * Find all subclasses of service provider interface.
+	 * Find all sub-class types of the specified service provider interface class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwBean#findSpiTypes(Class, ClassLoader)}.
+	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, List, ClassLoader)}
+	 * w/ {@code null} as the default value.
 	 *
-	 * @param clazz				interface class
+	 * @param clazz				service provider interface class
+	 * @param classLoader		class loader to load classes by their names
 	 * @param <T>				interface type
-	 * @return					list of subclasses
+	 * @return					list of sub-class types or {@code null}
 	 */
-	public static <T> List<Class<? extends T>> findSpiTypes(Class<T> clazz) {
+	public static <T> List<Class<? extends T>> findSpiTypesOrNull(Class<T> clazz, ClassLoader classLoader) {
+		return findSpiTypesOrElse(clazz, (List<Class<? extends T>>) null, classLoader);
+	}
+
+	/**
+	 * Find all sub-class types of the specified service provider interface class.
+	 *
+	 * <p>Wraps {@link UwBean#findSpiTypes(Class, ClassLoader)}
+	 * w/ {@code null} as the class loader.
+	 *
+	 * @param clazz				service provider interface class
+	 * @param <T>				interface type
+	 * @return					list of sub-class types that wrapped in {@link Option}
+	 */
+	public static <T> Option<List<Class<? extends T>>> findSpiTypes(Class<T> clazz) {
 		return findSpiTypes(clazz, null);
+	}
+
+	/**
+	 * Find all sub-class types of the specified service provider interface class or return a default value.
+	 *
+	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, List, ClassLoader)}
+	 * w/ {@code null} as the class loader.
+	 *
+	 * @param clazz					service provider interface class
+	 * @param defaultValue			default value to return on failure
+	 * @param <T>					interface type
+	 * @return						list of sub-class types or the default value
+	 */
+	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, List<Class<? extends T>> defaultValue) {
+		return findSpiTypesOrElse(clazz, defaultValue, null);
+	}
+
+	/**
+	 * Find all sub-class types of the specified service provider interface class or return a default value.
+	 *
+	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, Supplier, ClassLoader)}
+	 * w/ {@code null} as the class loader.
+	 *
+	 * @param clazz					service provider interface class
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					interface type
+	 * @return						list of sub-class types or the default value
+	 */
+	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, Supplier<List<Class<? extends T>>> defaultValueSupplier) {
+		return findSpiTypesOrElse(clazz, defaultValueSupplier, null);
+	}
+
+	/**
+	 * Find all sub-class types of the specified service provider interface class or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwBean#findSpiTypesOrNull(Class, ClassLoader)}
+	 * w/ {@code null} as the class loader.
+	 *
+	 * @param clazz				service provider interface class
+	 * @param <T>				interface type
+	 * @return					list of sub-class types or {@code null}
+	 */
+	public static <T> List<Class<? extends T>> findSpiTypesOrNull(Class<T> clazz) {
+		return findSpiTypesOrNull(clazz, null);
+	}
+
+	/**
+	 * Read content of the provided {@link URL} instance.
+	 *
+	 * @param url	url from which read the content
+	 * @return		content as string instance
+	 */
+	private static String read(URL url) {
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			try (BufferedInputStream buff = new BufferedInputStream(url.openStream())) {
+				int b;
+				while ((b = buff.read()) != -1) {
+					sb.append((char) b);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return sb.toString();
 	}
 
 	private UwBean() {
