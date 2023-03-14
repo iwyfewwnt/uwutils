@@ -45,15 +45,14 @@ public final class UwEnum {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Enum<T>> T[] values(Class<T> clazz) {
+		if (clazz == null) {
+			return null;
+		}
+
 		T[] values = (T[]) VALUES_CACHE.get(clazz);
 
 		if (values == null) {
-			try {
-				VALUES_CACHE.put((Class<Enum<?>>) clazz, (values = clazz.getEnumConstants()));
-			} catch (UnsupportedOperationException | ClassCastException
-					| NullPointerException | IllegalArgumentException e) {
-				e.printStackTrace();
-			}
+			VALUES_CACHE.put((Class<Enum<?>>) clazz, (values = clazz.getEnumConstants()));
 		}
 
 		return values;
