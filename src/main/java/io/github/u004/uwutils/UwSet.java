@@ -17,13 +17,11 @@
 package io.github.u004.uwutils;
 
 import io.vavr.control.Option;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.function.Supplier;
+import java.util.stream.*;
 
 /**
  * A set utility.
@@ -31,328 +29,846 @@ import java.util.stream.Stream;
  * <p>{@code UwSet} is the utility class
  * that provide functionality to operate
  * with sets.
- *
- * @since 0.1.2
  */
 @SuppressWarnings("unused")
 public final class UwSet {
 
 	/**
-	 * Null-safely convert a collection of objects to a set.
+	 * Safely convert a collection of objects to a set.
 	 *
-	 * @param collection	collection of objects
-	 * @param function		function for collection mapping
-	 * @param <T>			object type
-	 * @return				set of mapped objects from collection
-	 * 						that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSet(Collection<T> collection, Function<Collection<T>, Set<T>> function) {
-		if (ObjectUtils.anyNull(collection, function)) {
-			return Option.none();
-		}
-
-		return Option.of(function.apply(collection));
-	}
-
-	/**
-	 * Null-safely convert an array of objects to a set.
-	 *
-	 * @param array			array of objects
-	 * @param function		function for collection mapping
-	 * @param <T>			object type
-	 * @return				set of mapped objects from array
-	 * 						that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSet(T[] array, Function<Collection<T>, Set<T>> function) {
-		if (array == null) {
-			return Option.none();
-		}
-
-		return toSet(Arrays.asList(array), function);
-	}
-
-	/**
-	 * Null-safely convert a stream of objects to a set.
-	 *
-	 * @param stream		stream of objects
-	 * @param function		function for collection mapping
-	 * @param <T>			object type
-	 * @return				set of mapped objects from stream
-	 * 						that wrapped in {@link Option}
-	 */
-	public static <T> Option<Set<T>> toSet(Stream<T> stream, Function<Collection<T>, Set<T>> function) {
-		if (stream == null) {
-			return Option.none();
-		}
-
-		return toSet(stream.collect(Collectors.toList()), function);
-	}
-
-	/**
-	 * Null-safely convert a stream of integers to a set.
-	 *
-	 * @param intStream		stream of integers
-	 * @param function		function for collection mapping
-	 * @return				set of mapped objects from stream
-	 * 						that wrapped in {@link Option}
-	 */
-	public static Option<Set<Integer>> toSet(IntStream intStream, Function<Collection<Integer>, Set<Integer>> function) {
-		if (intStream == null) {
-			return Option.none();
-		}
-
-		return toSet(intStream.boxed(), function);
-	}
-
-	/**
-	 * Null-safely convert a collection of objects to a set.
-	 *
-	 * @param collection	collection of objects
-	 * @param <T> 			object type
-	 * @return				new {@code HashSet} of mapped objects from collection
-	 * 						that wrapped in {@link Option}
+	 * @param collection			collection of objects
+	 * @param <T>					object type
+	 * @return						set of objects that wrapped in {@link Option}
 	 */
 	public static <T> Option<Set<T>> toSet(Collection<T> collection) {
-		return toSet(collection, HashSet::new);
+		return Option.of(toSetOrNull(collection));
 	}
 
 	/**
-	 * Null-safely convert an array of objects to a set.
+	 * Safely convert a collection of objects to a set or return a default value.
 	 *
-	 * @param array			array of objects
-	 * @param <T> 			object type
-	 * @return				new {@code HashSet} of mapped objects from array
-	 * 						that wrapped in {@link Option}
+	 * @param collection			collection of objects
+	 * @param defaultValue			default value to return on failure
+	 * @param <T>					object type
+	 * @return						set of objects or the default value
+	 */
+	public static <T> Set<T> toSetOrElse(Collection<T> collection, Set<T> defaultValue) {
+		return toSetOrElse(collection, HashSet::new, defaultValue);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a set or return a default value.
+	 *
+	 * @param collection			collection of objects
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						set of objects or the default value
+	 */
+	public static <T> Set<T> toSetOrElse(Collection<T> collection, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSetOrNull(collection), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Supplier)}
+	 * w/ {@link HashSet#HashSet()} as the default value supplier.
+	 *
+	 * @param collection			collection of objects
+	 * @param <T>					object type
+	 * @return						set of objects
+	 */
+	public static <T> Set<T> toSetOrEmpty(Collection<T> collection) {
+		return toSetOrElse(collection, HashSet::new);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param collection			collection of objects
+	 * @param <T>					object type
+	 * @return						set of objects or {@code null}
+	 */
+	public static <T> Set<T> toSetOrNull(Collection<T> collection) {
+		return toSetOrElse(collection, (Set<T>) null);
+	}
+
+	/**
+	 * Safely convert an array of objects to a set.
+	 *
+	 * @param array					array of objects
+	 * @param <T>					object type
+	 * @return						set of objects that wrapped in {@link Option}
 	 */
 	public static <T> Option<Set<T>> toSet(T[] array) {
-		return toSet(array, HashSet::new);
+		return Option.of(toSetOrNull(array));
 	}
 
 	/**
-	 * Null-safely convert a stream of objects to a set.
+	 * Safely convert an array of objects to a set or return a default value.
 	 *
-	 * @param stream		stream of objects
-	 * @param <T> 			object type
-	 * @return				new {@code HashSet} of mapped objects from stream
-	 * 						that wrapped in {@link Option}
+	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Set)}
+	 * w/ {@link Arrays#asList(Object[])} call.
+	 *
+	 * @param array					array of objects
+	 * @param defaultValue			default value to return on failure
+	 * @param <T>					object type
+	 * @return						set of objects or the default value
+	 */
+	public static <T> Set<T> toSetOrElse(T[] array, Set<T> defaultValue) {
+		if (array == null) {
+			return defaultValue;
+		}
+
+		return toSetOrElse(Arrays.asList(array), defaultValue);
+	}
+
+	/**
+	 * Safely convert an array of objects to a set or return a default value.
+	 *
+	 * @param array					array of objects
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						set of objects or the default value
+	 */
+	public static <T> Set<T> toSetOrElse(T[] array, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSetOrNull(array), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert an array of objects to a set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Object[], Supplier)}
+	 * w/ {@link HashSet#HashSet()} as the default value supplier.
+	 *
+	 * @param array					array of objects
+	 * @param <T>					object type
+	 * @return						set of objects
+	 */
+	public static <T> Set<T> toSetOrEmpty(T[] array) {
+		return toSetOrElse(array, HashSet::new);
+	}
+
+	/**
+	 * Safely convert an array of objects to a set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Object[], Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param array					array of objects
+	 * @param <T>					object type
+	 * @return						set of objects or {@code null}
+	 */
+	public static <T> Set<T> toSetOrNull(T[] array) {
+		return toSetOrElse(array, (Set<T>) null);
+	}
+
+	/**
+	 * Safely convert a stream of objects to a set.
+	 *
+	 * @param stream				stream of objects
+	 * @param <T>					object type
+	 * @return						set of objects that wrapped in {@link Option}
 	 */
 	public static <T> Option<Set<T>> toSet(Stream<T> stream) {
-		return toSet(stream, HashSet::new);
+		return Option.of(toSetOrNull(stream));
 	}
 
 	/**
-	 * Null-safely convert a stream of integers to a set.
+	 * Safely convert a stream of objects to a set or return a default value.
 	 *
-	 * @param intStream		stream of integers
-	 * @return				new {@code HashSet} of mapped objects from stream
-	 * 						that wrapped in {@link Option}
+	 * <p>Wraps {@link Stream#collect(Collector)}
+	 * w/ {@link Collectors#toSet()} call.
+	 *
+	 * @param stream				stream of objects
+	 * @param defaultValue 			default value to return on failure
+	 * @param <T>					object type
+	 * @return						set of objects or the default value
 	 */
-	public static Option<Set<Integer>> toSet(IntStream intStream) {
-		return toSet(intStream, HashSet::new);
+	public static <T> Set<T> toSetOrElse(Stream<T> stream, Set<T> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return stream.collect(Collectors.toSet());
 	}
 
 	/**
-	 * Null-safely convert a collection of objects to a synchronized set.
+	 * Safely convert a stream of objects to a set or return a default value.
 	 *
-	 * @param collection	collection of objects
-	 * @param <T> 			object type
-	 * @return				new synchronized {@code HashSet} of mapped objects from collection
-	 * 						that wrapped in {@link Option}
+	 * @param stream				stream of objects
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						set of objects or the default value
+	 */
+	public static <T> Set<T> toSetOrElse(Stream<T> stream, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of objects to a set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Supplier)}
+	 * w/ {@link HashSet#HashSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of objects
+	 * @param <T>					object type
+	 * @return						set of objects
+	 */
+	public static <T> Set<T> toSetOrEmpty(Stream<T> stream) {
+		return toSetOrElse(stream, HashSet::new);
+	}
+
+	/**
+	 * Safely convert a stream of objects to a set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of objects
+	 * @param <T>					object type
+	 * @return						set of objects or {@code null}
+	 */
+	public static <T> Set<T> toSetOrNull(Stream<T> stream) {
+		return toSetOrElse(stream, (Set<T>) null);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a set.
+	 *
+	 * @param stream				stream of integers
+	 * @return						set of integers that wrapped in {@link Option}
+	 */
+	public static Option<Set<Integer>> toSet(IntStream stream) {
+		return Option.of(toSetOrNull(stream));
+	}
+
+	/**
+	 * Safely convert a stream of integers to a set or return a default value.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * w/ {@link IntStream#boxed()} call.
+	 *
+	 * @param stream				stream of integers
+	 * @param defaultValue 			default value to return on failure
+	 * @return						set of integers or the default value
+	 */
+	public static Set<Integer> toSetOrElse(IntStream stream, Set<Integer> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return toSetOrElse(stream.boxed(), defaultValue);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a set or return a default value.
+	 *
+	 * @param stream				stream of integers
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						set of integers or the default value
+	 */
+	public static Set<Integer> toSetOrElse(IntStream stream, Supplier<Set<Integer>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(IntStream, Supplier)}
+	 * w/ {@link HashSet#HashSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of integers
+	 * @return						set of integers
+	 */
+	public static Set<Integer> toSetOrEmpty(IntStream stream) {
+		return toSetOrElse(stream, HashSet::new);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(IntStream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of integers
+	 * @return						set of integers or {@code null}
+	 */
+	public static Set<Integer> toSetOrNull(IntStream stream) {
+		return toSetOrElse(stream, (Set<Integer>) null);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a set.
+	 *
+	 * @param stream				stream of doubles
+	 * @return						set of doubles that wrapped in {@link Option}
+	 */
+	public static Option<Set<Double>> toSet(DoubleStream stream) {
+		return Option.of(toSetOrNull(stream));
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a set or return a default value.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * w/ {@link DoubleStream#boxed()} call.
+	 *
+	 * @param stream				stream of doubles
+	 * @param defaultValue 			default value to return on failure
+	 * @return						set of doubles or the default value
+	 */
+	public static Set<Double> toSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return toSetOrElse(stream.boxed(), defaultValue);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a set or return a default value.
+	 *
+	 * @param stream				stream of doubles
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						set of doubles or the default value
+	 */
+	public static Set<Double> toSetOrElse(DoubleStream stream, Supplier<Set<Double>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(DoubleStream, Supplier)}
+	 * w/ {@link HashSet#HashSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of doubles
+	 * @return						set of doubles
+	 */
+	public static Set<Double> toSetOrEmpty(DoubleStream stream) {
+		return toSetOrElse(stream, HashSet::new);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(DoubleStream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of doubles
+	 * @return						set of doubles or {@code null}
+	 */
+	public static Set<Double> toSetOrNull(DoubleStream stream) {
+		return toSetOrElse(stream, (Set<Double>) (null));
+	}
+
+	/**
+	 * Safely convert a stream of longs to a set.
+	 *
+	 * @param stream				stream of longs
+	 * @return						set of longs that wrapped in {@link Option}
+	 */
+	public static Option<Set<Long>> toSet(LongStream stream) {
+		return Option.of(toSetOrNull(stream));
+	}
+
+	/**
+	 * Safely convert a stream of longs to a set or return a default value.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * w/ {@link LongStream#boxed()} call.
+	 *
+	 * @param stream				stream of longs
+	 * @param defaultValue 			default value to return on failure
+	 * @return						set of longs or the default value
+	 */
+	public static Set<Long> toSetOrElse(LongStream stream, Set<Long> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return toSetOrElse(stream.boxed(), defaultValue);
+	}
+
+	/**
+	 * Safely convert a stream of longs to a set or return a default value.
+	 *
+	 * @param stream				stream of longs
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						set of longs or the default value
+	 */
+	public static Set<Long> toSetOrElse(LongStream stream, Supplier<Set<Long>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of longs to a set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(LongStream, Supplier)}
+	 * w/ {@link HashSet#HashSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of longs
+	 * @return						set of longs
+	 */
+	public static Set<Long> toSetOrEmpty(LongStream stream) {
+		return toSetOrElse(stream, HashSet::new);
+	}
+
+	/**
+	 * Safely convert a stream of longs to a set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSetOrElse(LongStream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of longs
+	 * @return						set of longs or {@code null}
+	 */
+	public static Set<Long> toSetOrNull(LongStream stream) {
+		return toSetOrElse(stream, (Set<Long>) null);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a synchronized set.
+	 *
+	 * @param collection			collection of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects that wrapped in {@link Option}
 	 */
 	public static <T> Option<Set<T>> toSynchronizedSet(Collection<T> collection) {
-		return toSet(collection, UwSet::newSynchronizedSet);
+		return Option.of(toSynchronizedSetOrNull(collection));
 	}
 
 	/**
-	 * Null-safely convert an array of objects to a synchronized set.
+	 * Safely convert a collection of objects to a synchronized set or return a default value.
 	 *
-	 * @param array			array of objects
-	 * @param <T> 			object type
-	 * @return				new synchronized {@code HashSet} of mapped objects from array
-	 * 						that wrapped in {@link Option}
+	 * @param collection			collection of objects
+	 * @param defaultValue			default value to return on failure
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
+	 */
+	public static <T> Set<T> toSynchronizedSetOrElse(Collection<T> collection, Set<T> defaultValue) {
+		return toSetOrElse(collection, UwSet::newSynchronizedSet, defaultValue);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a synchronized set or return a default value.
+	 *
+	 * @param collection			collection of objects
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
+	 */
+	public static <T> Set<T> toSynchronizedSetOrElse(Collection<T> collection, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSynchronizedSetOrNull(collection), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a synchronized set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Collection, Supplier)}
+	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 *
+	 * @param collection			collection of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects
+	 */
+	public static <T> Set<T> toSynchronizedSetOrEmpty(Collection<T> collection) {
+		return toSynchronizedSetOrElse(collection, UwSet::newSynchronizedSet);
+	}
+
+	/**
+	 * Safely convert a collection of objects to a synchronized set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Collection, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param collection			collection of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or {@code null}
+	 */
+	public static <T> Set<T> toSynchronizedSetOrNull(Collection<T> collection) {
+		return toSynchronizedSetOrElse(collection, (Set<T>) null);
+	}
+
+	/**
+	 * Safely convert an array of objects to a synchronized set.
+	 *
+	 * @param array					array of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects that wrapped in {@link Option}
 	 */
 	public static <T> Option<Set<T>> toSynchronizedSet(T[] array) {
-		return toSet(array, UwSet::newSynchronizedSet);
+		return Option.of(toSynchronizedSetOrNull(array));
 	}
 
 	/**
-	 * Null-safely convert a stream of objects to a synchronized set.
+	 * Safely convert an array of objects to a synchronized set or return a default value.
 	 *
-	 * @param stream		stream of objects
-	 * @param <T> 			object type
-	 * @return				new synchronized {@code HashSet} of mapped objects from stream
-	 * 						that wrapped in {@link Option}
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Collection, Set)}
+	 * w/ {@link Arrays#asList(Object[])} call.
+	 *
+	 * @param array					array of objects
+	 * @param defaultValue			default value to return on failure
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
+	 */
+	public static <T> Set<T> toSynchronizedSetOrElse(T[] array, Set<T> defaultValue) {
+		if (array == null) {
+			return defaultValue;
+		}
+
+		return toSynchronizedSetOrElse(Arrays.asList(array), defaultValue);
+	}
+
+	/**
+	 * Safely convert an array of objects to a synchronized set or return a default value.
+	 *
+	 * @param array					array of objects
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
+	 */
+	public static <T> Set<T> toSynchronizedSetOrElse(T[] array, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSynchronizedSetOrNull(array), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert an array of objects to a synchronized set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Object[], Supplier)}
+	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 *
+	 * @param array					array of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects
+	 */
+	public static <T> Set<T> toSynchronizedSetOrEmpty(T[] array) {
+		return toSynchronizedSetOrElse(array, UwSet::newSynchronizedSet);
+	}
+
+	/**
+	 * Safely convert an array of objects to a synchronized set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Object[], Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param array					array of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or {@code null}
+	 */
+	public static <T> Set<T> toSynchronizedSetOrNull(T[] array) {
+		return toSynchronizedSetOrElse(array, (Set<T>) null);
+	}
+
+	/**
+	 * Safely convert a stream of objects to a synchronized set.
+	 *
+	 * @param stream				stream of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects that wrapped in {@link Option}
 	 */
 	public static <T> Option<Set<T>> toSynchronizedSet(Stream<T> stream) {
-		return toSet(stream, UwSet::newSynchronizedSet);
+		return Option.of(toSynchronizedSetOrNull(stream));
 	}
 
 	/**
-	 * Null-safely convert a stream of integers to a synchronized set.
+	 * Safely convert a stream of objects to a synchronized set or return a default value.
 	 *
-	 * @param intStream		stream of integers
-	 * @return				new synchronized {@code HashSet} of mapped integers from stream
-	 * 						that wrapped in {@link Option}
+	 * <p>Wraps {@link Collections#synchronizedSet(Set)}
+	 * w/ {@link Stream#collect(Collector)} {@literal &} {@link Collectors#toSet()} calls.
+	 *
+	 * @param stream				stream of objects
+	 * @param defaultValue 			default value to return on failure
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
 	 */
-	public static Option<Set<Integer>> toSynchronizedSet(IntStream intStream) {
-		return toSet(intStream, UwSet::newSynchronizedSet);
+	public static <T> Set<T> toSynchronizedSetOrElse(Stream<T> stream, Set<T> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return Collections.synchronizedSet(stream.collect(Collectors.toSet()));
 	}
 
 	/**
-	 * Null-safely convert a collection of objects to a set.
+	 * Safely convert a stream of objects to a synchronized set or return a default value.
+	 *
+	 * @param stream				stream of objects
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
+	 */
+	public static <T> Set<T> toSynchronizedSetOrElse(Stream<T> stream, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of objects to a synchronized set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Supplier)}
+	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or the default value
+	 */
+	public static <T> Set<T> toSynchronizedSetOrEmpty(Stream<T> stream) {
+		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	}
+
+	/**
+	 * Safely convert a stream of objects to a synchronized set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of objects
+	 * @param <T>					object type
+	 * @return						synchronized set of objects or {@code null}
+	 */
+	public static <T> Set<T> toSynchronizedSetOrNull(Stream<T> stream) {
+		return toSynchronizedSetOrElse(stream, (Set<T>) null);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a synchronized set.
+	 *
+	 * @param stream				stream of integers
+	 * @return						synchronized set of integers that wrapped in {@link Option}
+	 */
+	public static Option<Set<Integer>> toSynchronizedSet(IntStream stream) {
+		return Option.of(toSynchronizedSetOrNull(stream));
+	}
+
+	/**
+	 * Safely convert a stream of integers to a synchronized set or return a default value.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * w/ {@link IntStream#boxed()} call.
+	 *
+	 * @param stream				stream of integers
+	 * @param defaultValue 			default value to return on failure
+	 * @return						synchronized set of integers or the default value
+	 */
+	public static Set<Integer> toSynchronizedSetOrElse(IntStream stream, Set<Integer> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return toSynchronizedSetOrElse(stream.boxed(), defaultValue);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a synchronized set or return a default value.
+	 *
+	 * @param stream				stream of integers
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						synchronized set of integers or the default value
+	 */
+	public static Set<Integer> toSynchronizedSetOrElse(IntStream stream, Supplier<Set<Integer>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a synchronized set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(IntStream, Supplier)}
+	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of integers
+	 * @return						synchronized set of integers or the default value
+	 */
+	public static Set<Integer> toSynchronizedSetOrEmpty(IntStream stream) {
+		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	}
+
+	/**
+	 * Safely convert a stream of integers to a synchronized set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(IntStream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of integers
+	 * @return						synchronized set of integers or {@code null}
+	 */
+	public static Set<Integer> toSynchronizedSetOrNull(IntStream stream) {
+		return toSynchronizedSetOrElse(stream, (Set<Integer>) null);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a synchronized set.
+	 *
+	 * @param stream				stream of doubles
+	 * @return						synchronized set of doubles that wrapped in {@link Option}
+	 */
+	public static Option<Set<Double>> toSynchronizedSet(DoubleStream stream) {
+		return Option.of(toSynchronizedSetOrNull(stream));
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a synchronized set or return a default value.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * w/ {@link DoubleStream#boxed()} call.
+	 *
+	 * @param stream				stream of doubles
+	 * @param defaultValue 			default value to return on failure
+	 * @return						synchronized set of doubles or the default value
+	 */
+	public static Set<Double> toSynchronizedSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return toSynchronizedSetOrElse(stream.boxed(), defaultValue);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a synchronized set or return a default value.
+	 *
+	 * @param stream				stream of doubles
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						synchronized set of doubles or the default value
+	 */
+	public static Set<Double> toSynchronizedSetOrElse(DoubleStream stream, Supplier<Set<Double>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a synchronized set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(DoubleStream, Supplier)}
+	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of doubles
+	 * @return						synchronized set of doubles or the default value
+	 */
+	public static Set<Double> toSynchronizedSetOrEmpty(DoubleStream stream) {
+		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	}
+
+	/**
+	 * Safely convert a stream of doubles to a synchronized set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(DoubleStream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of doubles
+	 * @return						synchronized set of doubles or {@code null}
+	 */
+	public static Set<Double> toSynchronizedSetOrNull(DoubleStream stream) {
+		return toSynchronizedSetOrElse(stream, (Set<Double>) (null));
+	}
+
+
+
+	/**
+	 * Safely convert a stream of longs to a synchronized set.
+	 *
+	 * @param stream				stream of longs
+	 * @return						synchronized set of longs that wrapped in {@link Option}
+	 */
+	public static Option<Set<Long>> toSynchronizedSet(LongStream stream) {
+		return Option.of(toSynchronizedSetOrNull(stream));
+	}
+
+	/**
+	 * Safely convert a stream of longs to a synchronized set or return a default value.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * w/ {@link LongStream#boxed()} call.
+	 *
+	 * @param stream				stream of longs
+	 * @param defaultValue 			default value to return on failure
+	 * @return						synchronized set of longs or the default value
+	 */
+	public static Set<Long> toSynchronizedSetOrElse(LongStream stream, Set<Long> defaultValue) {
+		if (stream == null) {
+			return defaultValue;
+		}
+
+		return toSynchronizedSetOrElse(stream.boxed(), defaultValue);
+	}
+
+	/**
+	 * Safely convert a stream of longs to a synchronized set or return a default value.
+	 *
+	 * @param stream				stream of longs
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						synchronized set of longs or the default value
+	 */
+	public static Set<Long> toSynchronizedSetOrElse(LongStream stream, Supplier<Set<Long>> defaultValueSupplier) {
+		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely convert a stream of longs to a synchronized set or return an empty one.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(LongStream, Supplier)}
+	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 *
+	 * @param stream				stream of longs
+	 * @return						synchronized set of longs
+	 */
+	public static Set<Long> toSynchronizedSetOrEmpty(LongStream stream) {
+		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	}
+
+	/**
+	 * Safely convert a stream of longs to a synchronized set or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(LongStream, Set)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param stream				stream of longs
+	 * @return						synchronized set of longs or {@code null}
+	 */
+	public static Set<Long> toSynchronizedSetOrNull(LongStream stream) {
+		return toSynchronizedSetOrElse(stream, (Set<Long>) null);
+	}
+
+	/**
+	 * Safely convert an object to a set of elements or return a default value.
+	 *
+	 * @param object			object to convert
+	 * @param function			function to apply for conversion
+	 * @param defaultValue		default value to return on failure
+	 * @param <U>				object type
+	 * @param <T>				element type
+	 * @param <R>				set type
+	 * @return					set of elements or the default value.
+	 */
+	private static <U, T, R extends Set<T>> R toSetOrElse(U object, Function<U, R> function, R defaultValue) {
+		if (object == null || function == null) {
+			return defaultValue;
+		}
+
+		return UwObject.getIfNull(function.apply(object), defaultValue);
+	}
+
+	/**
+	 * Create a new synchronized {@link HashSet}.
 	 *
 	 * @param collection	collection of objects
-	 * @param function		function for collection mapping
 	 * @param <T>			object type
-	 * @return				set of mapped objects from collection
-	 * 						or null
-	 */
-	public static <T> Set<T> toSetRaw(Collection<T> collection, Function<Collection<T>, Set<T>> function) {
-		return toSet(collection, function).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert an array of objects to a set.
-	 *
-	 * @param array			array of objects
-	 * @param function		function for collection mapping
-	 * @param <T>			object type
-	 * @return				set of mapped objects from array
-	 * 						or null
-	 */
-	public static <T> Set<T> toSetRaw(T[] array, Function<Collection<T>, Set<T>> function) {
-		return toSet(array, function).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a stream of objects to a set.
-	 *
-	 * @param stream		stream of objects
-	 * @param function		function for collection mapping
-	 * @param <T>			object type
-	 * @return				set of mapped objects from stream
-	 * 						or null
-	 */
-	public static <T> Set<T> toSetRaw(Stream<T> stream, Function<Collection<T>, Set<T>> function) {
-		return toSet(stream, function).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a stream of integers to a set.
-	 *
-	 * @param intStream		stream of integers
-	 * @param function		function for collection mapping
-	 * @return				set of mapped objects from stream
-	 * 						or null
-	 */
-	public static Set<Integer> toSetRaw(IntStream intStream, Function<Collection<Integer>, Set<Integer>> function) {
-		return toSet(intStream, function).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a collection of objects to a set.
-	 *
-	 * @param collection	collection of objects
-	 * @param <T> 			object type
-	 * @return				new {@code HashSet} of mapped objects from collection
-	 * 						or null
-	 */
-	public static <T> Set<T> toSetRaw(Collection<T> collection) {
-		return toSet(collection, HashSet::new).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert an array of objects to a set.
-	 *
-	 * @param array			array of objects
-	 * @param <T> 			object type
-	 * @return				new {@code HashSet} of mapped objects from array
-	 * 						or null
-	 */
-	public static <T> Set<T> toSetRaw(T[] array) {
-		return toSet(array, HashSet::new).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a stream of objects to a set.
-	 *
-	 * @param stream		stream of objects
-	 * @param <T> 			object type
-	 * @return				new {@code HashSet} of mapped objects from stream
-	 * 						or null
-	 */
-	public static <T> Set<T> toSetRaw(Stream<T> stream) {
-		return toSet(stream, HashSet::new).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a stream of integers to a set.
-	 *
-	 * @param intStream		stream of integers
-	 * @return				new {@code HashSet} of mapped objects from stream
-	 * 						or null
-	 */
-	public static Set<Integer> toSetRaw(IntStream intStream) {
-		return toSet(intStream, HashSet::new).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a collection of objects to a synchronized set.
-	 *
-	 * @param collection	collection of objects
-	 * @param <T> 			object type
-	 * @return				new synchronized {@code HashSet} of mapped objects from collection
-	 * 						or null
-	 */
-	public static <T> Set<T> toSynchronizedSetRaw(Collection<T> collection) {
-		return toSynchronizedSet(collection).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert an array of objects to a synchronized set.
-	 *
-	 * @param array			array of objects
-	 * @param <T> 			object type
-	 * @return				new synchronized {@code HashSet} of mapped objects from array
-	 * 						or null
-	 */
-	public static <T> Set<T> toSynchronizedSetRaw(T[] array) {
-		return toSynchronizedSet(array).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a stream of objects to a synchronized set.
-	 *
-	 * @param stream		stream of objects
-	 * @param <T> 			object type
-	 * @return				new synchronized {@code HashSet} of mapped objects from stream
-	 * 						or null
-	 */
-	public static <T> Set<T> toSynchronizedSetRaw(Stream<T> stream) {
-		return toSynchronizedSet(stream).getOrNull();
-	}
-
-	/**
-	 * Null-safely convert a stream of integers to a synchronized set.
-	 *
-	 * @param intStream		stream of integers
-	 * @return				new synchronized {@code HashSet} of mapped integers from stream
-	 * 						or null
-	 */
-	public static Set<Integer> toSynchronizedSetRaw(IntStream intStream) {
-		return toSynchronizedSet(intStream).getOrNull();
-	}
-
-	/**
-	 * Create new synchronized {@code Set} of {@code HashSet}.
-	 *
-	 * @param collection	collection of objects
-	 * @param <T>			object type
-	 * @return				new synchronized {@code HashSet}
-	 * 						as {@code Set}
+	 * @return				new synchronized {@link HashSet}.
 	 */
 	private static <T> Set<T> newSynchronizedSet(Collection<T> collection) {
 		return Collections.synchronizedSet(new HashSet<>(collection));
+	}
+
+	/**
+	 * Create a new synchronized {@link HashSet}.
+	 *
+	 * @param <T>			object type
+	 * @return				new synchronized {@link HashSet}
+	 */
+	private static <T> Set<T> newSynchronizedSet() {
+		return Collections.synchronizedSet(new HashSet<>());
 	}
 
 	private UwSet() {
