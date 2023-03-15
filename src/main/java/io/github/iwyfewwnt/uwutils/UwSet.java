@@ -19,6 +19,7 @@ package io.github.iwyfewwnt.uwutils;
 //import io.vavr.control.Option;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.*;
@@ -432,151 +433,151 @@ public final class UwSet {
 	}
 
 //	/**
-//	 * Safely convert a collection of objects to a synchronized set.
+//	 * Safely convert a collection of objects to a concurrent set.
 //	 *
 //	 * @param collection			collection of objects
 //	 * @param <T>					object type
-//	 * @return						synchronized set of objects that wrapped in {@link Option}
+//	 * @return						concurrent set of objects that wrapped in {@link Option}
 //	 */
-//	public static <T> Option<Set<T>> toSynchronizedSet(Collection<T> collection) {
-//		return Option.of(toSynchronizedSetOrNull(collection));
+//	public static <T> Option<Set<T>> toConcurrentSet(Collection<T> collection) {
+//		return Option.of(toConcurrentSetOrNull(collection));
 //	}
 
 	/**
-	 * Safely convert a collection of objects to a synchronized set or return a default value.
+	 * Safely convert a collection of objects to a concurrent set or return a default value.
 	 *
 	 * @param collection			collection of objects
 	 * @param defaultValue			default value to return on failure
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrElse(Collection<T> collection, Set<T> defaultValue) {
-		return toSetOrElse(collection, UwSet::newSynchronizedSet, defaultValue);
+	public static <T> Set<T> toConcurrentSetOrElse(Collection<T> collection, Set<T> defaultValue) {
+		return toSetOrElse(collection, UwSet::newConcurrentSet, defaultValue);
 	}
 
 	/**
-	 * Safely convert a collection of objects to a synchronized set or return a default value.
+	 * Safely convert a collection of objects to a concurrent set or return a default value.
 	 *
 	 * @param collection			collection of objects
 	 * @param defaultValueSupplier	supplier from which get the default value
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrElse(Collection<T> collection, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSynchronizedSetOrNull(collection), defaultValueSupplier);
+	public static <T> Set<T> toConcurrentSetOrElse(Collection<T> collection, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toConcurrentSetOrNull(collection), defaultValueSupplier);
 	}
 
 	/**
-	 * Safely convert a collection of objects to a synchronized set or return an empty one.
+	 * Safely convert a collection of objects to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Collection, Supplier)}
-	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Supplier)}
+	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param collection			collection of objects
 	 * @param <T>					object type
-	 * @return						synchronized set of objects
+	 * @return						concurrent set of objects
 	 */
-	public static <T> Set<T> toSynchronizedSetOrEmpty(Collection<T> collection) {
-		return toSynchronizedSetOrElse(collection, UwSet::newSynchronizedSet);
+	public static <T> Set<T> toConcurrentSetOrEmpty(Collection<T> collection) {
+		return toConcurrentSetOrElse(collection, UwSet::newConcurrentSet);
 	}
 
 	/**
-	 * Safely convert a collection of objects to a synchronized set or return {@code null}.
+	 * Safely convert a collection of objects to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Collection, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param collection			collection of objects
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or {@code null}
+	 * @return						concurrent set of objects or {@code null}
 	 */
-	public static <T> Set<T> toSynchronizedSetOrNull(Collection<T> collection) {
-		return toSynchronizedSetOrElse(collection, (Set<T>) null);
+	public static <T> Set<T> toConcurrentSetOrNull(Collection<T> collection) {
+		return toConcurrentSetOrElse(collection, (Set<T>) null);
 	}
 
 //	/**
-//	 * Safely convert an array of objects to a synchronized set.
+//	 * Safely convert an array of objects to a concurrent set.
 //	 *
 //	 * @param array					array of objects
 //	 * @param <T>					object type
-//	 * @return						synchronized set of objects that wrapped in {@link Option}
+//	 * @return						concurrent set of objects that wrapped in {@link Option}
 //	 */
-//	public static <T> Option<Set<T>> toSynchronizedSet(T[] array) {
-//		return Option.of(toSynchronizedSetOrNull(array));
+//	public static <T> Option<Set<T>> toConcurrentSet(T[] array) {
+//		return Option.of(toConcurrentSetOrNull(array));
 //	}
 
 	/**
-	 * Safely convert an array of objects to a synchronized set or return a default value.
+	 * Safely convert an array of objects to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Collection, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Set)}
 	 * w/ {@link Arrays#asList(Object[])} call.
 	 *
 	 * @param array					array of objects
 	 * @param defaultValue			default value to return on failure
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrElse(T[] array, Set<T> defaultValue) {
+	public static <T> Set<T> toConcurrentSetOrElse(T[] array, Set<T> defaultValue) {
 		if (array == null) {
 			return defaultValue;
 		}
 
-		return toSynchronizedSetOrElse(Arrays.asList(array), defaultValue);
+		return toConcurrentSetOrElse(Arrays.asList(array), defaultValue);
 	}
 
 	/**
-	 * Safely convert an array of objects to a synchronized set or return a default value.
+	 * Safely convert an array of objects to a concurrent set or return a default value.
 	 *
 	 * @param array					array of objects
 	 * @param defaultValueSupplier	supplier from which get the default value
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrElse(T[] array, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSynchronizedSetOrNull(array), defaultValueSupplier);
+	public static <T> Set<T> toConcurrentSetOrElse(T[] array, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toConcurrentSetOrNull(array), defaultValueSupplier);
 	}
 
 	/**
-	 * Safely convert an array of objects to a synchronized set or return an empty one.
+	 * Safely convert an array of objects to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Object[], Supplier)}
-	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Object[], Supplier)}
+	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param array					array of objects
 	 * @param <T>					object type
-	 * @return						synchronized set of objects
+	 * @return						concurrent set of objects
 	 */
-	public static <T> Set<T> toSynchronizedSetOrEmpty(T[] array) {
-		return toSynchronizedSetOrElse(array, UwSet::newSynchronizedSet);
+	public static <T> Set<T> toConcurrentSetOrEmpty(T[] array) {
+		return toConcurrentSetOrElse(array, UwSet::newConcurrentSet);
 	}
 
 	/**
-	 * Safely convert an array of objects to a synchronized set or return {@code null}.
+	 * Safely convert an array of objects to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Object[], Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Object[], Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param array					array of objects
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or {@code null}
+	 * @return						concurrent set of objects or {@code null}
 	 */
-	public static <T> Set<T> toSynchronizedSetOrNull(T[] array) {
-		return toSynchronizedSetOrElse(array, (Set<T>) null);
+	public static <T> Set<T> toConcurrentSetOrNull(T[] array) {
+		return toConcurrentSetOrElse(array, (Set<T>) null);
 	}
 
 //	/**
-//	 * Safely convert a stream of objects to a synchronized set.
+//	 * Safely convert a stream of objects to a concurrent set.
 //	 *
 //	 * @param stream				stream of objects
 //	 * @param <T>					object type
-//	 * @return						synchronized set of objects that wrapped in {@link Option}
+//	 * @return						concurrent set of objects that wrapped in {@link Option}
 //	 */
-//	public static <T> Option<Set<T>> toSynchronizedSet(Stream<T> stream) {
-//		return Option.of(toSynchronizedSetOrNull(stream));
+//	public static <T> Option<Set<T>> toConcurrentSet(Stream<T> stream) {
+//		return Option.of(toConcurrentSetOrNull(stream));
 //	}
 
 	/**
-	 * Safely convert a stream of objects to a synchronized set or return a default value.
+	 * Safely convert a stream of objects to a concurrent set or return a default value.
 	 *
 	 * <p>Wraps {@link Collections#synchronizedSet(Set)}
 	 * w/ {@link Stream#collect(Collector)} {@literal &} {@link Collectors#toSet()} calls.
@@ -584,9 +585,9 @@ public final class UwSet {
 	 * @param stream				stream of objects
 	 * @param defaultValue 			default value to return on failure
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrElse(Stream<T> stream, Set<T> defaultValue) {
+	public static <T> Set<T> toConcurrentSetOrElse(Stream<T> stream, Set<T> defaultValue) {
 		if (stream == null) {
 			return defaultValue;
 		}
@@ -595,238 +596,238 @@ public final class UwSet {
 	}
 
 	/**
-	 * Safely convert a stream of objects to a synchronized set or return a default value.
+	 * Safely convert a stream of objects to a concurrent set or return a default value.
 	 *
 	 * @param stream				stream of objects
 	 * @param defaultValueSupplier	supplier from which get the default value
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrElse(Stream<T> stream, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	public static <T> Set<T> toConcurrentSetOrElse(Stream<T> stream, Supplier<Set<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
-	 * Safely convert a stream of objects to a synchronized set or return an empty one.
+	 * Safely convert a stream of objects to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Supplier)}
-	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Supplier)}
+	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream				stream of objects
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or the default value
+	 * @return						concurrent set of objects or the default value
 	 */
-	public static <T> Set<T> toSynchronizedSetOrEmpty(Stream<T> stream) {
-		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	public static <T> Set<T> toConcurrentSetOrEmpty(Stream<T> stream) {
+		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
 	}
 
 	/**
-	 * Safely convert a stream of objects to a synchronized set or return {@code null}.
+	 * Safely convert a stream of objects to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream				stream of objects
 	 * @param <T>					object type
-	 * @return						synchronized set of objects or {@code null}
+	 * @return						concurrent set of objects or {@code null}
 	 */
-	public static <T> Set<T> toSynchronizedSetOrNull(Stream<T> stream) {
-		return toSynchronizedSetOrElse(stream, (Set<T>) null);
+	public static <T> Set<T> toConcurrentSetOrNull(Stream<T> stream) {
+		return toConcurrentSetOrElse(stream, (Set<T>) null);
 	}
 
 //	/**
-//	 * Safely convert a stream of integers to a synchronized set.
+//	 * Safely convert a stream of integers to a concurrent set.
 //	 *
 //	 * @param stream				stream of integers
-//	 * @return						synchronized set of integers that wrapped in {@link Option}
+//	 * @return						concurrent set of integers that wrapped in {@link Option}
 //	 */
-//	public static Option<Set<Integer>> toSynchronizedSet(IntStream stream) {
-//		return Option.of(toSynchronizedSetOrNull(stream));
+//	public static Option<Set<Integer>> toConcurrentSet(IntStream stream) {
+//		return Option.of(toConcurrentSetOrNull(stream));
 //	}
 
 	/**
-	 * Safely convert a stream of integers to a synchronized set or return a default value.
+	 * Safely convert a stream of integers to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link IntStream#boxed()} call.
 	 *
 	 * @param stream				stream of integers
 	 * @param defaultValue 			default value to return on failure
-	 * @return						synchronized set of integers or the default value
+	 * @return						concurrent set of integers or the default value
 	 */
-	public static Set<Integer> toSynchronizedSetOrElse(IntStream stream, Set<Integer> defaultValue) {
+	public static Set<Integer> toConcurrentSetOrElse(IntStream stream, Set<Integer> defaultValue) {
 		if (stream == null) {
 			return defaultValue;
 		}
 
-		return toSynchronizedSetOrElse(stream.boxed(), defaultValue);
+		return toConcurrentSetOrElse(stream.boxed(), defaultValue);
 	}
 
 	/**
-	 * Safely convert a stream of integers to a synchronized set or return a default value.
+	 * Safely convert a stream of integers to a concurrent set or return a default value.
 	 *
 	 * @param stream				stream of integers
 	 * @param defaultValueSupplier	supplier from which get the default value
-	 * @return						synchronized set of integers or the default value
+	 * @return						concurrent set of integers or the default value
 	 */
-	public static Set<Integer> toSynchronizedSetOrElse(IntStream stream, Supplier<Set<Integer>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	public static Set<Integer> toConcurrentSetOrElse(IntStream stream, Supplier<Set<Integer>> defaultValueSupplier) {
+		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
-	 * Safely convert a stream of integers to a synchronized set or return an empty one.
+	 * Safely convert a stream of integers to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(IntStream, Supplier)}
-	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(IntStream, Supplier)}
+	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream				stream of integers
-	 * @return						synchronized set of integers or the default value
+	 * @return						concurrent set of integers or the default value
 	 */
-	public static Set<Integer> toSynchronizedSetOrEmpty(IntStream stream) {
-		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	public static Set<Integer> toConcurrentSetOrEmpty(IntStream stream) {
+		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
 	}
 
 	/**
-	 * Safely convert a stream of integers to a synchronized set or return {@code null}.
+	 * Safely convert a stream of integers to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(IntStream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(IntStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream				stream of integers
-	 * @return						synchronized set of integers or {@code null}
+	 * @return						concurrent set of integers or {@code null}
 	 */
-	public static Set<Integer> toSynchronizedSetOrNull(IntStream stream) {
-		return toSynchronizedSetOrElse(stream, (Set<Integer>) null);
+	public static Set<Integer> toConcurrentSetOrNull(IntStream stream) {
+		return toConcurrentSetOrElse(stream, (Set<Integer>) null);
 	}
 
 //	/**
-//	 * Safely convert a stream of doubles to a synchronized set.
+//	 * Safely convert a stream of doubles to a concurrent set.
 //	 *
 //	 * @param stream				stream of doubles
-//	 * @return						synchronized set of doubles that wrapped in {@link Option}
+//	 * @return						concurrent set of doubles that wrapped in {@link Option}
 //	 */
-//	public static Option<Set<Double>> toSynchronizedSet(DoubleStream stream) {
-//		return Option.of(toSynchronizedSetOrNull(stream));
+//	public static Option<Set<Double>> toConcurrentSet(DoubleStream stream) {
+//		return Option.of(toConcurrentSetOrNull(stream));
 //	}
 
 	/**
-	 * Safely convert a stream of doubles to a synchronized set or return a default value.
+	 * Safely convert a stream of doubles to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link DoubleStream#boxed()} call.
 	 *
 	 * @param stream				stream of doubles
 	 * @param defaultValue 			default value to return on failure
-	 * @return						synchronized set of doubles or the default value
+	 * @return						concurrent set of doubles or the default value
 	 */
-	public static Set<Double> toSynchronizedSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
+	public static Set<Double> toConcurrentSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
 		if (stream == null) {
 			return defaultValue;
 		}
 
-		return toSynchronizedSetOrElse(stream.boxed(), defaultValue);
+		return toConcurrentSetOrElse(stream.boxed(), defaultValue);
 	}
 
 	/**
-	 * Safely convert a stream of doubles to a synchronized set or return a default value.
+	 * Safely convert a stream of doubles to a concurrent set or return a default value.
 	 *
 	 * @param stream				stream of doubles
 	 * @param defaultValueSupplier	supplier from which get the default value
-	 * @return						synchronized set of doubles or the default value
+	 * @return						concurrent set of doubles or the default value
 	 */
-	public static Set<Double> toSynchronizedSetOrElse(DoubleStream stream, Supplier<Set<Double>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	public static Set<Double> toConcurrentSetOrElse(DoubleStream stream, Supplier<Set<Double>> defaultValueSupplier) {
+		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
-	 * Safely convert a stream of doubles to a synchronized set or return an empty one.
+	 * Safely convert a stream of doubles to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(DoubleStream, Supplier)}
-	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(DoubleStream, Supplier)}
+	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream				stream of doubles
-	 * @return						synchronized set of doubles or the default value
+	 * @return						concurrent set of doubles or the default value
 	 */
-	public static Set<Double> toSynchronizedSetOrEmpty(DoubleStream stream) {
-		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	public static Set<Double> toConcurrentSetOrEmpty(DoubleStream stream) {
+		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
 	}
 
 	/**
-	 * Safely convert a stream of doubles to a synchronized set or return {@code null}.
+	 * Safely convert a stream of doubles to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(DoubleStream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(DoubleStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream				stream of doubles
-	 * @return						synchronized set of doubles or {@code null}
+	 * @return						concurrent set of doubles or {@code null}
 	 */
-	public static Set<Double> toSynchronizedSetOrNull(DoubleStream stream) {
-		return toSynchronizedSetOrElse(stream, (Set<Double>) (null));
+	public static Set<Double> toConcurrentSetOrNull(DoubleStream stream) {
+		return toConcurrentSetOrElse(stream, (Set<Double>) (null));
 	}
 
 //	/**
-//	 * Safely convert a stream of longs to a synchronized set.
+//	 * Safely convert a stream of longs to a concurrent set.
 //	 *
 //	 * @param stream				stream of longs
-//	 * @return						synchronized set of longs that wrapped in {@link Option}
+//	 * @return						concurrent set of longs that wrapped in {@link Option}
 //	 */
-//	public static Option<Set<Long>> toSynchronizedSet(LongStream stream) {
-//		return Option.of(toSynchronizedSetOrNull(stream));
+//	public static Option<Set<Long>> toConcurrentSet(LongStream stream) {
+//		return Option.of(toConcurrentSetOrNull(stream));
 //	}
 
 	/**
-	 * Safely convert a stream of longs to a synchronized set or return a default value.
+	 * Safely convert a stream of longs to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link LongStream#boxed()} call.
 	 *
 	 * @param stream				stream of longs
 	 * @param defaultValue 			default value to return on failure
-	 * @return						synchronized set of longs or the default value
+	 * @return						concurrent set of longs or the default value
 	 */
-	public static Set<Long> toSynchronizedSetOrElse(LongStream stream, Set<Long> defaultValue) {
+	public static Set<Long> toConcurrentSetOrElse(LongStream stream, Set<Long> defaultValue) {
 		if (stream == null) {
 			return defaultValue;
 		}
 
-		return toSynchronizedSetOrElse(stream.boxed(), defaultValue);
+		return toConcurrentSetOrElse(stream.boxed(), defaultValue);
 	}
 
 	/**
-	 * Safely convert a stream of longs to a synchronized set or return a default value.
+	 * Safely convert a stream of longs to a concurrent set or return a default value.
 	 *
 	 * @param stream				stream of longs
 	 * @param defaultValueSupplier	supplier from which get the default value
-	 * @return						synchronized set of longs or the default value
+	 * @return						concurrent set of longs or the default value
 	 */
-	public static Set<Long> toSynchronizedSetOrElse(LongStream stream, Supplier<Set<Long>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSynchronizedSetOrNull(stream), defaultValueSupplier);
+	public static Set<Long> toConcurrentSetOrElse(LongStream stream, Supplier<Set<Long>> defaultValueSupplier) {
+		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
-	 * Safely convert a stream of longs to a synchronized set or return an empty one.
+	 * Safely convert a stream of longs to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(LongStream, Supplier)}
-	 * w/ {@link UwSet#newSynchronizedSet()} as the default value supplier.
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(LongStream, Supplier)}
+	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream				stream of longs
-	 * @return						synchronized set of longs
+	 * @return						concurrent set of longs
 	 */
-	public static Set<Long> toSynchronizedSetOrEmpty(LongStream stream) {
-		return toSynchronizedSetOrElse(stream, UwSet::newSynchronizedSet);
+	public static Set<Long> toConcurrentSetOrEmpty(LongStream stream) {
+		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
 	}
 
 	/**
-	 * Safely convert a stream of longs to a synchronized set or return {@code null}.
+	 * Safely convert a stream of longs to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSynchronizedSetOrElse(LongStream, Set)}
+	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(LongStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream				stream of longs
-	 * @return						synchronized set of longs or {@code null}
+	 * @return						concurrent set of longs or {@code null}
 	 */
-	public static Set<Long> toSynchronizedSetOrNull(LongStream stream) {
-		return toSynchronizedSetOrElse(stream, (Set<Long>) null);
+	public static Set<Long> toConcurrentSetOrNull(LongStream stream) {
+		return toConcurrentSetOrElse(stream, (Set<Long>) null);
 	}
 
 	/**
@@ -849,24 +850,31 @@ public final class UwSet {
 	}
 
 	/**
-	 * Create a new synchronized {@link HashSet}.
+	 * Create a new concurrent set instance.
 	 *
 	 * @param collection	collection of objects
 	 * @param <T>			object type
-	 * @return				new synchronized {@link HashSet}.
+	 * @return				new concurrent set instance.
 	 */
-	private static <T> Set<T> newSynchronizedSet(Collection<T> collection) {
-		return Collections.synchronizedSet(new HashSet<>(collection));
+	private static <T> Set<T> newConcurrentSet(Collection<T> collection) {
+		Set<T> set = newConcurrentSet();
+
+		// Collection is always non-null due to usage only
+		//  in the #toSetOrElse(Object, Function, Object) method
+		//  that checks passed object for nullability before a conversion.
+		set.addAll(collection);
+
+		return set;
 	}
 
 	/**
-	 * Create a new synchronized {@link HashSet}.
+	 * Create a new concurrent set instance.
 	 *
 	 * @param <T>			object type
-	 * @return				new synchronized {@link HashSet}
+	 * @return				new concurrent set instance
 	 */
-	private static <T> Set<T> newSynchronizedSet() {
-		return Collections.synchronizedSet(new HashSet<>());
+	private static <T> Set<T> newConcurrentSet() {
+		return ConcurrentHashMap.newKeySet();
 	}
 
 	private UwSet() {
