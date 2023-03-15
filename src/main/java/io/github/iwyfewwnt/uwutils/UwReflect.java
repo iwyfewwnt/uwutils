@@ -47,9 +47,9 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of objects to an array of their type or return a default value.
 	 *
-	 * @param objects			array of objects to cast
-	 * @param defaultValue 		default value to return on failure
-	 * @return					array of the object types or the default value
+	 * @param objects				array of objects to cast
+	 * @param defaultValue 			default value to return on failure
+	 * @return						array of the object types or the default value
 	 */
 	public static Class<?>[] toClassArrayOrElse(Object[] objects, Class<?>[] defaultValue) {
 		if (objects == null) {
@@ -68,12 +68,12 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of objects to an array of their type or return a default value.
 	 *
-	 * @param objects		array of objects to cast
-	 * @param supplier		supplier from which get the default value
-	 * @return				array of the object types or the default value
+	 * @param objects				array of objects to cast
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						array of the object types or the default value
 	 */
-	public static Class<?>[] toClassArrayOrElse(Object[] objects, Supplier<Class<?>[]> supplier) {
-		return UwObject.getIfNull(toClassArrayOrNull(objects), supplier);
+	public static Class<?>[] toClassArrayOrElse(Object[] objects, Supplier<Class<?>[]> defaultValueSupplier) {
+		return UwObject.getIfNull(toClassArrayOrNull(objects), defaultValueSupplier);
 	}
 
 	/**
@@ -115,9 +115,9 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of types to an array of classes or return a default value.
 	 *
-	 * @param types				array of types to cast
-	 * @param defaultValue		default value to return on failure
-	 * @return					array of classes or the default value
+	 * @param types					array of types to cast
+	 * @param defaultValue			default value to return on failure
+	 * @return						array of classes or the default value
 	 */
 	public static Class<?>[] toClassArrayOrElse(Type[] types, Class<?>[] defaultValue) {
 		if (types == null) {
@@ -142,12 +142,12 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of types to an array of classes or return a default value.
 	 *
-	 * @param types			array of types to cast
-	 * @param supplier		supplier from which get the default value
-	 * @return				array of classes or the default value
+	 * @param types					array of types to cast
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						array of classes or the default value
 	 */
-	public static Class<?>[] toClassArrayOrElse(Type[] types, Supplier<Class<?>[]> supplier) {
-		return UwObject.getIfNull(toClassArrayOrNull(types), supplier);
+	public static Class<?>[] toClassArrayOrElse(Type[] types, Supplier<Class<?>[]> defaultValueSupplier) {
+		return UwObject.getIfNull(toClassArrayOrNull(types), defaultValueSupplier);
 	}
 
 	/**
@@ -253,34 +253,34 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided parameterized type or return a default value.
 	 *
-	 * @param type		parameterized type from which get the generic types
-	 * @param supplier 	supplier from which get the default value
-	 * @return			array of generic types or the default value
+	 * @param type					parameterized type from which get the generic types
+	 * @param defaultValueSupplier 	supplier from which get the default value
+	 * @return						array of generic types or the default value
 	 */
-	public static Class<?>[] getGenericTypesOrElse(ParameterizedType type, Supplier<Class<?>[]> supplier) {
-		return UwObject.getIfNull(getGenericTypesOrNull(type), supplier);
+	public static Class<?>[] getGenericTypesOrElse(ParameterizedType type, Supplier<Class<?>[]> defaultValueSupplier) {
+		return UwObject.getIfNull(getGenericTypesOrNull(type), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely get generic types of the provided type or return a default value.
 	 *
-	 * @param type		type from which get the generic types
-	 * @param supplier 	supplier from which get the default value
-	 * @return			array of generic types or the default value
+	 * @param type					type from which get the generic types
+	 * @param defaultValueSupplier 	supplier from which get the default value
+	 * @return						array of generic types or the default value
 	 */
-	public static Class<?>[] getGenericTypesOrElse(Type type, Supplier<Class<?>[]> supplier) {
-		return UwObject.getIfNull(getGenericTypesOrNull(type), supplier);
+	public static Class<?>[] getGenericTypesOrElse(Type type, Supplier<Class<?>[]> defaultValueSupplier) {
+		return UwObject.getIfNull(getGenericTypesOrNull(type), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely get generic types of the provided class or return a default value.
 	 *
-	 * @param clazz		class from which get the generic types
-	 * @param supplier 	supplier from which get the default value
-	 * @return			array of generic types or the default value
+	 * @param clazz					class from which get the generic types
+	 * @param defaultValueSupplier 	supplier from which get the default value
+	 * @return						array of generic types or the default value
 	 */
-	public static Class<?>[] getGenericTypesOrElse(Class<?> clazz, Supplier<Class<?>[]> supplier) {
-		return UwObject.getIfNull(getGenericTypesOrNull(clazz), supplier);
+	public static Class<?>[] getGenericTypesOrElse(Class<?> clazz, Supplier<Class<?>[]> defaultValueSupplier) {
+		return UwObject.getIfNull(getGenericTypesOrNull(clazz), defaultValueSupplier);
 	}
 
 	/**
@@ -392,37 +392,37 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided parameterized type by its index or return a default value.
 	 *
-	 * @param type			parameterized type from which get the generic type
-	 * @param index			index of the generic type
-	 * @param supplier		supplier from which get the default value
-	 * @return				generic type or the default value
+	 * @param type					parameterized type from which get the generic type
+	 * @param index					index of the generic type
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						generic type or the default value
 	 */
-	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Integer index, Supplier<Class<?>> supplier) {
-		return UwObject.getIfNull(getGenericTypeOrNull(type, index), supplier);
+	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Integer index, Supplier<Class<?>> defaultValueSupplier) {
+		return UwObject.getIfNull(getGenericTypeOrNull(type, index), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely get generic type of the provided type by its index or return a default value.
 	 *
-	 * @param type			type from which get the generic type
-	 * @param index			index of the generic type
-	 * @param supplier		supplier from which get the default value
-	 * @return				generic type or the default value
+	 * @param type					type from which get the generic type
+	 * @param index					index of the generic type
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						generic type or the default value
 	 */
-	public static Class<?> getGenericTypeOrElse(Type type, Integer index, Supplier<Class<?>> supplier) {
-		return UwObject.getIfNull(getGenericTypeOrNull(type, index), supplier);
+	public static Class<?> getGenericTypeOrElse(Type type, Integer index, Supplier<Class<?>> defaultValueSupplier) {
+		return UwObject.getIfNull(getGenericTypeOrNull(type, index), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely get generic type of the provided class by its index or return a default value.
 	 *
-	 * @param clazz			class from which get the generic type
-	 * @param index			index of the generic type
-	 * @param supplier		supplier from which get the default value
-	 * @return				generic type or the default value
+	 * @param clazz					class from which get the generic type
+	 * @param index					index of the generic type
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						generic type or the default value
 	 */
-	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Integer index, Supplier<Class<?>> supplier) {
-		return UwObject.getIfNull(getGenericTypeOrNull(clazz, index), supplier);
+	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Integer index, Supplier<Class<?>> defaultValueSupplier) {
+		return UwObject.getIfNull(getGenericTypeOrNull(clazz, index), defaultValueSupplier);
 	}
 
 	/**
@@ -554,12 +554,12 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Integer, Supplier)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
-	 * @param type			parameterized type from which get the generic type
-	 * @param supplier		supplier from which get the default value
-	 * @return				generic type or the default value
+	 * @param type					parameterized type from which get the generic type
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						generic type or the default value
 	 */
-	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Supplier<Class<?>> supplier) {
-		return getGenericTypeOrElse(type, 0, supplier);
+	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Supplier<Class<?>> defaultValueSupplier) {
+		return getGenericTypeOrElse(type, 0, defaultValueSupplier);
 	}
 
 	/**
@@ -568,12 +568,12 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Integer, Supplier)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
-	 * @param type			type from which get the generic type
-	 * @param supplier		supplier from which get the default value
-	 * @return				generic type or the default value
+	 * @param type					type from which get the generic type
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						generic type or the default value
 	 */
-	public static Class<?> getGenericTypeOrElse(Type type, Supplier<Class<?>> supplier) {
-		return getGenericTypeOrElse(type, 0, supplier);
+	public static Class<?> getGenericTypeOrElse(Type type, Supplier<Class<?>> defaultValueSupplier) {
+		return getGenericTypeOrElse(type, 0, defaultValueSupplier);
 	}
 
 	/**
@@ -582,12 +582,12 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Class, Integer, Supplier)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
-	 * @param clazz			class from which get the generic type
-	 * @param supplier		supplier from which get the default value
-	 * @return				generic type or the default value
+	 * @param clazz					class from which get the generic type
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						generic type or the default value
 	 */
-	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Supplier<Class<?>> supplier) {
-		return getGenericTypeOrElse(clazz, 0, supplier);
+	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Supplier<Class<?>> defaultValueSupplier) {
+		return getGenericTypeOrElse(clazz, 0, defaultValueSupplier);
 	}
 
 	/**
@@ -695,25 +695,25 @@ public final class UwReflect {
 	/**
 	 * Safely get constructor of the provided class or return a default value.
 	 *
-	 * @param clazz			class from which get the constructor
-	 * @param supplier		supplier from which get the default value
-	 * @param <T>			object type
-	 * @return				constructor or the default value
+	 * @param clazz					class from which get the constructor
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						constructor or the default value
 	 */
-	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Class<?>[] types, Supplier<Constructor<T>> supplier) {
-		return UwObject.getIfNull(getConstructorOrNull(clazz, types), supplier);
+	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Class<?>[] types, Supplier<Constructor<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(getConstructorOrNull(clazz, types), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely get default constructor of the provided class or return a default value.
 	 *
-	 * @param clazz			class from which get the constructor
-	 * @param supplier		supplier from which get the default value
-	 * @param <T>			object type
-	 * @return				constructor or the default value
+	 * @param clazz					class from which get the constructor
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						constructor or the default value
 	 */
-	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Supplier<Constructor<T>> supplier) {
-		return UwObject.getIfNull(getConstructorOrNull(clazz), supplier);
+	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Supplier<Constructor<T>> defaultValueSupplier) {
+		return UwObject.getIfNull(getConstructorOrNull(clazz), defaultValueSupplier);
 	}
 
 	/**
@@ -817,26 +817,26 @@ public final class UwReflect {
 	/**
 	 * Safely create a new instance of the provided class or return a default value.
 	 *
-	 * @param clazz			class from which create the new instance
-	 * @param arguments		array of constructor arguments
-	 * @param supplier		supplier from which get the default value
-	 * @param <T>			object type
-	 * @return				new instance or the default value
+	 * @param clazz					class from which create the new instance
+	 * @param arguments				array of constructor arguments
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						new instance or the default value
 	 */
-	public static <T> T newInstanceOrElse(Class<T> clazz, Object[] arguments, Supplier<T> supplier) {
-		return UwObject.getIfNull(newInstanceOrNull(clazz, arguments), supplier);
+	public static <T> T newInstanceOrElse(Class<T> clazz, Object[] arguments, Supplier<T> defaultValueSupplier) {
+		return UwObject.getIfNull(newInstanceOrNull(clazz, arguments), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely create a new instance of the provided class or return a default value.
 	 *
-	 * @param clazz			class from which create the new instance
-	 * @param supplier		supplier from which get the default value
-	 * @param <T>			object type
-	 * @return				new instance or the default value
+	 * @param clazz					class from which create the new instance
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						new instance or the default value
 	 */
-	public static <T> T newInstanceOrElse(Class<T> clazz, Supplier<T> supplier) {
-		return UwObject.getIfNull(newInstanceOrNull(clazz), supplier);
+	public static <T> T newInstanceOrElse(Class<T> clazz, Supplier<T> defaultValueSupplier) {
+		return UwObject.getIfNull(newInstanceOrNull(clazz), defaultValueSupplier);
 	}
 
 	/**
