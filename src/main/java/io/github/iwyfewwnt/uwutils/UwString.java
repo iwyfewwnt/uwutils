@@ -26,8 +26,6 @@ import java.util.function.Supplier;
  * <p>{@code UwString} is the utility class
  * that provide functionality to operate
  * with strings.
- *
- * @since 0.1.0
  */
 @SuppressWarnings("unused")
 public final class UwString {
