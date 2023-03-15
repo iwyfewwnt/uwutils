@@ -26,6 +26,11 @@ final class UDefault {
 	 */
 	public static final ClassLoader CLASS_LOADER = initContextClassLoader();
 
+	/**
+	 * Initialize a thread context class loader.
+	 *
+	 * @return	class loader or {@code null}
+	 */
 	private static ClassLoader initContextClassLoader() {
 		try {
 			return Thread.currentThread()
