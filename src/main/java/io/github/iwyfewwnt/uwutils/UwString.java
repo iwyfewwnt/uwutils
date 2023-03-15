@@ -143,6 +143,103 @@ public final class UwString {
 		return trimOrElse(str, diff, str);
 	}
 
+	/**
+	 * Replace specified characters in a current base w/ characters from a new base or return a default value.
+	 *
+	 * @param str				string to convert to the next character base
+	 * @param currBase			current character base the string represented in
+	 * @param nextBase			next character base to represent string in
+	 * @param defaultValue		default value to return on failure
+	 * @return					same or new string, or the default value
+	 */
+	public static String toBaseOrElse(String str, String currBase, String nextBase, String defaultValue) {
+		if (str == null || currBase == null
+				|| nextBase == null) {
+			return defaultValue;
+		}
+
+		int stringLength = str.length();
+		int currBaseLength = currBase.length();
+		int nextBaseLength = nextBase.length();
+
+		if (stringLength == 0 || currBaseLength == 0
+				|| nextBaseLength == 0) {
+			return str;
+		}
+
+		StringBuilder sb = new StringBuilder(stringLength);
+
+		for (int i = 0; i < stringLength; i++) {
+			int idx = currBase.indexOf(str.charAt(i));
+
+			if (idx == -1) {
+				return defaultValue;
+			}
+
+			sb.append(nextBase.charAt(idx % nextBaseLength));
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * Replace specified characters in a current base w/ characters from a new base or return a default value.
+	 *
+	 * @param str					string to convert to the next character base
+	 * @param currBase				current character base the string represented in
+	 * @param nextBase				next character base to represent string in
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						same or new string, or the default value
+	 */
+	public static String toBaseOrElse(String str, String currBase, String nextBase, Supplier<String> defaultValueSupplier) {
+		return UwObject.getIfNull(toBaseOrNull(str, currBase, nextBase), defaultValueSupplier);
+	}
+
+	/**
+	 * Replace specified characters in a current base w/ characters from a new base or return an empty string.
+	 *
+	 * <p>Wraps {@link UwString#toBaseOrElse(String, String, String, String)}
+	 * w/ {@link UwString#EMPTY} as the default value.
+	 *
+	 * @param str				string to convert to the next character base
+	 * @param currBase			current character base the string represented in
+	 * @param nextBase			next character base to represent string in
+	 * @return					same or new string, or the empty one
+	 */
+	public static String toBaseOrEmpty(String str, String currBase, String nextBase) {
+		return toBaseOrElse(str, currBase, nextBase, EMPTY);
+	}
+
+	/**
+	 * Replace specified characters in a current base w/ characters from a new base or return {@code null}.
+	 *
+	 * <p>Wraps {@link UwString#toBaseOrElse(String, String, String, String)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param str				string to convert to the next character base
+	 * @param currBase			current character base the string represented in
+	 * @param nextBase			next character base to represent string in
+	 * @return					same or new string, or {@code null}
+	 */
+	public static String toBaseOrNull(String str, String currBase, String nextBase) {
+		return toBaseOrElse(str, currBase, nextBase, (String) null);
+	}
+
+	/**
+	 * Replace specified characters in a current base w/ characters from a new base or return the same string.
+	 *
+	 * <p>Wraps {@link UwString#toBaseOrElse(String, String, String, String)}
+	 * w/ 1st argument as the default value.
+	 *
+	 * @param str				string to convert to the next character base
+	 * @param currBase			current character base the string represented in
+	 * @param nextBase			next character base to represent string in
+	 * @return					same or new string
+	 */
+	public static String toBaseOrSelf(String str, String currBase, String nextBase) {
+		return toBaseOrElse(str, currBase, nextBase, str);
+	}
+
 	private UwString() {
 		throw new UnsupportedOperationException();
 	}
