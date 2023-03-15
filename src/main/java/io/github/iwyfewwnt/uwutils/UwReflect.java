@@ -224,8 +224,9 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided type or return a default value.
 	 *
-	 * @param type		type from which get the generic types
-	 * @return			array of generic types or the default value
+	 * @param type			type from which get the generic types
+	 * @param defaultValue	default value to return on failure
+	 * @return				array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(Type type, Class<?>[] defaultValue) {
 		if (type instanceof ParameterizedType) {
@@ -238,8 +239,9 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided class or return a default value.
 	 *
-	 * @param clazz		class from which get the generic types
-	 * @return			array of generic types or the default value
+	 * @param clazz			class from which get the generic types
+	 * @param defaultValue	default value to return on failure
+	 * @return				array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(Class<?> clazz, Class<?>[] defaultValue) {
 		if (clazz == null) {
@@ -370,9 +372,10 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided type by its index or return a default value.
 	 *
-	 * @param type		type from which get the generic type
-	 * @param index		index of the generic type
-	 * @return			generic type or the default value
+	 * @param type			type from which get the generic type
+	 * @param index			index of the generic type
+	 * @param defaultValue	default value to return on failure
+	 * @return				generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(Type type, Integer index, Class<?> defaultValue) {
 		return UwArray.getOrElse(index, getGenericTypesOrNull(type), defaultValue);
@@ -381,9 +384,10 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided class by its index or return a default value.
 	 *
-	 * @param clazz		class from which get the generic type
-	 * @param index		index of the generic type
-	 * @return			generic type or the default value
+	 * @param clazz			class from which get the generic type
+	 * @param index			index of the generic type
+	 * @param defaultValue	default value to return on failure
+	 * @return				generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Integer index, Class<?> defaultValue) {
 		return UwArray.getOrElse(index, getGenericTypesOrNull(clazz), defaultValue);
@@ -696,6 +700,7 @@ public final class UwReflect {
 	 * Safely get constructor of the provided class or return a default value.
 	 *
 	 * @param clazz					class from which get the constructor
+	 * @param types					array of constructor argument types
 	 * @param defaultValueSupplier	supplier from which get the default value
 	 * @param <T>					object type
 	 * @return						constructor or the default value

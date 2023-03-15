@@ -985,7 +985,7 @@ public final class UwMap {
 	 *
 	 * <p>Creates a fresh map instance from the provided create map supplier
 	 * and wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
-	 * w/ that map as the map & default value arguments.
+	 * w/ that map as the map {@literal &} default value arguments.
 	 *
 	 * @param getter				supplier for getting an entry's field
 	 * @param entries				iterator of entries
