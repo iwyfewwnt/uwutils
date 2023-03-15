@@ -37,7 +37,7 @@ public final class UwObject {
 	 * @param defaultValue		default value to return on failure
 	 * @param <T>				argument type
 	 * @param <R>				return type
-	 * @return					result of the function applying or default value
+	 * @return					result of the function applying or the default value
 	 */
 	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, R defaultValue) {
 		if (object == null || function == null) {
@@ -50,15 +50,15 @@ public final class UwObject {
 	/**
 	 * Safely apply argument to the specified function if argument isn't {@code null} or return a default value.
 	 *
-	 * @param object		argument to apply
-	 * @param function		function to which apply argument
-	 * @param supplier		supplier from which get the default value
-	 * @param <T>			argument type
-	 * @param <R>			return type
-	 * @return				result of the function applying or default value
+	 * @param object				argument to apply
+	 * @param function				function to which apply argument
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					argument type
+	 * @param <R>					return type
+	 * @return						result of the function applying or the default value
 	 */
-	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, Supplier<R> supplier) {
-		return getIfNull(applyIfNotNull(object, function), supplier);
+	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, Supplier<R> defaultValueSupplier) {
+		return getIfNull(applyIfNotNull(object, function), defaultValueSupplier);
 	}
 
 	/**
@@ -80,15 +80,15 @@ public final class UwObject {
 	/**
 	 * Get a default value if the specified object is {@code null}.
 	 *
-	 * @param object		object value to null-check
-	 * @param defaultValue	default value to return on failure
-	 * @param <T>			object type
-	 * @return				default value if object is {@code null}
-	 * 						else the object
+	 * @param object	object value to null-check
+	 * @param value		default value to return on failure
+	 * @param <T>		object type
+	 * @return			default value if object is {@code null}
+	 * 					else the object
 	 */
-	public static <T> T getIfNull(T object, T defaultValue) {
+	public static <T> T getIfNull(T object, T value) {
 		if (object == null) {
-			return defaultValue;
+			return value;
 		}
 
 		return object;
