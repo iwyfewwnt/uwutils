@@ -18,6 +18,8 @@ package io.github.iwyfewwnt.uwutils;
 
 //import io.vavr.control.Option;
 
+import java.util.function.Supplier;
+
 /**
  * A string utility.
  *
@@ -47,7 +49,7 @@ public final class UwString {
 //	}
 
 	/**
-	 * Safely trim the specified number of characters at the beginning and end of string or return default value.
+	 * Safely trim the specified number of characters at the beginning and end of string or return a default value.
 	 *
 	 * @param str				string to trim
 	 * @param diff				number of characters to trim
@@ -88,6 +90,18 @@ public final class UwString {
 	}
 
 	/**
+	 * Safely trim the specified number of characters at the beginning and end of string or return a default value.
+	 *
+	 * @param str					string to trim
+	 * @param diff					number of characters to trim
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						default value, empty or trimmed string
+	 */
+	public static String trimOrElse(String str, Integer diff, Supplier<String> defaultValueSupplier) {
+		return UwObject.getIfNull(trimOrNull(str, diff), defaultValueSupplier);
+	}
+
+	/**
 	 * Safely trim the specified number of characters at the beginning and end of string or return an empty one.
 	 *
 	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
@@ -112,7 +126,7 @@ public final class UwString {
 	 * @return			{@code null}, empty or trimmed string
 	 */
 	public static String trimOrNull(String str, Integer diff) {
-		return trimOrElse(str, diff, null);
+		return trimOrElse(str, diff, (String) null);
 	}
 
 	/**
