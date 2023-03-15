@@ -35,13 +35,13 @@ public final class UwEnum {
 	private static final Map<Class<Enum<?>>, Object[]> VALUES_CACHE = new HashMap<>();
 
 	/**
-	 * Get enum constants for the provided enum class.
+	 * Get an array of enum constants for the provided enum class.
 	 *
 	 * <p>Prevents values cloning by caching them in the map.
 	 *
 	 * @param clazz		enum class
 	 * @param <T>		enum type
-	 * @return			enum constants
+	 * @return			array of enum constants
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Enum<T>> T[] values(Class<T> clazz) {
