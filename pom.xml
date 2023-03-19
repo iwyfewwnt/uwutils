@@ -9,7 +9,7 @@
     <version>0.2.0-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>Safe common utilities w/ Java 8+ support</description>
+    <description>Safe &amp; exception-free library for common utilities w/ Java 8+ support</description>
     <url>https://github.com/iwyfewwnt/uwutils</url>
 
     <licenses>
