@@ -322,7 +322,7 @@ public final class UwSystem {
 			Boolean isEnabled = UwMap.getOrNull(thread, this.isEnabledMap);
 
 			if (isEnabled == null) {
-				this.setEnabled(thread, (isEnabled = true));
+				this.setIsEnabled(thread, (isEnabled = true));
 			}
 
 			return isEnabled;
@@ -348,7 +348,7 @@ public final class UwSystem {
 		 * @param thread	thread to enable the stream for
 		 */
 		public void enable(Thread thread) {
-			this.setEnabled(thread, true);
+			this.setIsEnabled(thread, true);
 		}
 
 		/**
@@ -391,7 +391,7 @@ public final class UwSystem {
 		 * @param thread	thread to disable the stream for
 		 */
 		public void disable(Thread thread) {
-			this.setEnabled(thread, false);
+			this.setIsEnabled(thread, false);
 		}
 
 		/**
@@ -434,7 +434,7 @@ public final class UwSystem {
 		 * @param thread		thread to set the value for
 		 * @param isEnabled		value to set to the thread
 		 */
-		private void setEnabled(Thread thread, boolean isEnabled) {
+		private void setIsEnabled(Thread thread, boolean isEnabled) {
 			this.isEnabledMap.put(UwObject.getIfNull(thread, Thread.currentThread()), isEnabled);
 		}
 
@@ -472,7 +472,7 @@ public final class UwSystem {
 				throwableConsumer0.accept(throwable);
 			}
 
-			this.setEnabled(thread, prevIsEnabled);
+			this.setIsEnabled(thread, prevIsEnabled);
 
 			if (throwable != null && throwableConsumer1 != null) {
 				throwableConsumer1.accept(throwable);
