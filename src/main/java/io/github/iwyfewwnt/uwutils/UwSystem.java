@@ -268,6 +268,26 @@ public final class UwSystem {
 	}
 
 	/**
+	 * Change the error stream state for the provided thread.
+	 *
+	 * @param thread		thread to set the value for
+	 * @param isEnabled		value to set to the thread
+	 */
+	private static void setIsErrorPrintEnabled(Thread thread, boolean isEnabled) {
+		ERR_STREAM.setIsEnabled(thread, isEnabled);
+	}
+
+	/**
+	 * Change the output stream state for the provided thread.
+	 *
+	 * @param thread		thread to set the value for
+	 * @param isEnabled		value to set to the thread
+	 */
+	private static void setIsOutputPrintEnabled(Thread thread, boolean isEnabled) {
+		OUT_STREAM.setIsEnabled(thread, isEnabled);
+	}
+
+	/**
 	 * A parallel output stream.
 	 */
 	private static final class ParallelOutputStream extends OutputStream {
@@ -362,7 +382,7 @@ public final class UwSystem {
 		 * @param runnable 	runnable to run after the switch
 		 */
 		public void enable(Thread thread, Runnable runnable) {
-			this.suppress(runnable, this::enable, Throwable::printStackTrace, null, thread);
+			this.suppress(thread, runnable, this::enable);
 		}
 
 		/**
@@ -405,7 +425,7 @@ public final class UwSystem {
 		 * @param runnable 	runnable to run after the switch
 		 */
 		public void disable(Thread thread, Runnable runnable) {
-			this.suppress(runnable, this::disable, null, Throwable::printStackTrace, thread);
+			this.suppress(thread, runnable, this::disable);
 		}
 
 		/**
@@ -429,7 +449,7 @@ public final class UwSystem {
 		}
 
 		/**
-		 * Change the state for the provided thread.
+		 * Change this stream state for the provided thread.
 		 *
 		 * @param thread		thread to set the value for
 		 * @param isEnabled		value to set to the thread
@@ -441,20 +461,18 @@ public final class UwSystem {
 		/**
 		 * Suppress the current thread state to execute the provided runnable.
 		 *
+		 * @param thread				thread to pass to the consumer
 		 * @param runnable				runnable to run after suppression
 		 * @param threadConsumer		thread consumer to call before running the runnable
-		 * @param throwableConsumer0	throwable consumer to call before changing the state back
-		 * @param throwableConsumer1	throwable consumer to call after changing the state back
-		 * @param thread				thread to pass to the consumer
 		 */
-		private void suppress(Runnable runnable, Consumer<Thread> threadConsumer, Consumer<Throwable> throwableConsumer0, Consumer<Throwable> throwableConsumer1, Thread thread) {
+		private void suppress(Thread thread, Runnable runnable, Consumer<Thread> threadConsumer) {
 			if (runnable == null) {
 				return;
 			}
 
 			thread = UwObject.getIfNull(thread, Thread.currentThread());
 
-			boolean prevIsEnabled = this.isEnabled(thread);
+			boolean isEnabled = this.isEnabled(thread);
 
 			if (threadConsumer != null) {
 				threadConsumer.accept(thread);
@@ -468,15 +486,18 @@ public final class UwSystem {
 				throwable = e;
 			}
 
-			if (throwable != null && throwableConsumer0 != null) {
-				throwableConsumer0.accept(throwable);
+			if (throwable != null) {
+				boolean isErrorPrintEnabled = UwSystem.isErrorPrintEnabled(thread);
+				if (!isErrorPrintEnabled) {
+					UwSystem.enableErrorPrint(thread);
+				}
+
+				throwable.printStackTrace();
+
+				UwSystem.setIsErrorPrintEnabled(thread, isErrorPrintEnabled);
 			}
 
-			this.setIsEnabled(thread, prevIsEnabled);
-
-			if (throwable != null && throwableConsumer1 != null) {
-				throwableConsumer1.accept(throwable);
-			}
+			this.setIsEnabled(thread, isEnabled);
 		}
 	}
 }
