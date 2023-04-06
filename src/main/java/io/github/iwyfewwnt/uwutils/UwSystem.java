@@ -169,6 +169,8 @@ public final class UwSystem {
 	 *
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R enableErrorPrint(Thread thread, Callable<R> callable) {
@@ -190,6 +192,8 @@ public final class UwSystem {
 	 * finishing the run.
 	 *
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R enableErrorPrint(Callable<R> callable) {
@@ -214,6 +218,8 @@ public final class UwSystem {
 	 *
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R disableErrorPrint(Thread thread, Callable<R> callable) {
@@ -235,6 +241,8 @@ public final class UwSystem {
 	 * finishing the run.
 	 *
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R disableErrorPrint(Callable<R> callable) {
@@ -280,6 +288,8 @@ public final class UwSystem {
 	 *
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R enableOutputPrint(Thread thread, Callable<R> callable) {
@@ -301,6 +311,8 @@ public final class UwSystem {
 	 * finishing the run.
 	 *
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R enableOutputPrint(Callable<R> callable) {
@@ -325,6 +337,8 @@ public final class UwSystem {
 	 *
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R disableOutputPrint(Thread thread, Callable<R> callable) {
@@ -346,6 +360,8 @@ public final class UwSystem {
 	 * finishing the run.
 	 *
 	 * @param callable 	callable to call after the switch
+	 * @param <R> 		return type
+	 * @return 			return value of the callable call
 	 */
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R disableOutputPrint(Callable<R> callable) {
