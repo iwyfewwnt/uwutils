@@ -59,74 +59,129 @@ public final class UwSystem {
 	/**
 	 * A system output stream backup map.
 	 */
-	private static final Map<PrintStream, Stack<PrintStream>> BACKUP_MAP = new ConcurrentHashMap<>();
+	private static final Map<PrintStream, Stack<Object[]>> BACKUP_MAP = new ConcurrentHashMap<>();
 
 	/**
 	 * Setup parallel error output stream for the system.
+	 *
+	 * @param thread	thread to set up the stream for
+	 */
+	public static void setupParallelErrorPrint(Thread thread) {
+		setupPrint(thread, UwSystem.err, System.err, System::setErr, ERR_STREAM);
+	}
+
+	/**
+	 * Setup parallel error output stream for the system.
+	 *
+	 * <p>Wraps {@link UwSystem#setupParallelErrorPrint(Thread)}
+	 * w/ {@code null} as the thread.
 	 */
 	public static void setupParallelErrorPrint() {
-		setupPrint(UwSystem.err, System.err, System::setErr);
+		setupParallelErrorPrint(null);
 	}
 
 	/**
 	 * Backup the error system output stream.
+	 *
+	 * @param thread	thread to back up the stream for
+	 */
+	public static void backupSystemErrorPrint(Thread thread) {
+		backupPrint(thread, UwSystem.err, System::setErr, ERR_STREAM);
+	}
+
+	/**
+	 * Backup the error system output stream.
+	 *
+	 * <p>Wraps {@link UwSystem#backupSystemErrorPrint(Thread)}
+	 * w/ {@code null} as the thread.
 	 */
 	public static void backupSystemErrorPrint() {
-		backupPrint(UwSystem.err, System::setErr);
+		backupSystemErrorPrint(null);
 	}
 
 	/**
 	 * Setup parallel standard output stream for the system.
+	 *
+	 * @param thread	thread to set up the stream for
+	 */
+	public static void setupParallelOutputPrint(Thread thread) {
+		setupPrint(thread, UwSystem.out, System.out, System::setOut, OUT_STREAM);
+	}
+
+	/**
+	 * Setup parallel standard output stream for the system.
+	 *
+	 * <p>Wraps {@link UwSystem#setupParallelErrorPrint(Thread)}
+	 * w/ {@code null} as the thread.
 	 */
 	public static void setupParallelOutputPrint() {
-		setupPrint(UwSystem.out, System.out, System::setOut);
+		setupParallelOutputPrint(null);
 	}
 
 	/**
 	 * Backup the standard system output stream.
+	 *
+	 * @param thread	thread to back up the stream for
+	 */
+	public static void backupSystemOutputPrint(Thread thread) {
+		backupPrint(thread, UwSystem.out, System::setOut, OUT_STREAM);
+	}
+
+	/**
+	 * Backup the standard system output stream.
+	 *
+	 * <p>Wraps {@link UwSystem#backupSystemOutputPrint(Thread)}
+	 * w/ {@code null} as the thread.
 	 */
 	public static void backupSystemOutputPrint() {
-		backupPrint(UwSystem.out, System::setOut);
+		backupSystemOutputPrint(null);
 	}
 
 	/**
 	 * Set up the provided print stream for the system.
 	 *
+	 * @param thread 	thread to set up the stream for
 	 * @param key		print stream to set up system for
 	 * @param backup	system print stream to backup
 	 * @param consumer	consumer that sets up the print stream
+	 * @param out 		parallel output stream associated w/ the key
 	 */
-	private static void setupPrint(PrintStream key, PrintStream backup, Consumer<PrintStream> consumer) {
+	private static void setupPrint(Thread thread, PrintStream key, PrintStream backup, Consumer<PrintStream> consumer, ParallelOutputStream out) {
 		if (key == null || backup == null
 				|| consumer == null) {
 			return;
 		}
 
-		Stack<PrintStream> stack
-				= BACKUP_MAP.computeIfAbsent(key, k -> new Stack<>());
+		Stack<Object[]> stack
+				= BACKUP_MAP.computeIfAbsent(key, $ -> new Stack<>());
 
-		stack.push(backup);
+		stack.push(new Object[] { backup, out.isEnabled(thread) });
 		consumer.accept(key);
 	}
 
 	/**
 	 * Backup the system print stream.
 	 *
+	 * @param thread	thread to back up the stream for
 	 * @param key		print stream that was set before
 	 * @param consumer	consumer that sets up the print stream
+	 * @param out 		parallel output stream associated w/ the key
 	 */
-	private static void backupPrint(PrintStream key, Consumer<PrintStream> consumer) {
+	private static void backupPrint(Thread thread, PrintStream key, Consumer<PrintStream> consumer, ParallelOutputStream out) {
 		if (key == null
 				|| consumer == null) {
 			return;
 		}
 
-		Stack<PrintStream> stack = BACKUP_MAP.get(key);
+		Stack<Object[]> stack = BACKUP_MAP.get(key);
 		if (stack == null || stack.isEmpty()) {
 			return;
 		}
 
-		consumer.accept(stack.pop());
+		Object[] objs = stack.pop();
+
+		consumer.accept((PrintStream) objs[0]);
+		out.setEnabled(thread, (boolean) objs[1]);
 	}
 
 	/**
@@ -404,7 +459,7 @@ public final class UwSystem {
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * @param thread				thread to enable the stream for
+	 * @param thread				thread to suppress the stream for
 	 * @param callable 				callable to call after the switch
 	 * @param backupPrintStream 	current print stream to switch from
 	 * @param localPrintStream		new print stream to switch to
@@ -422,11 +477,8 @@ public final class UwSystem {
 			return null;
 		}
 
-		thread = UwObject.getIfNull(thread, Thread.currentThread());
+		setupPrint(thread, localPrintStream, backupPrintStream, printStreamConsumer, outputStream);
 
-		setupPrint(localPrintStream, backupPrintStream, printStreamConsumer);
-
-		boolean isEnabled = outputStream.isEnabled(thread);
 		outputStreamConsumer.accept(outputStream, thread);
 
 		R returnValue = null;
@@ -438,8 +490,7 @@ public final class UwSystem {
 			throwable = e;
 		}
 
-		backupPrint(localPrintStream, printStreamConsumer);
-		outputStream.setIsEnabled(thread, isEnabled);
+		backupPrint(thread, localPrintStream, printStreamConsumer, outputStream);
 
 		if (throwable != null) {
 			throwable.printStackTrace();
@@ -500,10 +551,12 @@ public final class UwSystem {
 		 * 					or {@code false} if disabled
 		 */
 		public boolean isEnabled(Thread thread) {
+			thread = UwObject.getIfNull(thread, Thread.currentThread());
+
 			Boolean isEnabled = UwMap.getOrNull(thread, this.isEnabledMap);
 
 			if (isEnabled == null) {
-				this.setIsEnabled(thread, (isEnabled = true));
+				this.setEnabled(thread, (isEnabled = true));
 			}
 
 			return isEnabled;
@@ -513,14 +566,14 @@ public final class UwSystem {
 		 * Check if this output stream is enabled for the current thread.
 		 *
 		 * <p>Wraps {@link ParallelOutputStream#isEnabled(Thread)}
-		 * w/ {@link Thread#currentThread()}.
+		 * w/ {@code null} as the thread.
 		 *
 		 * @return	{@code true} if enabled
 		 * 			or {@code false} if disabled
 		 */
 		@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 		public boolean isEnabled() {
-			return this.isEnabled(Thread.currentThread());
+			return this.isEnabled(null);
 		}
 
 		/**
@@ -529,11 +582,14 @@ public final class UwSystem {
 		 * @param thread	thread to enable the stream for
 		 */
 		public void enable(Thread thread) {
-			this.setIsEnabled(thread, true);
+			this.setEnabled(thread, true);
 		}
 
 		/**
 		 * Enable this output stream for the current thread.
+		 *
+		 * <p>Wraps {@link ParallelOutputStream#enable(Thread)}
+		 * w/ {@code null} as the thread.
 		 */
 		public void enable() {
 			this.enable(null);
@@ -545,11 +601,14 @@ public final class UwSystem {
 		 * @param thread	thread to disable the stream for
 		 */
 		public void disable(Thread thread) {
-			this.setIsEnabled(thread, false);
+			this.setEnabled(thread, false);
 		}
 
 		/**
 		 * Disable this output stream for the current thread.
+		 *
+		 * <p>Wraps {@link ParallelOutputStream#disable(Thread)}
+		 * w/ {@code null} as the thread.
 		 */
 		public void disable() {
 			this.disable(null);
@@ -561,8 +620,22 @@ public final class UwSystem {
 		 * @param thread		thread to set the value for
 		 * @param isEnabled		value to set to the thread
 		 */
-		private void setIsEnabled(Thread thread, boolean isEnabled) {
-			this.isEnabledMap.put(UwObject.getIfNull(thread, Thread.currentThread()), isEnabled);
+		private void setEnabled(Thread thread, boolean isEnabled) {
+			thread = UwObject.getIfNull(thread, Thread.currentThread());
+
+			this.isEnabledMap.put(thread, isEnabled);
+		}
+
+		/**
+		 * Change this stream state for the current thread.
+		 *
+		 * <p>Wraps {@link ParallelOutputStream#setEnabled(Thread, boolean)}
+		 * w/ {@code null} as the thread.
+		 *
+		 * @param isEnabled		value to set to the thread
+		 */
+		private void setEnabled(boolean isEnabled) {
+			setEnabled(null, isEnabled);
 		}
 	}
 }
