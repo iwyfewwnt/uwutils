@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -94,7 +95,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void enableErrorPrint(Thread thread, Runnable runnable) {
-		ERR_STREAM.enable(thread, runnable);
+		suppressErrorPrint(thread, runnable, ParallelOutputStream::enable);
 	}
 
 	/**
@@ -114,7 +115,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void enableErrorPrint(Runnable runnable) {
-		ERR_STREAM.enable(runnable);
+		enableErrorPrint(null, runnable);
 	}
 
 	/**
@@ -137,7 +138,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void disableErrorPrint(Thread thread, Runnable runnable) {
-		ERR_STREAM.disable(thread, runnable);
+		suppressErrorPrint(thread, runnable, ParallelOutputStream::disable);
 	}
 
 	/**
@@ -157,7 +158,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void disableErrorPrint(Runnable runnable) {
-		ERR_STREAM.disable(runnable);
+		disableErrorPrint(null, runnable);
 	}
 
 	/**
@@ -201,7 +202,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void enableOutputPrint(Thread thread, Runnable runnable) {
-		OUT_STREAM.enable(thread, runnable);
+		suppressOutputPrint(thread, runnable, ParallelOutputStream::enable);
 	}
 
 	/**
@@ -221,7 +222,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void enableOutputPrint(Runnable runnable) {
-		OUT_STREAM.enable(runnable);
+		enableOutputPrint(null, runnable);
 	}
 
 	/**
@@ -244,7 +245,7 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void disableOutputPrint(Thread thread, Runnable runnable) {
-		OUT_STREAM.disable(thread, runnable);
+		suppressOutputPrint(thread, runnable, ParallelOutputStream::disable);
 	}
 
 	/**
@@ -264,27 +265,91 @@ public final class UwSystem {
 	 * @param runnable 	runnable to run after the switch
 	 */
 	public static void disableOutputPrint(Runnable runnable) {
-		OUT_STREAM.disable(runnable);
+		disableOutputPrint(null, runnable);
 	}
 
 	/**
-	 * Change the error stream state for the provided thread.
+	 * Suppress the error output stream for the provided thread.
 	 *
-	 * @param thread		thread to set the value for
-	 * @param isEnabled		value to set to the thread
+	 * <p>Runs the provided runnable after calling a state switch
+	 * method for the thread stream and backups an initial stream
+	 * state after finishing the run.
+	 *
+	 * <p>Synchronizes the {@link UwSystem#suppress(Thread, Runnable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
+	 * method call on the {@link System#err} object.
+	 *
+	 * @param thread	thread to enable the stream for
+	 * @param runnable 	runnable to run after the switch
+	 * @param consumer 	reference to the state switch method
 	 */
-	private static void setIsErrorPrintEnabled(Thread thread, boolean isEnabled) {
-		ERR_STREAM.setIsEnabled(thread, isEnabled);
+	private static void suppressErrorPrint(Thread thread, Runnable runnable, BiConsumer<ParallelOutputStream, Thread> consumer) {
+		suppress(thread, runnable, System.err, UwSystem.err, System::setErr, ERR_STREAM, consumer);
 	}
 
 	/**
-	 * Change the output stream state for the provided thread.
+	 * Suppress the standard output stream for the provided thread.
 	 *
-	 * @param thread		thread to set the value for
-	 * @param isEnabled		value to set to the thread
+	 * <p>Runs the provided runnable after calling a state switch
+	 * method for the thread stream and backups an initial stream
+	 * state after finishing the run.
+	 *
+	 * <p>Synchronizes {@link UwSystem#suppress(Thread, Runnable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
+	 * method on the {@link System#err} object.
+	 *
+	 * @param thread	thread to enable the stream for
+	 * @param runnable 	runnable to run after the switch
+	 * @param consumer 	reference to the state switch method
 	 */
-	private static void setIsOutputPrintEnabled(Thread thread, boolean isEnabled) {
-		OUT_STREAM.setIsEnabled(thread, isEnabled);
+	private static void suppressOutputPrint(Thread thread, Runnable runnable, BiConsumer<ParallelOutputStream, Thread> consumer) {
+		suppress(thread, runnable, System.out, UwSystem.out, System::setOut, OUT_STREAM, consumer);
+	}
+
+	/**
+	 * Suppress the provided output stream for the provided thread.
+	 *
+	 * <p>Runs the provided runnable after calling a state switch
+	 * method for the thread stream and backups an initial stream
+	 * state after finishing the run.
+	 *
+	 * @param thread				thread to enable the stream for
+	 * @param runnable 				runnable to run after the switch
+	 * @param backupPrintStream 	current print stream to switch from
+	 * @param localPrintStream		new print stream to switch to
+	 * @param printStreamConsumer	reference to the system state switch method
+	 * @param outputStream			parallel output stream to switch the state for
+	 * @param outputStreamConsumer	reference to the output stream state switch method
+	 */
+	private static void suppress(Thread thread, Runnable runnable, PrintStream backupPrintStream, PrintStream localPrintStream, Consumer<PrintStream> printStreamConsumer, ParallelOutputStream outputStream, BiConsumer<ParallelOutputStream, Thread> outputStreamConsumer) {
+		if (runnable == null
+				|| backupPrintStream == null
+				|| localPrintStream == null
+				|| printStreamConsumer == null
+				|| outputStream == null
+				|| outputStreamConsumer == null) {
+			return;
+		}
+
+		thread = UwObject.getIfNull(thread, Thread.currentThread());
+
+		printStreamConsumer.accept(localPrintStream);
+
+		boolean isEnabled = outputStream.isEnabled(thread);
+		outputStreamConsumer.accept(outputStream, thread);
+
+		Throwable throwable = null;
+
+		try {
+			runnable.run();
+		} catch (Throwable e) {
+			throwable = e;
+		}
+
+		printStreamConsumer.accept(backupPrintStream);
+		outputStream.setIsEnabled(thread, isEnabled);
+
+		if (throwable != null) {
+			throwable.printStackTrace();
+		}
 	}
 
 	/**
@@ -372,37 +437,10 @@ public final class UwSystem {
 		}
 
 		/**
-		 * Enable this output stream for the provided thread.
-		 *
-		 * <p>Runs the provided runnable after enabling the stream
-		 * for the thread and backups an initial stream state after
-		 * finishing the run.
-		 *
-		 * @param thread	thread to enable the stream for
-		 * @param runnable 	runnable to run after the switch
-		 */
-		public void enable(Thread thread, Runnable runnable) {
-			this.suppress(thread, runnable, this::enable);
-		}
-
-		/**
 		 * Enable this output stream for the current thread.
 		 */
 		public void enable() {
 			this.enable(null);
-		}
-
-		/**
-		 * Enable this output stream for the current thread.
-		 *
-		 * <p>Runs the provided runnable after enabling the stream
-		 * for the thread and backups an initial stream state after
-		 * finishing the run.
-		 *
-		 * @param runnable 	runnable to run after the switch
-		 */
-		public void enable(Runnable runnable) {
-			this.enable(null, runnable);
 		}
 
 		/**
@@ -415,37 +453,10 @@ public final class UwSystem {
 		}
 
 		/**
-		 * Disable this output stream for the provided thread.
-		 *
-		 * <p>Runs the provided runnable after disabling the stream
-		 * for the thread and backups an initial stream state after
-		 * finishing the run.
-		 *
-		 * @param thread	thread to enable the stream for
-		 * @param runnable 	runnable to run after the switch
-		 */
-		public void disable(Thread thread, Runnable runnable) {
-			this.suppress(thread, runnable, this::disable);
-		}
-
-		/**
 		 * Disable this output stream for the current thread.
 		 */
 		public void disable() {
 			this.disable(null);
-		}
-
-		/**
-		 * Disable this output stream for the current thread.
-		 *
-		 * <p>Runs the provided runnable after disabling the stream
-		 * for the thread and backups an initial stream state after
-		 * finishing the run.
-		 *
-		 * @param runnable 	runnable to run after the switch
-		 */
-		public void disable(Runnable runnable) {
-			this.disable(null, runnable);
 		}
 
 		/**
@@ -456,48 +467,6 @@ public final class UwSystem {
 		 */
 		private void setIsEnabled(Thread thread, boolean isEnabled) {
 			this.isEnabledMap.put(UwObject.getIfNull(thread, Thread.currentThread()), isEnabled);
-		}
-
-		/**
-		 * Suppress the current thread state to execute the provided runnable.
-		 *
-		 * @param thread				thread to pass to the consumer
-		 * @param runnable				runnable to run after suppression
-		 * @param threadConsumer		thread consumer to call before running the runnable
-		 */
-		private void suppress(Thread thread, Runnable runnable, Consumer<Thread> threadConsumer) {
-			if (runnable == null) {
-				return;
-			}
-
-			thread = UwObject.getIfNull(thread, Thread.currentThread());
-
-			boolean isEnabled = this.isEnabled(thread);
-
-			if (threadConsumer != null) {
-				threadConsumer.accept(thread);
-			}
-
-			Throwable throwable = null;
-
-			try {
-				runnable.run();
-			} catch (Throwable e) {
-				throwable = e;
-			}
-
-			if (throwable != null) {
-				boolean isErrorPrintEnabled = UwSystem.isErrorPrintEnabled(thread);
-				if (!isErrorPrintEnabled) {
-					UwSystem.enableErrorPrint(thread);
-				}
-
-				throwable.printStackTrace();
-
-				UwSystem.setIsErrorPrintEnabled(thread, isErrorPrintEnabled);
-			}
-
-			this.setIsEnabled(thread, isEnabled);
 		}
 	}
 }
