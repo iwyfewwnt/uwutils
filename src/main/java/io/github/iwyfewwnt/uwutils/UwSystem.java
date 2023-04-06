@@ -57,17 +57,12 @@ public final class UwSystem {
 	public static final PrintStream out = new PrintStream(OUT_STREAM);
 
 	/**
-	 * A system output stream backup map.
-	 */
-	private static final Map<PrintStream, Map<Thread, Stack<Object[]>>> BACKUP_MAP = new ConcurrentHashMap<>();
-
-	/**
 	 * Setup parallel error output stream for the system.
 	 *
 	 * @param thread	thread to set up the stream for
 	 */
 	public static void setupParallelErrorPrint(Thread thread) {
-		setupPrint(thread, UwSystem.err, System.err, System::setErr, ERR_STREAM);
+		setupPrint(thread, ERR_STREAM, System.err, UwSystem.err, System::setErr);
 	}
 
 	/**
@@ -86,7 +81,7 @@ public final class UwSystem {
 	 * @param thread	thread to back up the stream for
 	 */
 	public static void backupSystemErrorPrint(Thread thread) {
-		backupPrint(thread, UwSystem.err, System::setErr, ERR_STREAM);
+		backupPrint(thread, ERR_STREAM, System::setErr);
 	}
 
 	/**
@@ -105,7 +100,7 @@ public final class UwSystem {
 	 * @param thread	thread to set up the stream for
 	 */
 	public static void setupParallelOutputPrint(Thread thread) {
-		setupPrint(thread, UwSystem.out, System.out, System::setOut, OUT_STREAM);
+		setupPrint(thread, OUT_STREAM, System.out, UwSystem.out, System::setOut);
 	}
 
 	/**
@@ -124,7 +119,7 @@ public final class UwSystem {
 	 * @param thread	thread to back up the stream for
 	 */
 	public static void backupSystemOutputPrint(Thread thread) {
-		backupPrint(thread, UwSystem.out, System::setOut, OUT_STREAM);
+		backupPrint(thread, OUT_STREAM, System::setOut);
 	}
 
 	/**
@@ -138,63 +133,52 @@ public final class UwSystem {
 	}
 
 	/**
-	 * Set up the provided print stream for the system.
+	 * Set up a new print stream context for the provided thread.
 	 *
-	 * @param thread 	thread to set up the stream for
-	 * @param key		print stream to set up system for
-	 * @param backup	system print stream to backup
-	 * @param consumer	consumer that sets up the print stream
-	 * @param out 		parallel output stream associated w/ the key
+	 * @param thread					thread to set up the context for
+	 * @param parallelOutputStream		parallel output stream to switch the context for
+	 * @param currPrintStream 			current print stream to switch from
+	 * @param nextPrintStream			next print stream to switch to
+	 * @param nextPrintStreamConsumer   consumer to call after the setup
 	 */
-	private static void setupPrint(Thread thread, PrintStream key, PrintStream backup, Consumer<PrintStream> consumer, ParallelOutputStream out) {
-		if (key == null || backup == null
-				|| consumer == null || out == null) {
+	private static void setupPrint(Thread thread, ParallelOutputStream parallelOutputStream, PrintStream currPrintStream, PrintStream nextPrintStream, Consumer<PrintStream> nextPrintStreamConsumer) {
+		if (parallelOutputStream == null || currPrintStream == null
+				|| nextPrintStream == null || nextPrintStreamConsumer == null) {
 			return;
 		}
 
-		thread = UwObject.getIfNull(thread, Thread.currentThread());
+		parallelOutputStream.setup(thread);
 
-		Map<Thread, Stack<Object[]>> threadStackMap
-				= BACKUP_MAP.computeIfAbsent(key, $ -> new ConcurrentHashMap<>());
+		if (currPrintStream == nextPrintStream) {
+			return;
+		}
 
-		Stack<Object[]> threadStack
-				= threadStackMap.computeIfAbsent(thread, $ -> new Stack<>());
-
-		threadStack.push(new Object[] { backup, out.isEnabled(thread) });
-
-		consumer.accept(key);
+		nextPrintStreamConsumer.accept(nextPrintStream);
 	}
 
 	/**
-	 * Backup the system print stream.
+	 * Backup previous print stream context of the provided thread.
 	 *
-	 * @param thread	thread to back up the stream for
-	 * @param key		print stream that was set before
-	 * @param consumer	consumer that sets up the print stream
-	 * @param out 		parallel output stream associated w/ the key
+	 * @param thread				thread to set up the context for
+	 * @param parallelOutputStream	parallel output stream to switch the context for
+	 * @param printStreamConsumer	consumer to call after the backup if context is empty
 	 */
-	private static void backupPrint(Thread thread, PrintStream key, Consumer<PrintStream> consumer, ParallelOutputStream out) {
-		if (key == null || consumer == null
-				|| out == null) {
+	private static void backupPrint(Thread thread, ParallelOutputStream parallelOutputStream, Consumer<PrintStream> printStreamConsumer) {
+		if (parallelOutputStream == null || printStreamConsumer == null) {
 			return;
 		}
 
-		thread = UwObject.getIfNull(thread, Thread.currentThread());
-
-		Map<Thread, Stack<Object[]>> threadStackMap = BACKUP_MAP.get(key);
-		if (threadStackMap == null) {
+		parallelOutputStream.backup(thread);
+		if (!parallelOutputStream.isEmpty()) {
 			return;
 		}
 
-		Stack<Object[]> threadStack = threadStackMap.get(thread);
-		if (threadStack == null || threadStack.isEmpty()) {
-			return;
+		OutputStream defaultOutputStream = parallelOutputStream.getDefaultOutputStream();
+		if (!(defaultOutputStream instanceof PrintStream)) {
+			throw new IllegalStateException();
 		}
 
-		Object[] objs = threadStack.pop();
-
-		consumer.accept((PrintStream) objs[0]);
-		out.setEnabled(thread, (boolean) objs[1]);
+		printStreamConsumer.accept((PrintStream) defaultOutputStream);
 	}
 
 	/**
@@ -442,7 +426,7 @@ public final class UwSystem {
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * @param thread	thread to enable the stream for
+	 * @param thread	thread to suppress the stream for
 	 * @param callable 	callable to call after the switch
 	 * @param consumer 	reference to the state switch method
 	 */
@@ -457,7 +441,7 @@ public final class UwSystem {
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * @param thread	thread to enable the stream for
+	 * @param thread	thread to suppress the stream for
 	 * @param callable 	callable to call after the switch
 	 * @param consumer 	reference to the state switch method
 	 */
@@ -472,29 +456,26 @@ public final class UwSystem {
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * @param thread				thread to suppress the stream for
-	 * @param callable 				callable to call after the switch
-	 * @param backupPrintStream 	current print stream to switch from
-	 * @param localPrintStream		new print stream to switch to
-	 * @param printStreamConsumer	reference to the system state switch method
-	 * @param outputStream			parallel output stream to switch the state for
-	 * @param outputStreamConsumer	reference to the output stream state switch method
+	 * @param thread						thread to suppress the stream for
+	 * @param callable 						callable to call after the switch
+	 * @param currPrintStream 				current print stream to switch from
+	 * @param nextPrintStream				new print stream to switch to
+	 * @param printStreamConsumer			reference to the system state switch method
+	 * @param parallelOutputStream			parallel output stream to switch the state for
+	 * @param parallelOutputStreamConsumer	reference to the output stream state switch method
 	 */
-	private static <R> R suppress(Thread thread, Callable<R> callable, PrintStream backupPrintStream, PrintStream localPrintStream, Consumer<PrintStream> printStreamConsumer, ParallelOutputStream outputStream, BiConsumer<ParallelOutputStream, Thread> outputStreamConsumer) {
+	private static <R> R suppress(Thread thread, Callable<R> callable, PrintStream currPrintStream, PrintStream nextPrintStream, Consumer<PrintStream> printStreamConsumer, ParallelOutputStream parallelOutputStream, BiConsumer<ParallelOutputStream, Thread> parallelOutputStreamConsumer) {
 		if (callable == null
-				|| backupPrintStream == null
-				|| localPrintStream == null
+				|| currPrintStream == null
+				|| nextPrintStream == null
 				|| printStreamConsumer == null
-				|| outputStream == null
-				|| outputStreamConsumer == null) {
+				|| parallelOutputStream == null
+				|| parallelOutputStreamConsumer == null) {
 			return null;
 		}
 
-		thread = UwObject.getIfNull(thread, Thread.currentThread());
-
-		setupPrint(thread, localPrintStream, backupPrintStream, printStreamConsumer, outputStream);
-
-		outputStreamConsumer.accept(outputStream, thread);
+		setupPrint(thread, parallelOutputStream, currPrintStream, nextPrintStream, printStreamConsumer);
+		parallelOutputStreamConsumer.accept(parallelOutputStream, thread);
 
 		R returnValue = null;
 		Throwable throwable = null;
@@ -505,7 +486,7 @@ public final class UwSystem {
 			throwable = e;
 		}
 
-		backupPrint(thread, localPrintStream, printStreamConsumer, outputStream);
+		backupPrint(thread, parallelOutputStream, printStreamConsumer);
 
 		if (throwable != null) {
 			throwable.printStackTrace();
@@ -520,30 +501,56 @@ public final class UwSystem {
 	private static final class ParallelOutputStream extends OutputStream {
 
 		/**
-		 * An output stream to delegate methods from.
+		 * A default isEnabled boolean value of a thread.
 		 */
-		private final OutputStream out;
+		private static final boolean DEFAULT_ENABLED = true;
 
 		/**
-		 * A map to individually track the state of this stream across the threads.
+		 * A default output stream to use when there are no contexts.
 		 */
-		private final Map<Thread, Boolean> isEnabledMap;
+		private final OutputStream defaultOutputStream;
+
+		/**
+		 * An output stream to delegate methods from.
+		 */
+		private final Map<Thread, OutputStream> streamMap;
+
+		/**
+		 * A map to individually track the state of the threads.
+		 */
+		private final Map<Thread, Boolean> stateMap;
+
+		/**
+		 * A map to individually track the context of the threads.
+		 */
+		private final Map<Thread, Stack<Object[]>> contextMap;
 
 		/**
 		 * Initialize a {@link ParallelOutputStream} instance.
 		 *
-		 * @param out	output stream to delegate methods from
+		 * @param defaultOutputStream 	default output stream to use when there are no contexts
 		 *
-		 * @throws UnsupportedOperationException	if the provided output stream is instance of this class
+		 * @throws IllegalArgumentException		if default output stream is {@code null}
 		 */
-		public ParallelOutputStream(OutputStream out) throws UnsupportedOperationException {
-			if (out instanceof ParallelOutputStream) {
-				throw new UnsupportedOperationException("Nested parallel output streams aren't supported");
+		public ParallelOutputStream(OutputStream defaultOutputStream) {
+			if (defaultOutputStream == null) {
+				throw new IllegalArgumentException("Default output stream mustn't be <null>");
 			}
 
-			this.out = out;
+			this.defaultOutputStream = defaultOutputStream;
 
-			this.isEnabledMap = new ConcurrentHashMap<>();
+			this.streamMap = new ConcurrentHashMap<>();
+			this.stateMap = new ConcurrentHashMap<>();
+			this.contextMap = new ConcurrentHashMap<>();
+		}
+
+		/**
+		 * Get this default output stream.
+		 *
+		 * @return	default output stream
+		 */
+		public OutputStream getDefaultOutputStream() {
+			return this.defaultOutputStream;
 		}
 
 		/**
@@ -551,11 +558,63 @@ public final class UwSystem {
 		 */
 		@Override
 		public void write(int b) throws IOException {
-			if (!this.isEnabled(null)) {
+			Thread thread = Thread.currentThread();
+
+			OutputStream currentOutputStream
+					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
+
+			if (currentOutputStream == null) {
 				return;
 			}
 
-			this.out.write(b);
+			if (!this.isEnabled(thread)) {
+				return;
+			}
+
+			currentOutputStream.write(b);
+		}
+
+		/**
+		 * Set up a new output stream context for the provided thread.
+		 *
+		 * @param thread	thread to set up the context for
+		 */
+		public void setup(Thread thread) {
+			thread = UwObject.getIfNull(thread, Thread.currentThread());
+
+			Stack<Object[]> contextStack
+					= this.contextMap.computeIfAbsent(thread, $ -> new Stack<>());
+
+			OutputStream currentOutputStream
+					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
+
+
+			Object[] context = new Object[] {
+					currentOutputStream,
+					this.isEnabled(thread)
+			};
+
+			contextStack.push(context);
+			this.streamMap.put(thread, this.defaultOutputStream);
+		}
+
+		/**
+		 * Backup previous context of the provided thread.
+		 *
+		 * @param thread	thread to back up the context for
+		 */
+		public void backup(Thread thread) {
+			thread = UwObject.getIfNull(thread, Thread.currentThread());
+
+			Stack<Object[]> contextStack = this.contextMap.get(thread);
+			if (contextStack == null || contextStack.isEmpty()) {
+				return;
+			}
+
+			Object[] context = contextStack.pop();
+
+			this.setStream(thread, (OutputStream) context[0]);
+			this.setEnabled(thread, (boolean) context[1]);
 		}
 
 		/**
@@ -568,7 +627,7 @@ public final class UwSystem {
 		public boolean isEnabled(Thread thread) {
 			thread = UwObject.getIfNull(thread, Thread.currentThread());
 
-			return this.isEnabledMap.computeIfAbsent(thread, $ -> true);
+			return this.stateMap.computeIfAbsent(thread, $ -> DEFAULT_ENABLED);
 		}
 
 		/**
@@ -590,15 +649,43 @@ public final class UwSystem {
 		}
 
 		/**
+		 * Change this output stream for the provided thread.
+		 *
+		 * @param thread	thread to set the value for
+		 * @param stream	value to associate w/ the thread
+		 */
+		public void setStream(Thread thread, OutputStream stream) {
+			thread = UwObject.getIfNull(thread, Thread.currentThread());
+
+			this.streamMap.put(thread, stream);
+		}
+
+		/**
 		 * Change this stream state for the provided thread.
 		 *
 		 * @param thread		thread to set the value for
-		 * @param isEnabled		value to set to the thread
+		 * @param isEnabled		value to associate w/ the thread
 		 */
 		public void setEnabled(Thread thread, boolean isEnabled) {
 			thread = UwObject.getIfNull(thread, Thread.currentThread());
 
-			this.isEnabledMap.put(thread, isEnabled);
+			this.stateMap.put(thread, isEnabled);
+		}
+
+		/**
+		 * Check if all reserved contexts were backed up.
+		 *
+		 * @return	{@code true} if there are no other contexts
+		 * 			or {@code false} if there are other contexts
+		 */
+		public boolean isEmpty() {
+			for (Stack<Object[]> context : this.contextMap.values()) {
+				if (context != null && !context.isEmpty()) {
+					return false;
+				}
+			}
+
+			return true;
 		}
 	}
 }
