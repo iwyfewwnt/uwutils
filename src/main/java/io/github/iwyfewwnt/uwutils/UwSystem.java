@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -145,15 +146,15 @@ public final class UwSystem {
 	/**
 	 * Enable the error output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after enabling the stream
+	 * <p>Calls the provided callable after enabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
 	 * @param thread	thread to enable the stream for
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableErrorPrint(Thread thread, Runnable runnable) {
-		suppressErrorPrint(thread, runnable, ParallelOutputStream::enable);
+	public static <R> R enableErrorPrint(Thread thread, Callable<R> callable) {
+		return suppressErrorPrint(thread, callable, ParallelOutputStream::enable);
 	}
 
 	/**
@@ -166,14 +167,14 @@ public final class UwSystem {
 	/**
 	 * Enable the error output stream for the current thread.
 	 *
-	 * <p>Runs the provided runnable after enabling the stream
+	 * <p>Calls the provided callable after enabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableErrorPrint(Runnable runnable) {
-		enableErrorPrint(null, runnable);
+	public static <R> R enableErrorPrint(Callable<R> callable) {
+		return enableErrorPrint(null, callable);
 	}
 
 	/**
@@ -188,15 +189,15 @@ public final class UwSystem {
 	/**
 	 * Disable the error output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after disabling the stream
+	 * <p>Calls the provided callable after disabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
 	 * @param thread	thread to enable the stream for
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableErrorPrint(Thread thread, Runnable runnable) {
-		suppressErrorPrint(thread, runnable, ParallelOutputStream::disable);
+	public static <R> R disableErrorPrint(Thread thread, Callable<R> callable) {
+		return suppressErrorPrint(thread, callable, ParallelOutputStream::disable);
 	}
 
 	/**
@@ -209,14 +210,14 @@ public final class UwSystem {
 	/**
 	 * Disable the error output stream for the current thread.
 	 *
-	 * <p>Runs the provided runnable after disabling the stream
+	 * <p>Calls the provided callable after disabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableErrorPrint(Runnable runnable) {
-		disableErrorPrint(null, runnable);
+	public static <R> R disableErrorPrint(Callable<R> callable) {
+		return disableErrorPrint(null, callable);
 	}
 
 	/**
@@ -252,15 +253,15 @@ public final class UwSystem {
 	/**
 	 * Enable the standard output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after enabling the stream
+	 * <p>Calls the provided callable after enabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
 	 * @param thread	thread to enable the stream for
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableOutputPrint(Thread thread, Runnable runnable) {
-		suppressOutputPrint(thread, runnable, ParallelOutputStream::enable);
+	public static <R> R enableOutputPrint(Thread thread, Callable<R> callable) {
+		return suppressOutputPrint(thread, callable, ParallelOutputStream::enable);
 	}
 
 	/**
@@ -273,14 +274,14 @@ public final class UwSystem {
 	/**
 	 * Enable the standard output stream for the current thread.
 	 *
-	 * <p>Runs the provided runnable after enabling the stream
+	 * <p>Calls the provided callable after enabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableOutputPrint(Runnable runnable) {
-		enableOutputPrint(null, runnable);
+	public static <R> R enableOutputPrint(Callable<R> callable) {
+		return enableOutputPrint(null, callable);
 	}
 
 	/**
@@ -295,15 +296,15 @@ public final class UwSystem {
 	/**
 	 * Disable the standard output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after disabling the stream
+	 * <p>Calls the provided callable after disabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
 	 * @param thread	thread to enable the stream for
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableOutputPrint(Thread thread, Runnable runnable) {
-		suppressOutputPrint(thread, runnable, ParallelOutputStream::disable);
+	public static <R> R disableOutputPrint(Thread thread, Callable<R> callable) {
+		return suppressOutputPrint(thread, callable, ParallelOutputStream::disable);
 	}
 
 	/**
@@ -316,75 +317,75 @@ public final class UwSystem {
 	/**
 	 * Disable the standard output stream for the current thread.
 	 *
-	 * <p>Runs the provided runnable after disabling the stream
+	 * <p>Calls the provided callable after disabling the stream
 	 * for the thread and backups an initial stream state after
 	 * finishing the run.
 	 *
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableOutputPrint(Runnable runnable) {
-		disableOutputPrint(null, runnable);
+	public static <R> R disableOutputPrint(Callable<R> callable) {
+		return disableOutputPrint(null, callable);
 	}
 
 	/**
 	 * Suppress the error output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after calling a state switch
+	 * <p>Calls the provided callable after calling a state switch
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * <p>Synchronizes the {@link UwSystem#suppress(Thread, Runnable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
+	 * <p>Synchronizes the {@link UwSystem#suppress(Thread, Callable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
 	 * method call on the {@link System#err} object.
 	 *
 	 * @param thread	thread to enable the stream for
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 * @param consumer 	reference to the state switch method
 	 */
-	private static void suppressErrorPrint(Thread thread, Runnable runnable, BiConsumer<ParallelOutputStream, Thread> consumer) {
-		suppress(thread, runnable, System.err, UwSystem.err, System::setErr, ERR_STREAM, consumer);
+	private static <R> R suppressErrorPrint(Thread thread, Callable<R> callable, BiConsumer<ParallelOutputStream, Thread> consumer) {
+		return suppress(thread, callable, System.err, UwSystem.err, System::setErr, ERR_STREAM, consumer);
 	}
 
 	/**
 	 * Suppress the standard output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after calling a state switch
+	 * <p>Calls the provided callable after calling a state switch
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * <p>Synchronizes {@link UwSystem#suppress(Thread, Runnable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
+	 * <p>Synchronizes {@link UwSystem#suppress(Thread, Callable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
 	 * method on the {@link System#err} object.
 	 *
 	 * @param thread	thread to enable the stream for
-	 * @param runnable 	runnable to run after the switch
+	 * @param callable 	callable to call after the switch
 	 * @param consumer 	reference to the state switch method
 	 */
-	private static void suppressOutputPrint(Thread thread, Runnable runnable, BiConsumer<ParallelOutputStream, Thread> consumer) {
-		suppress(thread, runnable, System.out, UwSystem.out, System::setOut, OUT_STREAM, consumer);
+	private static <R> R suppressOutputPrint(Thread thread, Callable<R> callable, BiConsumer<ParallelOutputStream, Thread> consumer) {
+		return suppress(thread, callable, System.out, UwSystem.out, System::setOut, OUT_STREAM, consumer);
 	}
 
 	/**
 	 * Suppress the provided output stream for the provided thread.
 	 *
-	 * <p>Runs the provided runnable after calling a state switch
+	 * <p>Calls the provided callable after calling a state switch
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
 	 * @param thread				thread to enable the stream for
-	 * @param runnable 				runnable to run after the switch
+	 * @param callable 				callable to call after the switch
 	 * @param backupPrintStream 	current print stream to switch from
 	 * @param localPrintStream		new print stream to switch to
 	 * @param printStreamConsumer	reference to the system state switch method
 	 * @param outputStream			parallel output stream to switch the state for
 	 * @param outputStreamConsumer	reference to the output stream state switch method
 	 */
-	private static void suppress(Thread thread, Runnable runnable, PrintStream backupPrintStream, PrintStream localPrintStream, Consumer<PrintStream> printStreamConsumer, ParallelOutputStream outputStream, BiConsumer<ParallelOutputStream, Thread> outputStreamConsumer) {
-		if (runnable == null
+	private static <R> R suppress(Thread thread, Callable<R> callable, PrintStream backupPrintStream, PrintStream localPrintStream, Consumer<PrintStream> printStreamConsumer, ParallelOutputStream outputStream, BiConsumer<ParallelOutputStream, Thread> outputStreamConsumer) {
+		if (callable == null
 				|| backupPrintStream == null
 				|| localPrintStream == null
 				|| printStreamConsumer == null
 				|| outputStream == null
 				|| outputStreamConsumer == null) {
-			return;
+			return null;
 		}
 
 		thread = UwObject.getIfNull(thread, Thread.currentThread());
@@ -394,11 +395,12 @@ public final class UwSystem {
 		boolean isEnabled = outputStream.isEnabled(thread);
 		outputStreamConsumer.accept(outputStream, thread);
 
+		R returnValue = null;
 		Throwable throwable = null;
 
 		try {
-			runnable.run();
-		} catch (Throwable e) {
+			returnValue = callable.call();
+		} catch (Exception e) {
 			throwable = e;
 		}
 
@@ -408,6 +410,8 @@ public final class UwSystem {
 		if (throwable != null) {
 			throwable.printStackTrace();
 		}
+
+		return returnValue;
 	}
 
 	/**
