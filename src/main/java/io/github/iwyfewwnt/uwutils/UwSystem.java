@@ -35,14 +35,19 @@ import java.util.function.Consumer;
 public final class UwSystem {
 
 	/**
+	 * A error parallel output stream.
+	 */
+	private static final ParallelOutputStream ERR_STREAM = new ParallelOutputStream(System.err);
+
+	/**
 	 * A standard parallel output stream.
 	 */
 	private static final ParallelOutputStream OUT_STREAM = new ParallelOutputStream(System.out);
 
 	/**
-	 * A error parallel output stream.
+	 * A error parallel print stream.
 	 */
-	private static final ParallelOutputStream ERR_STREAM = new ParallelOutputStream(System.err);
+	public static final PrintStream err = new PrintStream(ERR_STREAM);
 
 	/**
 	 * A standard parallel print stream.
@@ -50,9 +55,62 @@ public final class UwSystem {
 	public static final PrintStream out = new PrintStream(OUT_STREAM);
 
 	/**
-	 * A error parallel print stream.
+	 * A system error output stream backup.
 	 */
-	public static final PrintStream err = new PrintStream(ERR_STREAM);
+	private static volatile PrintStream ERR_BACKUP = null;
+
+	/**
+	 * A system standard output stream backup.
+	 */
+	private static volatile PrintStream OUT_BACKUP = null;
+
+	/**
+	 * Setup parallel error output stream for the system.
+	 */
+	public static void setupParallelErrorPrint() {
+		if (ERR_BACKUP != null) {
+			return;
+		}
+
+		ERR_BACKUP = System.err;
+		System.setErr(UwSystem.err);
+	}
+
+	/**
+	 * Backup the error system output stream.
+	 */
+	public static void backupSystemErrorPrint() {
+		if (ERR_BACKUP == null) {
+			return;
+		}
+
+		System.setErr(ERR_BACKUP);
+		ERR_BACKUP = null;
+	}
+
+	/**
+	 * Setup parallel standard output stream for the system.
+	 */
+	public static void setupParallelOutputPrint() {
+		if (OUT_BACKUP != null) {
+			return;
+		}
+
+		OUT_BACKUP = System.out;
+		System.setOut(UwSystem.out);
+	}
+
+	/**
+	 * Backup the standard system output stream.
+	 */
+	public static void backupSystemOutputPrint() {
+		if (OUT_BACKUP == null) {
+			return;
+		}
+
+		System.setOut(OUT_BACKUP);
+		OUT_BACKUP = null;
+	}
 
 	/**
 	 * Check if the error output stream is enabled for the provided thread.
