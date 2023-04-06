@@ -376,7 +376,7 @@ public final class UwSystem {
 		 */
 		public ParallelOutputStream(OutputStream out) throws UnsupportedOperationException {
 			if (out instanceof ParallelOutputStream) {
-				throw new UnsupportedOperationException("Nested parallel output streams isn't supported");
+				throw new UnsupportedOperationException("Nested parallel output streams aren't supported");
 			}
 
 			this.out = out;
