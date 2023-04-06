@@ -374,9 +374,6 @@ public final class UwSystem {
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
 	 *
-	 * <p>Synchronizes the {@link UwSystem#suppress(Thread, Callable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
-	 * method call on the {@link System#err} object.
-	 *
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
 	 * @param consumer 	reference to the state switch method
@@ -391,9 +388,6 @@ public final class UwSystem {
 	 * <p>Calls the provided callable after calling a state switch
 	 * method for the thread stream and backups an initial stream
 	 * state after finishing the run.
-	 *
-	 * <p>Synchronizes {@link UwSystem#suppress(Thread, Callable, PrintStream, PrintStream, Consumer, ParallelOutputStream, BiConsumer)}
-	 * method on the {@link System#err} object.
 	 *
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
