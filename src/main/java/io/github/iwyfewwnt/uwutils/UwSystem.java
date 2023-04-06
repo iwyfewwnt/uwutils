@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
@@ -58,7 +59,7 @@ public final class UwSystem {
 	/**
 	 * A system output stream backup map.
 	 */
-	private static final Map<PrintStream, PrintStream> BACKUP_MAP = new ConcurrentHashMap<>();
+	private static final Map<PrintStream, Stack<PrintStream>> BACKUP_MAP = new ConcurrentHashMap<>();
 
 	/**
 	 * Setup parallel error output stream for the system.
@@ -101,11 +102,10 @@ public final class UwSystem {
 			return;
 		}
 
-		if (BACKUP_MAP.get(key) != null) {
-			return;
-		}
+		Stack<PrintStream> stack
+				= BACKUP_MAP.computeIfAbsent(key, k -> new Stack<>());
 
-		BACKUP_MAP.put(key, backup);
+		stack.push(backup);
 		consumer.accept(key);
 	}
 
@@ -121,13 +121,12 @@ public final class UwSystem {
 			return;
 		}
 
-		PrintStream backup = BACKUP_MAP.get(key);
-		if (backup == null) {
+		Stack<PrintStream> stack = BACKUP_MAP.get(key);
+		if (stack == null || stack.isEmpty()) {
 			return;
 		}
 
-		consumer.accept(backup);
-		BACKUP_MAP.remove(key);
+		consumer.accept(stack.pop());
 	}
 
 	/**
@@ -431,7 +430,7 @@ public final class UwSystem {
 
 		thread = UwObject.getIfNull(thread, Thread.currentThread());
 
-		printStreamConsumer.accept(localPrintStream);
+		setupPrint(localPrintStream, backupPrintStream, printStreamConsumer);
 
 		boolean isEnabled = outputStream.isEnabled(thread);
 		outputStreamConsumer.accept(outputStream, thread);
@@ -445,7 +444,7 @@ public final class UwSystem {
 			throwable = e;
 		}
 
-		printStreamConsumer.accept(backupPrintStream);
+		backupPrint(localPrintStream, printStreamConsumer);
 		outputStream.setIsEnabled(thread, isEnabled);
 
 		if (throwable != null) {
