@@ -56,61 +56,78 @@ public final class UwSystem {
 	public static final PrintStream out = new PrintStream(OUT_STREAM);
 
 	/**
-	 * A system error output stream backup.
+	 * A system output stream backup map.
 	 */
-	private static volatile PrintStream ERR_BACKUP = null;
-
-	/**
-	 * A system standard output stream backup.
-	 */
-	private static volatile PrintStream OUT_BACKUP = null;
+	private static final Map<PrintStream, PrintStream> BACKUP_MAP = new ConcurrentHashMap<>();
 
 	/**
 	 * Setup parallel error output stream for the system.
 	 */
 	public static void setupParallelErrorPrint() {
-		if (ERR_BACKUP != null) {
-			return;
-		}
-
-		ERR_BACKUP = System.err;
-		System.setErr(UwSystem.err);
+		setupPrint(UwSystem.err, System.err, System::setErr);
 	}
 
 	/**
 	 * Backup the error system output stream.
 	 */
 	public static void backupSystemErrorPrint() {
-		if (ERR_BACKUP == null) {
-			return;
-		}
-
-		System.setErr(ERR_BACKUP);
-		ERR_BACKUP = null;
+		backupPrint(UwSystem.err, System::setErr);
 	}
 
 	/**
 	 * Setup parallel standard output stream for the system.
 	 */
 	public static void setupParallelOutputPrint() {
-		if (OUT_BACKUP != null) {
-			return;
-		}
-
-		OUT_BACKUP = System.out;
-		System.setOut(UwSystem.out);
+		setupPrint(UwSystem.out, System.out, System::setOut);
 	}
 
 	/**
 	 * Backup the standard system output stream.
 	 */
 	public static void backupSystemOutputPrint() {
-		if (OUT_BACKUP == null) {
+		backupPrint(UwSystem.out, System::setOut);
+	}
+
+	/**
+	 * Set up the provided print stream for the system.
+	 *
+	 * @param key		print stream to set up system for
+	 * @param backup	system print stream to backup
+	 * @param consumer	consumer that sets up the print stream
+	 */
+	private static void setupPrint(PrintStream key, PrintStream backup, Consumer<PrintStream> consumer) {
+		if (key == null || backup == null
+				|| consumer == null) {
 			return;
 		}
 
-		System.setOut(OUT_BACKUP);
-		OUT_BACKUP = null;
+		if (BACKUP_MAP.get(key) != null) {
+			return;
+		}
+
+		BACKUP_MAP.put(key, backup);
+		consumer.accept(key);
+	}
+
+	/**
+	 * Backup the system print stream.
+	 *
+	 * @param key		print stream that was set before
+	 * @param consumer	consumer that sets up the print stream
+	 */
+	private static void backupPrint(PrintStream key, Consumer<PrintStream> consumer) {
+		if (key == null
+				|| consumer == null) {
+			return;
+		}
+
+		PrintStream backup = BACKUP_MAP.get(key);
+		if (backup == null) {
+			return;
+		}
+
+		consumer.accept(backup);
+		BACKUP_MAP.remove(key);
 	}
 
 	/**
