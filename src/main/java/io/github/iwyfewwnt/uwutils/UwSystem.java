@@ -255,8 +255,8 @@ public final class UwSystem {
 	/**
 	 * Check if the standard output stream is enabled for the current thread.
 	 *
-	 * @return			{@code true} if enabled
-	 * 					or {@code false} if disabled
+	 * @return	{@code true} if enabled
+	 * 			or {@code false} if disabled
 	 */
 	public static boolean isOutputPrintEnabled() {
 		return OUT_STREAM.isEnabled();
