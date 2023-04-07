@@ -36,7 +36,6 @@ public interface UwCallable extends Callable<Void> {
 	 */
 	@Override
 	default Void call() throws Exception {
-		call0();
-		return null;
+		call0(); return null;
 	}
 }
