@@ -16,6 +16,8 @@
 
 package io.github.iwyfewwnt.uwutils;
 
+import io.github.iwyfewwnt.uwutils.interfaces.UwCallable;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -229,6 +231,20 @@ public final class UwSystem {
 	}
 
 	/**
+	 * Enable the error output stream for the provided thread.
+	 *
+	 * <p>Calls the provided callable after enabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param thread	thread to enable the stream for
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void enableErrorPrint(Thread thread, UwCallable callable) {
+		enableErrorPrint(thread, (Callable<?>) callable);
+	}
+
+	/**
 	 * Enable the error output stream for the current thread.
 	 */
 	public static void enableErrorPrint() {
@@ -249,6 +265,19 @@ public final class UwSystem {
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R enableErrorPrint(Callable<R> callable) {
 		return enableErrorPrint(null, callable);
+	}
+
+	/**
+	 * Enable the error output stream for the current thread.
+	 *
+	 * <p>Calls the provided callable after enabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void enableErrorPrint(UwCallable callable) {
+		enableErrorPrint((Callable<?>) callable);
 	}
 
 	/**
@@ -278,6 +307,20 @@ public final class UwSystem {
 	}
 
 	/**
+	 * Disable the error output stream for the provided thread.
+	 *
+	 * <p>Calls the provided callable after disabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param thread	thread to enable the stream for
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void disableErrorPrint(Thread thread, UwCallable callable) {
+		disableErrorPrint(thread, (Callable<?>) callable);
+	}
+
+	/**
 	 * Disable the error output stream for the current thread.
 	 */
 	public static void disableErrorPrint() {
@@ -298,6 +341,19 @@ public final class UwSystem {
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R disableErrorPrint(Callable<R> callable) {
 		return disableErrorPrint(null, callable);
+	}
+
+	/**
+	 * Disable the error output stream for the current thread.
+	 *
+	 * <p>Calls the provided callable after disabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void disableErrorPrint(UwCallable callable) {
+		disableErrorPrint((Callable<?>) callable);
 	}
 
 	/**
@@ -348,6 +404,20 @@ public final class UwSystem {
 	}
 
 	/**
+	 * Enable the standard output stream for the provided thread.
+	 *
+	 * <p>Calls the provided callable after enabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param thread	thread to enable the stream for
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void enableOutputPrint(Thread thread, UwCallable callable) {
+		enableOutputPrint(thread, (Callable<?>) callable);
+	}
+
+	/**
 	 * Enable the standard output stream for the current thread.
 	 */
 	public static void enableOutputPrint() {
@@ -368,6 +438,19 @@ public final class UwSystem {
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R enableOutputPrint(Callable<R> callable) {
 		return enableOutputPrint(null, callable);
+	}
+
+	/**
+	 * Enable the standard output stream for the current thread.
+	 *
+	 * <p>Calls the provided callable after enabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void enableOutputPrint(UwCallable callable) {
+		enableOutputPrint((Callable<?>) callable);
 	}
 
 	/**
@@ -397,6 +480,20 @@ public final class UwSystem {
 	}
 
 	/**
+	 * Disable the standard output stream for the provided thread.
+	 *
+	 * <p>Calls the provided callable after disabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param thread	thread to enable the stream for
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void disableOutputPrint(Thread thread, UwCallable callable) {
+		disableOutputPrint(thread, (Callable<?>) callable);
+	}
+
+	/**
 	 * Disable the standard output stream for the current thread.
 	 */
 	public static void disableOutputPrint() {
@@ -417,6 +514,19 @@ public final class UwSystem {
 	@SuppressWarnings("UnusedReturnValue")
 	public static <R> R disableOutputPrint(Callable<R> callable) {
 		return disableOutputPrint(null, callable);
+	}
+
+	/**
+	 * Disable the standard output stream for the current thread.
+	 *
+	 * <p>Calls the provided callable after disabling the stream
+	 * for the thread and backups an initial stream state after
+	 * finishing the run.
+	 *
+	 * @param callable 	callable to call after the switch
+	 */
+	public static void disableOutputPrint(UwCallable callable) {
+		disableOutputPrint((Callable<?>) callable);
 	}
 
 	/**
