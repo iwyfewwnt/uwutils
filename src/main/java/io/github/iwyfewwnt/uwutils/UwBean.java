@@ -16,8 +16,6 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-//import io.vavr.control.Option;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -44,18 +42,6 @@ public final class UwBean {
 	 * </ul>
 	 */
 	private static final String SPI_PATH_FMT = "META-INF/services/%s";
-
-//	/**
-//	 * Find all sub-class types of the specified service provider interface class.
-//	 *
-//	 * @param clazz					service provider interface class
-//	 * @param classLoader			class loader to load classes by their names
-//	 * @param <T>					interface type
-//	 * @return						list of sub-class types that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<List<Class<? extends T>>> findSpiTypes(Class<T> clazz, ClassLoader classLoader) {
-//		return Option.of(findSpiTypesOrNull(clazz, classLoader));
-//	}
 
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return a default value.
@@ -131,20 +117,6 @@ public final class UwBean {
 	public static <T> List<Class<? extends T>> findSpiTypesOrNull(Class<T> clazz, ClassLoader classLoader) {
 		return findSpiTypesOrElse(clazz, (List<Class<? extends T>>) null, classLoader);
 	}
-
-//	/**
-//	 * Find all sub-class types of the specified service provider interface class.
-//	 *
-//	 * <p>Wraps {@link UwBean#findSpiTypes(Class, ClassLoader)}
-//	 * w/ {@code null} as the class loader.
-//	 *
-//	 * @param clazz				service provider interface class
-//	 * @param <T>				interface type
-//	 * @return					list of sub-class types that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<List<Class<? extends T>>> findSpiTypes(Class<T> clazz) {
-//		return findSpiTypes(clazz, null);
-//	}
 
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return a default value.

@@ -16,8 +16,6 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-//import io.vavr.control.Option;
-
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -35,18 +33,6 @@ public final class UwArray {
 	 * An empty class array instance.
 	 */
 	public static final Class<?>[] CLASS_EMPTY = new Class<?>[0];
-
-//	/**
-//	 * Safely get a value from an array by its index.
-//	 *
-//	 * @param index					index of the value
-//	 * @param array					array from which get the value
-//	 * @param <T>					value type
-//	 * @return						value assigned to the index that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<T> get(Integer index, T[] array) {
-//		return Option.of(getOrNull(index, array));
-//	}
 
 	/**
 	 * Safely get a value from an array by its index or return a default value.

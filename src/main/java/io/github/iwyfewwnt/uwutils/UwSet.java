@@ -16,8 +16,6 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-//import io.vavr.control.Option;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -33,17 +31,6 @@ import java.util.stream.*;
  */
 @SuppressWarnings("unused")
 public final class UwSet {
-
-//	/**
-//	 * Safely convert a collection of objects to a set.
-//	 *
-//	 * @param collection			collection of objects
-//	 * @param <T>					object type
-//	 * @return						set of objects that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<Set<T>> toSet(Collection<T> collection) {
-//		return Option.of(toSetOrNull(collection));
-//	}
 
 	/**
 	 * Safely convert a collection of objects to a set or return a default value.
@@ -96,17 +83,6 @@ public final class UwSet {
 	public static <T> Set<T> toSetOrNull(Collection<T> collection) {
 		return toSetOrElse(collection, (Set<T>) null);
 	}
-
-//	/**
-//	 * Safely convert an array of objects to a set.
-//	 *
-//	 * @param array					array of objects
-//	 * @param <T>					object type
-//	 * @return						set of objects that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<Set<T>> toSet(T[] array) {
-//		return Option.of(toSetOrNull(array));
-//	}
 
 	/**
 	 * Safely convert an array of objects to a set or return a default value.
@@ -167,17 +143,6 @@ public final class UwSet {
 		return toSetOrElse(array, (Set<T>) null);
 	}
 
-//	/**
-//	 * Safely convert a stream of objects to a set.
-//	 *
-//	 * @param stream				stream of objects
-//	 * @param <T>					object type
-//	 * @return						set of objects that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<Set<T>> toSet(Stream<T> stream) {
-//		return Option.of(toSetOrNull(stream));
-//	}
-
 	/**
 	 * Safely convert a stream of objects to a set or return a default value.
 	 *
@@ -237,16 +202,6 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<T>) null);
 	}
 
-//	/**
-//	 * Safely convert a stream of integers to a set.
-//	 *
-//	 * @param stream				stream of integers
-//	 * @return						set of integers that wrapped in {@link Option}
-//	 */
-//	public static Option<Set<Integer>> toSet(IntStream stream) {
-//		return Option.of(toSetOrNull(stream));
-//	}
-
 	/**
 	 * Safely convert a stream of integers to a set or return a default value.
 	 *
@@ -301,16 +256,6 @@ public final class UwSet {
 	public static Set<Integer> toSetOrNull(IntStream stream) {
 		return toSetOrElse(stream, (Set<Integer>) null);
 	}
-
-//	/**
-//	 * Safely convert a stream of doubles to a set.
-//	 *
-//	 * @param stream				stream of doubles
-//	 * @return						set of doubles that wrapped in {@link Option}
-//	 */
-//	public static Option<Set<Double>> toSet(DoubleStream stream) {
-//		return Option.of(toSetOrNull(stream));
-//	}
 
 	/**
 	 * Safely convert a stream of doubles to a set or return a default value.
@@ -367,16 +312,6 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<Double>) (null));
 	}
 
-//	/**
-//	 * Safely convert a stream of longs to a set.
-//	 *
-//	 * @param stream				stream of longs
-//	 * @return						set of longs that wrapped in {@link Option}
-//	 */
-//	public static Option<Set<Long>> toSet(LongStream stream) {
-//		return Option.of(toSetOrNull(stream));
-//	}
-
 	/**
 	 * Safely convert a stream of longs to a set or return a default value.
 	 *
@@ -432,17 +367,6 @@ public final class UwSet {
 		return toSetOrElse(stream, (Set<Long>) null);
 	}
 
-//	/**
-//	 * Safely convert a collection of objects to a concurrent set.
-//	 *
-//	 * @param collection			collection of objects
-//	 * @param <T>					object type
-//	 * @return						concurrent set of objects that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<Set<T>> toConcurrentSet(Collection<T> collection) {
-//		return Option.of(toConcurrentSetOrNull(collection));
-//	}
-
 	/**
 	 * Safely convert a collection of objects to a concurrent set or return a default value.
 	 *
@@ -494,17 +418,6 @@ public final class UwSet {
 	public static <T> Set<T> toConcurrentSetOrNull(Collection<T> collection) {
 		return toConcurrentSetOrElse(collection, (Set<T>) null);
 	}
-
-//	/**
-//	 * Safely convert an array of objects to a concurrent set.
-//	 *
-//	 * @param array					array of objects
-//	 * @param <T>					object type
-//	 * @return						concurrent set of objects that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<Set<T>> toConcurrentSet(T[] array) {
-//		return Option.of(toConcurrentSetOrNull(array));
-//	}
 
 	/**
 	 * Safely convert an array of objects to a concurrent set or return a default value.
@@ -565,17 +478,6 @@ public final class UwSet {
 		return toConcurrentSetOrElse(array, (Set<T>) null);
 	}
 
-//	/**
-//	 * Safely convert a stream of objects to a concurrent set.
-//	 *
-//	 * @param stream				stream of objects
-//	 * @param <T>					object type
-//	 * @return						concurrent set of objects that wrapped in {@link Option}
-//	 */
-//	public static <T> Option<Set<T>> toConcurrentSet(Stream<T> stream) {
-//		return Option.of(toConcurrentSetOrNull(stream));
-//	}
-
 	/**
 	 * Safely convert a stream of objects to a concurrent set or return a default value.
 	 *
@@ -635,16 +537,6 @@ public final class UwSet {
 		return toConcurrentSetOrElse(stream, (Set<T>) null);
 	}
 
-//	/**
-//	 * Safely convert a stream of integers to a concurrent set.
-//	 *
-//	 * @param stream				stream of integers
-//	 * @return						concurrent set of integers that wrapped in {@link Option}
-//	 */
-//	public static Option<Set<Integer>> toConcurrentSet(IntStream stream) {
-//		return Option.of(toConcurrentSetOrNull(stream));
-//	}
-
 	/**
 	 * Safely convert a stream of integers to a concurrent set or return a default value.
 	 *
@@ -700,16 +592,6 @@ public final class UwSet {
 		return toConcurrentSetOrElse(stream, (Set<Integer>) null);
 	}
 
-//	/**
-//	 * Safely convert a stream of doubles to a concurrent set.
-//	 *
-//	 * @param stream				stream of doubles
-//	 * @return						concurrent set of doubles that wrapped in {@link Option}
-//	 */
-//	public static Option<Set<Double>> toConcurrentSet(DoubleStream stream) {
-//		return Option.of(toConcurrentSetOrNull(stream));
-//	}
-
 	/**
 	 * Safely convert a stream of doubles to a concurrent set or return a default value.
 	 *
@@ -764,16 +646,6 @@ public final class UwSet {
 	public static Set<Double> toConcurrentSetOrNull(DoubleStream stream) {
 		return toConcurrentSetOrElse(stream, (Set<Double>) (null));
 	}
-
-//	/**
-//	 * Safely convert a stream of longs to a concurrent set.
-//	 *
-//	 * @param stream				stream of longs
-//	 * @return						concurrent set of longs that wrapped in {@link Option}
-//	 */
-//	public static Option<Set<Long>> toConcurrentSet(LongStream stream) {
-//		return Option.of(toConcurrentSetOrNull(stream));
-//	}
 
 	/**
 	 * Safely convert a stream of longs to a concurrent set or return a default value.
