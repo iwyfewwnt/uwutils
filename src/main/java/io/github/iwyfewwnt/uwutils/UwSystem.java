@@ -798,4 +798,57 @@ public final class UwSystem {
 			return true;
 		}
 	}
+
+	/**
+	 * A name of this class.
+	 */
+	private static final String CLASS_NAME = UwSystem.class.getName();
+
+	/**
+	 * A default stack trace offset.
+	 */
+	private static final int DEFAULT_STACK_TRACE_OFFSET = 0;
+
+	/**
+	 * Get current stack trace element that points to the caller.
+	 *
+	 * @param offset	stack trace offset
+	 * @return			stack trace element
+	 */
+	public static StackTraceElement getCurrentStackTraceElement(Integer offset) {
+		offset = UwObject.getIfNull(offset, DEFAULT_STACK_TRACE_OFFSET);
+
+		StackTraceElement[] stackTraceElements = Thread.currentThread()
+				.getStackTrace();
+
+		int i = 1 + offset;
+		StackTraceElement returnValue
+				= UwArray.getOrNull(i++, stackTraceElements);
+
+		for (; i < stackTraceElements.length; i++) {
+			StackTraceElement stackTraceElement = stackTraceElements[i];
+
+			String className = stackTraceElement.getClassName();
+			if (className.equals(CLASS_NAME)) {
+				continue;
+			}
+
+			returnValue = stackTraceElement;
+			break;
+		}
+
+		return returnValue;
+	}
+
+	/**
+	 * Get current stack trace element that points to the caller.
+	 *
+	 * <p>Wraps {@link UwSystem#getCurrentStackTraceElement(Integer)}
+	 * w/ {@code null} as the stack trace offset.
+	 *
+	 * @return	stack trace element
+	 */
+	public static StackTraceElement getCurrentStackTraceElement() {
+		return getCurrentStackTraceElement(null);
+	}
 }
