@@ -30,7 +30,7 @@
     <scm>
         <connection>scm:git:git://github.com/iwyfewwnt/uwutils.git</connection>
         <developerConnection>scm:git:ssh://github.com:iwyfewwnt/uwutils.git</developerConnection>
-        <url>https://github.com/iwyfewwnt/uwutils/tree/master</url>
+        <url>https://github.com/iwyfewwnt/uwutils/tree/main</url>
     </scm>
 
     <distributionManagement>
