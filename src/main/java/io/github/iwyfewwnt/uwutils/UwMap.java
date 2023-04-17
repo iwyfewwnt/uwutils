@@ -66,6 +66,26 @@ public final class UwMap {
 	}
 
 	/**
+	 * Get an unmodifiable view of the provided map.
+	 *
+	 * @param map	map to get the view for
+	 * @param <K>	key type
+	 * @param <V>	value type
+	 * @return		unmodifiable view of the map
+	 */
+	public static <K, V> Map<K, V> toUnmodifiable(Map<K, V> map) {
+		if (map == null) {
+			return null;
+		}
+
+		if (isUnmodifiable(map)) {
+			return map;
+		}
+
+		return Collections.unmodifiableMap(map);
+	}
+
+	/**
 	 * Safely get a value from a map by its key or return a default one.
 	 *
 	 * @param key					key assigned to the value

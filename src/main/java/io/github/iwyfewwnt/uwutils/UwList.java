@@ -49,6 +49,25 @@ public final class UwList {
 		return UwCollection.isUnmodifiable(list);
 	}
 
+	/**
+	 * Get an unmodifiable view of the provided list.
+	 *
+	 * @param list	list to get the view for
+	 * @param <T>	element type
+	 * @return		unmodifiable view of the list
+	 */
+	public static <T> List<T> toUnmodifiable(List<T> list) {
+		if (list == null) {
+			return null;
+		}
+
+		if (isUnmodifiable(list)) {
+			return list;
+		}
+
+		return Collections.unmodifiableList(list);
+	}
+
 	private UwList() {
 		throw new UnsupportedOperationException();
 	}

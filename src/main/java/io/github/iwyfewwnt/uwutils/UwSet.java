@@ -52,6 +52,25 @@ public final class UwSet {
 	}
 
 	/**
+	 * Get an unmodifiable view of the provided set.
+	 *
+	 * @param set	set to get the view for
+	 * @param <T>	element type
+	 * @return		unmodifiable view of the set
+	 */
+	public static <T> Set<T> toUnmodifiable(Set<T> set) {
+		if (set == null) {
+			return null;
+		}
+
+		if (isUnmodifiable(set)) {
+			return set;
+		}
+
+		return Collections.unmodifiableSet(set);
+	}
+
+	/**
 	 * Safely convert a collection of objects to a set or return a default value.
 	 *
 	 * @param collection			collection of objects

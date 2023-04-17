@@ -26,6 +26,7 @@ import java.util.Collections;
  * that provide functionality to operate
  * with collections.
  */
+@SuppressWarnings("unused")
 public final class UwCollection {
 
 	/**
@@ -55,6 +56,25 @@ public final class UwCollection {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get an unmodifiable view of the provided collection.
+	 *
+	 * @param collection	collection to get the view for
+	 * @param <T>			element type
+	 * @return				unmodifiable view of the collection
+	 */
+	public static <T> Collection<T> toUnmodifiable(Collection<T> collection) {
+		if (collection == null) {
+			return null;
+		}
+
+		if (isUnmodifiable(collection)) {
+			return collection;
+		}
+
+		return Collections.unmodifiableCollection(collection);
 	}
 
 	private UwCollection() {
