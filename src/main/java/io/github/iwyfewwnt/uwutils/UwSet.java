@@ -33,6 +33,25 @@ import java.util.stream.*;
 public final class UwSet {
 
 	/**
+	 * An empty set instance.
+	 */
+	@SuppressWarnings("rawtypes")
+	public static final Set EMPTY = Collections.EMPTY_SET;
+
+	/**
+	 * Check if the provided set is unmodifiable.
+	 *
+	 * <p>Redirects call to the {@link UwCollection#isUnmodifiable(Collection)}.
+	 *
+	 * @param set	set to check for
+	 * @return		boolean value as a result,
+	 * 				true - yes, false - no
+	 */
+	public static boolean isUnmodifiable(Set<?> set) {
+		return UwCollection.isUnmodifiable(set);
+	}
+
+	/**
 	 * Safely convert a collection of objects to a set or return a default value.
 	 *
 	 * @param collection			collection of objects

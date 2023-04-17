@@ -16,6 +16,7 @@
 
 package io.github.iwyfewwnt.uwutils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,6 +35,35 @@ import java.util.stream.BaseStream;
  */
 @SuppressWarnings("unused")
 public final class UwMap {
+
+	/**
+	 * An empty map instance.
+	 */
+	@SuppressWarnings("rawtypes")
+	public static final Map EMPTY = Collections.EMPTY_MAP;
+
+	/**
+	 * Check if the provided map is unmodifiable.
+	 *
+	 * @param map	map to check for
+	 * @return		boolean value as result,
+	 * 				true - yes, false - no
+	 */
+	@SuppressWarnings("unchecked")
+	public static boolean isUnmodifiable(Map<?, ?> map) {
+		if (map == null) {
+			return false;
+		}
+
+		try {
+			map.putAll(EMPTY);
+
+			return false;
+		} catch (UnsupportedOperationException ignored) {
+		}
+
+		return true;
+	}
 
 	/**
 	 * Safely get a value from a map by its key or return a default one.
