@@ -767,6 +767,10 @@ public final class UwSet {
 	 * @return				new concurrent set instance.
 	 */
 	private static <T> Set<T> newConcurrentSet(Collection<T> collection) {
+		if (collection == null) {
+			throw new IllegalArgumentException("Collection mustn't be <null>");
+		}
+
 		Set<T> set = newConcurrentSet();
 
 		// Collection is always non-null due to usage only
