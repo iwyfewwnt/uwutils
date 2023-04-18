@@ -177,7 +177,7 @@ public final class UwSystem {
 
 		OutputStream defaultOutputStream = parallelOutputStream.getDefaultOutputStream();
 		if (!(defaultOutputStream instanceof PrintStream)) {
-			throw new IllegalStateException();
+			throw new IllegalStateException("Unable to cast to the <PrintStream> type");
 		}
 
 		printStreamConsumer.accept((PrintStream) defaultOutputStream);
