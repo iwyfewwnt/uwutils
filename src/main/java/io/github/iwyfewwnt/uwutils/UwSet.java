@@ -73,10 +73,10 @@ public final class UwSet {
 	/**
 	 * Safely convert a collection of objects to a set or return a default value.
 	 *
-	 * @param collection			collection of objects
-	 * @param defaultValue			default value to return on failure
-	 * @param <T>					object type
-	 * @return						set of objects or the default value
+	 * @param collection	collection of objects
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(Collection<T> collection, Set<T> defaultValue) {
 		return toSetOrElse(collection, HashSet::new, defaultValue);
@@ -100,9 +100,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
-	 * @param collection			collection of objects
-	 * @param <T>					object type
-	 * @return						set of objects
+	 * @param collection	collection of objects
+	 * @param <T>			object type
+	 * @return				set of objects
 	 */
 	public static <T> Set<T> toSetOrEmpty(Collection<T> collection) {
 		return toSetOrElse(collection, HashSet::new);
@@ -114,9 +114,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param collection			collection of objects
-	 * @param <T>					object type
-	 * @return						set of objects or {@code null}
+	 * @param collection	collection of objects
+	 * @param <T>			object type
+	 * @return				set of objects or {@code null}
 	 */
 	public static <T> Set<T> toSetOrNull(Collection<T> collection) {
 		return toSetOrElse(collection, (Set<T>) null);
@@ -128,10 +128,10 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Set)}
 	 * w/ {@link Arrays#asList(Object[])} call.
 	 *
-	 * @param array					array of objects
-	 * @param defaultValue			default value to return on failure
-	 * @param <T>					object type
-	 * @return						set of objects or the default value
+	 * @param array			array of objects
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(T[] array, Set<T> defaultValue) {
 		if (array == null) {
@@ -159,9 +159,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Object[], Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
-	 * @param array					array of objects
-	 * @param <T>					object type
-	 * @return						set of objects
+	 * @param array		array of objects
+	 * @param <T>		object type
+	 * @return			set of objects
 	 */
 	public static <T> Set<T> toSetOrEmpty(T[] array) {
 		return toSetOrElse(array, HashSet::new);
@@ -173,9 +173,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Object[], Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param array					array of objects
-	 * @param <T>					object type
-	 * @return						set of objects or {@code null}
+	 * @param array		array of objects
+	 * @param <T>		object type
+	 * @return			set of objects or {@code null}
 	 */
 	public static <T> Set<T> toSetOrNull(T[] array) {
 		return toSetOrElse(array, (Set<T>) null);
@@ -187,10 +187,10 @@ public final class UwSet {
 	 * <p>Wraps {@link Stream#collect(Collector)}
 	 * w/ {@link Collectors#toSet()} call.
 	 *
-	 * @param stream				stream of objects
-	 * @param defaultValue 			default value to return on failure
-	 * @param <T>					object type
-	 * @return						set of objects or the default value
+	 * @param stream		stream of objects
+	 * @param defaultValue 	default value to return on failure
+	 * @param <T>			object type
+	 * @return				set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(Stream<T> stream, Set<T> defaultValue) {
 		if (stream == null) {
@@ -218,9 +218,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of objects
-	 * @param <T>					object type
-	 * @return						set of objects
+	 * @param stream	stream of objects
+	 * @param <T>		object type
+	 * @return			set of objects
 	 */
 	public static <T> Set<T> toSetOrEmpty(Stream<T> stream) {
 		return toSetOrElse(stream, HashSet::new);
@@ -232,9 +232,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of objects
-	 * @param <T>					object type
-	 * @return						set of objects or {@code null}
+	 * @param stream	stream of objects
+	 * @param <T>		object type
+	 * @return			set of objects or {@code null}
 	 */
 	public static <T> Set<T> toSetOrNull(Stream<T> stream) {
 		return toSetOrElse(stream, (Set<T>) null);
@@ -246,9 +246,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
 	 * w/ {@link IntStream#boxed()} call.
 	 *
-	 * @param stream				stream of integers
-	 * @param defaultValue 			default value to return on failure
-	 * @return						set of integers or the default value
+	 * @param stream		stream of integers
+	 * @param defaultValue 	default value to return on failure
+	 * @return				set of integers or the default value
 	 */
 	public static Set<Integer> toSetOrElse(IntStream stream, Set<Integer> defaultValue) {
 		if (stream == null) {
@@ -275,8 +275,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(IntStream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of integers
-	 * @return						set of integers
+	 * @param stream	stream of integers
+	 * @return			set of integers
 	 */
 	public static Set<Integer> toSetOrEmpty(IntStream stream) {
 		return toSetOrElse(stream, HashSet::new);
@@ -288,8 +288,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(IntStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of integers
-	 * @return						set of integers or {@code null}
+	 * @param stream	stream of integers
+	 * @return			set of integers or {@code null}
 	 */
 	public static Set<Integer> toSetOrNull(IntStream stream) {
 		return toSetOrElse(stream, (Set<Integer>) null);
@@ -301,9 +301,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
 	 * w/ {@link DoubleStream#boxed()} call.
 	 *
-	 * @param stream				stream of doubles
-	 * @param defaultValue 			default value to return on failure
-	 * @return						set of doubles or the default value
+	 * @param stream		stream of doubles
+	 * @param defaultValue 	default value to return on failure
+	 * @return				set of doubles or the default value
 	 */
 	public static Set<Double> toSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
 		if (stream == null) {
@@ -330,8 +330,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(DoubleStream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of doubles
-	 * @return						set of doubles
+	 * @param stream	stream of doubles
+	 * @return			set of doubles
 	 */
 	public static Set<Double> toSetOrEmpty(DoubleStream stream) {
 		return toSetOrElse(stream, HashSet::new);
@@ -343,8 +343,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(DoubleStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of doubles
-	 * @return						set of doubles or {@code null}
+	 * @param stream	stream of doubles
+	 * @return			set of doubles or {@code null}
 	 */
 	public static Set<Double> toSetOrNull(DoubleStream stream) {
 		return toSetOrElse(stream, (Set<Double>) (null));
@@ -356,9 +356,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
 	 * w/ {@link LongStream#boxed()} call.
 	 *
-	 * @param stream				stream of longs
-	 * @param defaultValue 			default value to return on failure
-	 * @return						set of longs or the default value
+	 * @param stream		stream of longs
+	 * @param defaultValue 	default value to return on failure
+	 * @return				set of longs or the default value
 	 */
 	public static Set<Long> toSetOrElse(LongStream stream, Set<Long> defaultValue) {
 		if (stream == null) {
@@ -385,8 +385,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(LongStream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of longs
-	 * @return						set of longs
+	 * @param stream	stream of longs
+	 * @return			set of longs
 	 */
 	public static Set<Long> toSetOrEmpty(LongStream stream) {
 		return toSetOrElse(stream, HashSet::new);
@@ -398,8 +398,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toSetOrElse(LongStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of longs
-	 * @return						set of longs or {@code null}
+	 * @param stream	stream of longs
+	 * @return			set of longs or {@code null}
 	 */
 	public static Set<Long> toSetOrNull(LongStream stream) {
 		return toSetOrElse(stream, (Set<Long>) null);
@@ -408,10 +408,10 @@ public final class UwSet {
 	/**
 	 * Safely convert a collection of objects to a concurrent set or return a default value.
 	 *
-	 * @param collection			collection of objects
-	 * @param defaultValue			default value to return on failure
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or the default value
+	 * @param collection	collection of objects
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(Collection<T> collection, Set<T> defaultValue) {
 		return toSetOrElse(collection, UwSet::newConcurrentSet, defaultValue);
@@ -435,9 +435,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Supplier)}
 	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
-	 * @param collection			collection of objects
-	 * @param <T>					object type
-	 * @return						concurrent set of objects
+	 * @param collection	collection of objects
+	 * @param <T>			object type
+	 * @return				concurrent set of objects
 	 */
 	public static <T> Set<T> toConcurrentSetOrEmpty(Collection<T> collection) {
 		return toConcurrentSetOrElse(collection, UwSet::newConcurrentSet);
@@ -449,9 +449,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param collection			collection of objects
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or {@code null}
+	 * @param collection	collection of objects
+	 * @param <T>			object type
+	 * @return				concurrent set of objects or {@code null}
 	 */
 	public static <T> Set<T> toConcurrentSetOrNull(Collection<T> collection) {
 		return toConcurrentSetOrElse(collection, (Set<T>) null);
@@ -463,10 +463,10 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Set)}
 	 * w/ {@link Arrays#asList(Object[])} call.
 	 *
-	 * @param array					array of objects
-	 * @param defaultValue			default value to return on failure
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or the default value
+	 * @param array			array of objects
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(T[] array, Set<T> defaultValue) {
 		if (array == null) {
@@ -494,9 +494,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Object[], Supplier)}
 	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
-	 * @param array					array of objects
-	 * @param <T>					object type
-	 * @return						concurrent set of objects
+	 * @param array		array of objects
+	 * @param <T>		object type
+	 * @return			concurrent set of objects
 	 */
 	public static <T> Set<T> toConcurrentSetOrEmpty(T[] array) {
 		return toConcurrentSetOrElse(array, UwSet::newConcurrentSet);
@@ -508,9 +508,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Object[], Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param array					array of objects
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or {@code null}
+	 * @param array		array of objects
+	 * @param <T>		object type
+	 * @return			concurrent set of objects or {@code null}
 	 */
 	public static <T> Set<T> toConcurrentSetOrNull(T[] array) {
 		return toConcurrentSetOrElse(array, (Set<T>) null);
@@ -522,10 +522,10 @@ public final class UwSet {
 	 * <p>Wraps {@link Collections#synchronizedSet(Set)}
 	 * w/ {@link Stream#collect(Collector)} {@literal &} {@link Collectors#toSet()} calls.
 	 *
-	 * @param stream				stream of objects
-	 * @param defaultValue 			default value to return on failure
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or the default value
+	 * @param stream		stream of objects
+	 * @param defaultValue 	default value to return on failure
+	 * @param <T>			object type
+	 * @return				concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(Stream<T> stream, Set<T> defaultValue) {
 		if (stream == null) {
@@ -553,9 +553,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Supplier)}
 	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of objects
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or the default value
+	 * @param stream	stream of objects
+	 * @param <T>		object type
+	 * @return			concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrEmpty(Stream<T> stream) {
 		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
@@ -567,9 +567,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of objects
-	 * @param <T>					object type
-	 * @return						concurrent set of objects or {@code null}
+	 * @param stream	stream of objects
+	 * @param <T>		object type
+	 * @return			concurrent set of objects or {@code null}
 	 */
 	public static <T> Set<T> toConcurrentSetOrNull(Stream<T> stream) {
 		return toConcurrentSetOrElse(stream, (Set<T>) null);
@@ -581,9 +581,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link IntStream#boxed()} call.
 	 *
-	 * @param stream				stream of integers
-	 * @param defaultValue 			default value to return on failure
-	 * @return						concurrent set of integers or the default value
+	 * @param stream		stream of integers
+	 * @param defaultValue 	default value to return on failure
+	 * @return				concurrent set of integers or the default value
 	 */
 	public static Set<Integer> toConcurrentSetOrElse(IntStream stream, Set<Integer> defaultValue) {
 		if (stream == null) {
@@ -610,8 +610,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(IntStream, Supplier)}
 	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of integers
-	 * @return						concurrent set of integers or the default value
+	 * @param stream	stream of integers
+	 * @return			concurrent set of integers or the default value
 	 */
 	public static Set<Integer> toConcurrentSetOrEmpty(IntStream stream) {
 		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
@@ -623,8 +623,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(IntStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of integers
-	 * @return						concurrent set of integers or {@code null}
+	 * @param stream	stream of integers
+	 * @return			concurrent set of integers or {@code null}
 	 */
 	public static Set<Integer> toConcurrentSetOrNull(IntStream stream) {
 		return toConcurrentSetOrElse(stream, (Set<Integer>) null);
@@ -636,9 +636,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link DoubleStream#boxed()} call.
 	 *
-	 * @param stream				stream of doubles
-	 * @param defaultValue 			default value to return on failure
-	 * @return						concurrent set of doubles or the default value
+	 * @param stream		stream of doubles
+	 * @param defaultValue 	default value to return on failure
+	 * @return				concurrent set of doubles or the default value
 	 */
 	public static Set<Double> toConcurrentSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
 		if (stream == null) {
@@ -665,8 +665,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(DoubleStream, Supplier)}
 	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of doubles
-	 * @return						concurrent set of doubles or the default value
+	 * @param stream	stream of doubles
+	 * @return			concurrent set of doubles or the default value
 	 */
 	public static Set<Double> toConcurrentSetOrEmpty(DoubleStream stream) {
 		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
@@ -678,8 +678,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(DoubleStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of doubles
-	 * @return						concurrent set of doubles or {@code null}
+	 * @param stream	stream of doubles
+	 * @return			concurrent set of doubles or {@code null}
 	 */
 	public static Set<Double> toConcurrentSetOrNull(DoubleStream stream) {
 		return toConcurrentSetOrElse(stream, (Set<Double>) (null));
@@ -691,9 +691,9 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link LongStream#boxed()} call.
 	 *
-	 * @param stream				stream of longs
-	 * @param defaultValue 			default value to return on failure
-	 * @return						concurrent set of longs or the default value
+	 * @param stream		stream of longs
+	 * @param defaultValue 	default value to return on failure
+	 * @return				concurrent set of longs or the default value
 	 */
 	public static Set<Long> toConcurrentSetOrElse(LongStream stream, Set<Long> defaultValue) {
 		if (stream == null) {
@@ -720,8 +720,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(LongStream, Supplier)}
 	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
 	 *
-	 * @param stream				stream of longs
-	 * @return						concurrent set of longs
+	 * @param stream	stream of longs
+	 * @return			concurrent set of longs
 	 */
 	public static Set<Long> toConcurrentSetOrEmpty(LongStream stream) {
 		return toConcurrentSetOrElse(stream, UwSet::newConcurrentSet);
@@ -733,8 +733,8 @@ public final class UwSet {
 	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(LongStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param stream				stream of longs
-	 * @return						concurrent set of longs or {@code null}
+	 * @param stream	stream of longs
+	 * @return			concurrent set of longs or {@code null}
 	 */
 	public static Set<Long> toConcurrentSetOrNull(LongStream stream) {
 		return toConcurrentSetOrElse(stream, (Set<Long>) null);
@@ -743,13 +743,13 @@ public final class UwSet {
 	/**
 	 * Safely convert an object to a set of elements or return a default value.
 	 *
-	 * @param object			object to convert
-	 * @param function			function to apply for conversion
-	 * @param defaultValue		default value to return on failure
-	 * @param <U>				object type
-	 * @param <T>				element type
-	 * @param <R>				set type
-	 * @return					set of elements or the default value.
+	 * @param object		object to convert
+	 * @param function		function to apply for conversion
+	 * @param defaultValue	default value to return on failure
+	 * @param <U>			object type
+	 * @param <T>			element type
+	 * @param <R>			set type
+	 * @return				set of elements or the default value.
 	 */
 	private static <U, T, R extends Set<T>> R toSetOrElse(U object, Function<U, R> function, R defaultValue) {
 		if (object == null || function == null) {
@@ -780,8 +780,8 @@ public final class UwSet {
 	/**
 	 * Create a new concurrent set instance.
 	 *
-	 * @param <T>			object type
-	 * @return				new concurrent set instance
+	 * @param <T>	object type
+	 * @return		new concurrent set instance
 	 */
 	private static <T> Set<T> newConcurrentSet() {
 		return ConcurrentHashMap.newKeySet();

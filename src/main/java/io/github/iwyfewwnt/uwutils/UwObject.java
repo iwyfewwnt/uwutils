@@ -32,12 +32,12 @@ public final class UwObject {
 	/**
 	 * Safely apply argument to the specified function if argument isn't {@code null} or return a default value.
 	 *
-	 * @param object			argument to apply
-	 * @param function			function to which apply argument
-	 * @param defaultValue		default value to return on failure
-	 * @param <T>				argument type
-	 * @param <R>				return type
-	 * @return					result of the function applying or the default value
+	 * @param object		argument to apply
+	 * @param function		function to which apply argument
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			argument type
+	 * @param <R>			return type
+	 * @return				result of the function applying or the default value
 	 */
 	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, R defaultValue) {
 		if (object == null || function == null) {
@@ -67,11 +67,11 @@ public final class UwObject {
 	 * <p>Wraps {@link UwObject#applyIfNotNull(Object, Function, Object)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param object			argument to apply
-	 * @param function			function to which apply argument
-	 * @param <T>				argument type
-	 * @param <R>				return type
-	 * @return					result of the function applying or {@code null}
+	 * @param object	argument to apply
+	 * @param function	function to which apply argument
+	 * @param <T>		argument type
+	 * @param <R>		return type
+	 * @return			result of the function applying or {@code null}
 	 */
 	public static <T, R> R applyIfNotNull(T object, Function<T, R> function) {
 		return applyIfNotNull(object, function, (R) null);
@@ -97,11 +97,10 @@ public final class UwObject {
 	/**
 	 * Get a default value if the specified object is {@code null}.
 	 *
-	 * @param object		object value to null-check
-	 * @param supplier		supplier from which get the default value
-	 * @param <T>			object type
-	 * @return				default value if object is {@code null}
-	 * 						else the object
+	 * @param object	object value to null-check
+	 * @param supplier	supplier from which get the default value
+	 * @param <T>		object type
+	 * @return			default value if object is {@code null} else the object
 	 */
 	public static <T> T getIfNull(T object, Supplier<T> supplier) {
 		if (object == null) {

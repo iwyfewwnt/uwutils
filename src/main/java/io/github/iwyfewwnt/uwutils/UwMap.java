@@ -88,12 +88,12 @@ public final class UwMap {
 	/**
 	 * Safely get a value from a map by its key or return a default one.
 	 *
-	 * @param key					key assigned to the value
-	 * @param map					map from which get the value
-	 * @param defaultValue			default value to return on failure
-	 * @param <K>					key type
-	 * @param <T>					value type
-	 * @return						value assigned to the key or the default one
+	 * @param key			key assigned to the value
+	 * @param map			map from which get the value
+	 * @param defaultValue	default value to return on failure
+	 * @param <K>			key type
+	 * @param <T>			value type
+	 * @return				value assigned to the key or the default one
 	 */
 	public static <K, T> T getOrElse(K key, Map<K, T> map, T defaultValue) {
 		if (map == null) {
@@ -131,11 +131,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#getOrElse(Object, Map, Object)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param key					key assigned to the value
-	 * @param map					map from which get the value
-	 * @param <K>					key type
-	 * @param <T>					value type
-	 * @return						value assigned to the key or {@code null}
+	 * @param key	key assigned to the value
+	 * @param map	map from which get the value
+	 * @param <K>	key type
+	 * @param <T>	value type
+	 * @return		value assigned to the key or {@code null}
 	 */
 	public static <K, T> T getOrNull(K key, Map<K, T> map) {
 		return getOrElse(key, map, (T) null);
@@ -1025,12 +1025,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link HashMap#HashMap()} as the create map supplier.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterator of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		iterator of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link HashMap} instance or the default value
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, Map<K, T> defaultValue) {
 		return newMapByFieldOrElse(getter, entries, HashMap::new, defaultValue);
@@ -1042,12 +1042,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterable of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		iterable of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link HashMap} instance or the default value
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrElse(Function<T, K> getter, Iterable<T> entries, Map<K, T> defaultValue) {
 		return newMapByFieldOrElse(getter, entries.iterator(), defaultValue);
@@ -1059,12 +1059,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				stream of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		stream of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link HashMap} instance or the default value
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrElse(Function<T, K> getter, BaseStream<T, ?> entries, Map<K, T> defaultValue) {
 		return newMapByFieldOrElse(getter, entries.iterator(), defaultValue);
@@ -1076,12 +1076,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				array of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		array of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link HashMap} instance or the default value
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrElse(Function<T, K> getter, T[] entries, Map<K, T> defaultValue) {
 		return newMapByFieldOrElse(getter, UwArray.iterator(entries), defaultValue);
@@ -1093,12 +1093,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Object[], Map)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
-	 * @param getter				supplier for getting an enum's field
-	 * @param clazz					enum class
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					enum type
-	 * @return						new extended {@link HashMap} instance or the default value
+	 * @param getter		supplier for getting an enum's field
+	 * @param clazz			enum class
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			enum type
+	 * @return				new extended {@link HashMap} instance or the default value
 	 */
 	public static <K, T extends Enum<T>> Map<K, T> newMapByFieldOrElse(Function<T, K> getter, Class<T> clazz, Map<K, T> defaultValue) {
 		return newMapByFieldOrElse(getter, UwEnum.values(clazz), defaultValue);
@@ -1192,11 +1192,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link HashMap#HashMap()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterator of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterator of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, Iterator<T> entries) {
 		return newMapByFieldOrEmpty(getter, entries, HashMap::new);
@@ -1208,11 +1208,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterable of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterable of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, Iterable<T> entries) {
 		return newMapByFieldOrEmpty(getter, entries.iterator());
@@ -1224,11 +1224,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				stream of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	stream of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, BaseStream<T, ?> entries) {
 		return newMapByFieldOrEmpty(getter, entries.iterator());
@@ -1240,11 +1240,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				array of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	array of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, T[] entries) {
 		return newMapByFieldOrEmpty(getter, UwArray.iterator(entries));
@@ -1256,11 +1256,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
-	 * @param getter				supplier for getting an enum's field
-	 * @param clazz					enum class
-	 * @param <K>					field type
-	 * @param <T>					enum type
-	 * @return						new extended {@link HashMap} instance or an empty one
+	 * @param getter	supplier for getting an enum's field
+	 * @param clazz		enum class
+	 * @param <K>		field type
+	 * @param <T>		enum type
+	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T extends Enum<T>> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, Class<T> clazz) {
 		return newMapByFieldOrEmpty(getter, UwEnum.values(clazz));
@@ -1272,11 +1272,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterator of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterator of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, Iterator<T> entries) {
 		return newMapByFieldOrElse(getter, entries, (Map<K, T>) null);
@@ -1288,11 +1288,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterable of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterable of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, Iterable<T> entries) {
 		return newMapByFieldOrNull(getter, entries.iterator());
@@ -1304,11 +1304,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				stream of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	stream of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, BaseStream<T, ?> entries) {
 		return newMapByFieldOrNull(getter, entries.iterator());
@@ -1320,11 +1320,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				array of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link HashMap} instance or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	array of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, T[] entries) {
 		return newMapByFieldOrNull(getter, UwArray.iterator(entries));
@@ -1336,11 +1336,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
-	 * @param getter				supplier for getting an enum's field
-	 * @param clazz					enum class
-	 * @param <K>					field type
-	 * @param <T>					enum type
-	 * @return						new extended {@link HashMap} instance or {@code null}
+	 * @param getter	supplier for getting an enum's field
+	 * @param clazz		enum class
+	 * @param <K>		field type
+	 * @param <T>		enum type
+	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T extends Enum<T>> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, Class<T> clazz) {
 		return newMapByFieldOrNull(getter, UwEnum.values(clazz));
@@ -1352,12 +1352,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link ConcurrentHashMap#ConcurrentHashMap()} as the create map supplier.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterator of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		iterator of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link ConcurrentHashMap} instance or the default value
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, ConcurrentMap<K, T> defaultValue) {
 		return newMapByFieldOrElse(getter, entries, ConcurrentHashMap::new, defaultValue);
@@ -1369,12 +1369,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterable of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		iterable of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link ConcurrentHashMap} instance or the default value
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrElse(Function<T, K> getter, Iterable<T> entries, ConcurrentMap<K, T> defaultValue) {
 		return newConcurrentMapByFieldOrElse(getter, entries.iterator(), defaultValue);
@@ -1386,12 +1386,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				stream of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		stream of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link ConcurrentHashMap} instance or the default value
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrElse(Function<T, K> getter, BaseStream<T, ?> entries, ConcurrentMap<K, T> defaultValue) {
 		return newConcurrentMapByFieldOrElse(getter, entries.iterator(), defaultValue);
@@ -1403,12 +1403,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				array of entries
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or the default value
+	 * @param getter		supplier for getting an entry's field
+	 * @param entries		array of entries
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			entry type
+	 * @return				new extended {@link ConcurrentHashMap} instance or the default value
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrElse(Function<T, K> getter, T[] entries, ConcurrentMap<K, T> defaultValue) {
 		return newConcurrentMapByFieldOrElse(getter, UwArray.iterator(entries), defaultValue);
@@ -1420,12 +1420,12 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Object[], ConcurrentMap)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
-	 * @param getter				supplier for getting an enum's field
-	 * @param clazz					enum class
-	 * @param defaultValue 			default value to return on failure
-	 * @param <K>					field type
-	 * @param <T>					enum type
-	 * @return						new extended {@link ConcurrentHashMap} instance or the default value
+	 * @param getter		supplier for getting an enum's field
+	 * @param clazz			enum class
+	 * @param defaultValue 	default value to return on failure
+	 * @param <K>			field type
+	 * @param <T>			enum type
+	 * @return				new extended {@link ConcurrentHashMap} instance or the default value
 	 */
 	public static <K, T extends Enum<T>> ConcurrentMap<K, T> newConcurrentMapByFieldOrElse(Function<T, K> getter, Class<T> clazz, ConcurrentMap<K, T> defaultValue) {
 		return newConcurrentMapByFieldOrElse(getter, UwEnum.values(clazz), defaultValue);
@@ -1519,11 +1519,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link ConcurrentHashMap#ConcurrentHashMap()} as the create map supplier.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterator of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterator of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, Iterator<T> entries) {
 		return newMapByFieldOrEmpty(getter, entries, ConcurrentHashMap::new);
@@ -1535,11 +1535,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterable of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterable of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, Iterable<T> entries) {
 		return newConcurrentMapByFieldOrEmpty(getter, entries.iterator());
@@ -1551,11 +1551,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				stream of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	stream of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, BaseStream<T, ?> entries) {
 		return newConcurrentMapByFieldOrEmpty(getter, entries.iterator());
@@ -1567,11 +1567,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				array of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance or an empty one
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	array of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, T[] entries) {
 		return newConcurrentMapByFieldOrEmpty(getter, UwArray.iterator(entries));
@@ -1583,11 +1583,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
-	 * @param getter				supplier for getting an enum's field
-	 * @param clazz					enum class
-	 * @param <K>					field type
-	 * @param <T>					enum type
-	 * @return						new extended {@link ConcurrentHashMap} instance or an empty one
+	 * @param getter	supplier for getting an enum's field
+	 * @param clazz		enum class
+	 * @param <K>		field type
+	 * @param <T>		enum type
+	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T extends Enum<T>> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, Class<T> clazz) {
 		return newConcurrentMapByFieldOrEmpty(getter, UwEnum.values(clazz));
@@ -1599,12 +1599,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterator of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance
-	 * 								 or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterator of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, Iterator<T> entries) {
 		return newConcurrentMapByFieldOrElse(getter, entries, (ConcurrentMap<K, T>) null);
@@ -1616,12 +1615,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				iterable of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance
-	 * 								 or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	iterable of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, Iterable<T> entries) {
 		return newConcurrentMapByFieldOrNull(getter, entries.iterator());
@@ -1633,12 +1631,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				stream of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance
-	 * 								 or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	stream of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, BaseStream<T, ?> entries) {
 		return newConcurrentMapByFieldOrNull(getter, entries.iterator());
@@ -1650,12 +1647,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
-	 * @param getter				supplier for getting an entry's field
-	 * @param entries				array of entries
-	 * @param <K>					field type
-	 * @param <T>					entry type
-	 * @return						new extended {@link ConcurrentHashMap} instance
-	 * 								 or {@code null}
+	 * @param getter	supplier for getting an entry's field
+	 * @param entries	array of entries
+	 * @param <K>		field type
+	 * @param <T>		entry type
+	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, T[] entries) {
 		return newConcurrentMapByFieldOrNull(getter, UwArray.iterator(entries));
@@ -1667,12 +1663,11 @@ public final class UwMap {
 	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
-	 * @param getter				supplier for getting an enum's field
-	 * @param clazz					enum class
-	 * @param <K>					field type
-	 * @param <T>					enum type
-	 * @return						new extended {@link ConcurrentHashMap} instance
-	 * 								 or {@code null}
+	 * @param getter	supplier for getting an enum's field
+	 * @param clazz		enum class
+	 * @param <K>		field type
+	 * @param <T>		enum type
+	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T extends Enum<T>> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, Class<T> clazz) {
 		return newConcurrentMapByFieldOrNull(getter, UwEnum.values(clazz));

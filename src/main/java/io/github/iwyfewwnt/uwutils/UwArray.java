@@ -37,11 +37,11 @@ public final class UwArray {
 	/**
 	 * Safely get a value from an array by its index or return a default value.
 	 *
-	 * @param index					index of the value
-	 * @param array					array from which get the value
-	 * @param defaultValue 			default value to return on failure
-	 * @param <T>					value type
-	 * @return						value assigned to the index or the default value
+	 * @param index			index of the value
+	 * @param array			array from which get the value
+	 * @param defaultValue 	default value to return on failure
+	 * @param <T>			value type
+	 * @return				value assigned to the index or the default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, T defaultValue) {
 		if (index == null || array == null
@@ -71,10 +71,10 @@ public final class UwArray {
 	 * <p>Wraps {@link UwArray#getOrElse(Integer, Object[], Object)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param index					index of the value
-	 * @param array					array from which get the value
-	 * @param <T>					value type
-	 * @return						value assigned to the index or {@code null}
+	 * @param index		index of the value
+	 * @param array		array from which get the value
+	 * @param <T>		value type
+	 * @return			value assigned to the index or {@code null}
 	 */
 	public static <T> T getOrNull(Integer index, T[] array) {
 		return getOrElse(index, array, (T) null);
@@ -137,7 +137,7 @@ public final class UwArray {
 		/**
 		 * Return an iterator for this array of elements
 		 *
-		 * @return		iterator for this array of elements
+		 * @return	iterator for this array of elements
 		 */
 		@Override
 		public java.util.Iterator<T> iterator() {
@@ -203,8 +203,8 @@ public final class UwArray {
 		/**
 		 * Check if this array has a next element.
 		 *
-		 * @return		true if this array isn't {@code null}
-		 * 				and current index {@literal <} this array length
+		 * @return	true if this array isn't {@code null}
+		 * 			and current index {@literal <} this array length
 		 */
 		@Override
 		public boolean hasNext() {
@@ -217,7 +217,7 @@ public final class UwArray {
 		 *
 		 * <p><b>Doesn't throw any internal exception.</b>
 		 *
-		 * @return		next element or {@code null}
+		 * @return	next element or {@code null}
 		 */
 		@Override
 		public T next() {

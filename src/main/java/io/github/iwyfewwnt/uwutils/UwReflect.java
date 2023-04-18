@@ -35,9 +35,9 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of objects to an array of their type or return a default value.
 	 *
-	 * @param objects				array of objects to cast
-	 * @param defaultValue 			default value to return on failure
-	 * @return						array of the object types or the default value
+	 * @param objects		array of objects to cast
+	 * @param defaultValue 	default value to return on failure
+	 * @return				array of the object types or the default value
 	 */
 	public static Class<?>[] toClassArrayOrElse(Object[] objects, Class<?>[] defaultValue) {
 		if (objects == null) {
@@ -70,8 +70,8 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Object[], Class[])}
 	 * w/ {@link UwArray#CLASS_EMPTY} as the default value.
 	 *
-	 * @param objects		array of objects to cast
-	 * @return				array of the object types or the empty array
+	 * @param objects	array of objects to cast
+	 * @return			array of the object types or the empty array
 	 */
 	public static Class<?>[] toClassArrayOrEmpty(Object[] objects) {
 		return toClassArrayOrElse(objects, UwArray.CLASS_EMPTY);
@@ -83,8 +83,8 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Object[], Class[])}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param objects		array of objects to cast
-	 * @return				array of the object types or {@code null}
+	 * @param objects	array of objects to cast
+	 * @return			array of the object types or {@code null}
 	 */
 	public static Class<?>[] toClassArrayOrNull(Object[] objects) {
 		return toClassArrayOrElse(objects, (Class<?>[]) null);
@@ -93,9 +93,9 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of types to an array of classes or return a default value.
 	 *
-	 * @param types					array of types to cast
-	 * @param defaultValue			default value to return on failure
-	 * @return						array of classes or the default value
+	 * @param types			array of types to cast
+	 * @param defaultValue	default value to return on failure
+	 * @return				array of classes or the default value
 	 */
 	public static Class<?>[] toClassArrayOrElse(Type[] types, Class<?>[] defaultValue) {
 		if (types == null) {
@@ -157,9 +157,9 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided parameterized type or return a default value.
 	 *
-	 * @param type				parameterized type from which get the generic types
-	 * @param defaultValue 		default value to return on failure
-	 * @return					array of generic types or the default value
+	 * @param type			parameterized type from which get the generic types
+	 * @param defaultValue 	default value to return on failure
+	 * @return				array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(ParameterizedType type, Class<?>[] defaultValue) {
 		if (type == null) {
@@ -239,8 +239,8 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypesOrElse(ParameterizedType, Class[])}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param type		parameterized type from which get the generic types
-	 * @return			array of generic types or {@code null}
+	 * @param type	parameterized type from which get the generic types
+	 * @return		array of generic types or {@code null}
 	 */
 	public static Class<?>[] getGenericTypesOrNull(ParameterizedType type) {
 		return getGenericTypesOrElse(type, (Class<?>[]) null);
@@ -252,8 +252,8 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypesOrElse(Type, Class[])}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param type		type from which get the generic types
-	 * @return			array of generic types or {@code null}
+	 * @param type	type from which get the generic types
+	 * @return		array of generic types or {@code null}
 	 */
 	public static Class<?>[] getGenericTypesOrNull(Type type) {
 		return getGenericTypesOrElse(type, (Class<?>[]) null);
@@ -275,10 +275,10 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided parameterized type by its index or return a default value.
 	 *
-	 * @param type				parameterized type from which get the generic type
-	 * @param index				index of the generic type
-	 * @param defaultValue		default value to return on failure
-	 * @return					generic type or the default value
+	 * @param type			parameterized type from which get the generic type
+	 * @param index			index of the generic type
+	 * @param defaultValue	default value to return on failure
+	 * @return				generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Integer index, Class<?> defaultValue) {
 		return UwArray.getOrElse(index, getGenericTypesOrNull(type), defaultValue);
@@ -392,9 +392,9 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Integer, Class)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
-	 * @param type				parameterized type from which get the generic type
-	 * @param defaultValue		default value to return on failure
-	 * @return					generic type or the default value
+	 * @param type			parameterized type from which get the generic type
+	 * @param defaultValue	default value to return on failure
+	 * @return				generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Class<?> defaultValue) {
 		return getGenericTypeOrElse(type, 0, defaultValue);
@@ -406,9 +406,9 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Integer, Class)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
-	 * @param type				type from which get the generic type
-	 * @param defaultValue 		default value to return on failure
-	 * @return					generic type or the default value
+	 * @param type			type from which get the generic type
+	 * @param defaultValue 	default value to return on failure
+	 * @return				generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(Type type, Class<?> defaultValue) {
 		return getGenericTypeOrElse(type, 0, defaultValue);
@@ -420,9 +420,9 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Class, Integer, Class)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
-	 * @param clazz				class from which get the generic type
-	 * @param defaultValue 		default value to return on failure
-	 * @return					generic type or the default value
+	 * @param clazz			class from which get the generic type
+	 * @param defaultValue 	default value to return on failure
+	 * @return				generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Class<?> defaultValue) {
 		return getGenericTypeOrElse(clazz, 0, defaultValue);
@@ -476,8 +476,8 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Class)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param type		parameterized type from which get the generic type
-	 * @return			generic type or {@code null}
+	 * @param type	parameterized type from which get the generic type
+	 * @return		generic type or {@code null}
 	 */
 	public static Class<?> getGenericTypeOrNull(ParameterizedType type) {
 		return getGenericTypeOrElse(type, (Class<?>) null);
@@ -489,8 +489,8 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Class)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param type		type from which get the generic type
-	 * @return			generic type or {@code null}
+	 * @param type	type from which get the generic type
+	 * @return		generic type or {@code null}
 	 */
 	public static Class<?> getGenericTypeOrNull(Type type) {
 		return getGenericTypeOrElse(type, (Class<?>) null);
@@ -512,11 +512,11 @@ public final class UwReflect {
 	/**
 	 * Safely get constructor of the provided class or return a default value.
 	 *
-	 * @param clazz				class from which get the constructor
-	 * @param types				array of constructor argument types
-	 * @param defaultValue		default value to return on failure
-	 * @param <T>				object type
-	 * @return					constructor or the default value
+	 * @param clazz			class from which get the constructor
+	 * @param types			array of constructor argument types
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				constructor or the default value
 	 */
 	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Class<?>[] types, Constructor<T> defaultValue) {
 		if (clazz == null) {
@@ -540,10 +540,10 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#getConstructorOrElse(Class, Class[], Constructor)}
 	 * w/ {@code null} as an array of the constructor argument types.
 	 *
-	 * @param clazz				class from which get the constructor
-	 * @param defaultValue		default value to return on failure
-	 * @param <T>				object type
-	 * @return					constructor or the default value
+	 * @param clazz			class from which get the constructor
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				constructor or the default value
 	 */
 	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Constructor<T> defaultValue) {
 		return getConstructorOrElse(clazz, null, defaultValue);
@@ -606,11 +606,11 @@ public final class UwReflect {
 	/**
 	 * Safely create a new instance of the provided class or return a default value.
 	 *
-	 * @param clazz				class from which create the new instance
-	 * @param arguments			array of constructor arguments
-	 * @param defaultValue		default value to return on failure
-	 * @param <T>				object type
-	 * @return					new instance or the default value
+	 * @param clazz			class from which create the new instance
+	 * @param arguments		array of constructor arguments
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				new instance or the default value
 	 */
 	public static <T> T newInstanceOrElse(Class<T> clazz, Object[] arguments, T defaultValue) {
 		if (clazz == null) {
@@ -640,10 +640,10 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#newInstanceOrElse(Class, Object[], Object)}
 	 * w/ {@code null} as the array of constructor arguments.
 	 *
-	 * @param clazz				class from which create the new instance
-	 * @param defaultValue		default value to return on failure
-	 * @param <T>				object type
-	 * @return					new instance or the default value
+	 * @param clazz			class from which create the new instance
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			object type
+	 * @return				new instance or the default value
 	 */
 	public static <T> T newInstanceOrElse(Class<T> clazz, T defaultValue) {
 		return newInstanceOrElse(clazz, null, defaultValue);
@@ -695,9 +695,9 @@ public final class UwReflect {
 	 * <p>Wraps {@link UwReflect#newInstanceOrNull(Class, Object[])}
 	 * w/ {@code null} as the array of constructor arguments.
 	 *
-	 * @param clazz			class from which create the new instance
-	 * @param <T>			object type
-	 * @return				new instance or {@code null}
+	 * @param clazz		class from which create the new instance
+	 * @param <T>		object type
+	 * @return			new instance or {@code null}
 	 */
 	public static <T> T newInstanceOrNull(Class<T> clazz) {
 		return newInstanceOrNull(clazz, null);

@@ -46,11 +46,11 @@ public final class UwBean {
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return a default value.
 	 *
-	 * @param clazz					service provider interface class
-	 * @param classLoader			class loader to load classes by their names
-	 * @param defaultValue			default value to return on failure
-	 * @param <T>					interface type
-	 * @return						list of sub-class types or the default value
+	 * @param clazz			service provider interface class
+	 * @param classLoader	class loader to load classes by their names
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			interface type
+	 * @return				list of sub-class types or the default value
 	 */
 	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, List<Class<? extends T>> defaultValue, ClassLoader classLoader) {
 		if (clazz == null) {
@@ -109,10 +109,10 @@ public final class UwBean {
 	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, List, ClassLoader)}
 	 * w/ {@code null} as the default value.
 	 *
-	 * @param clazz				service provider interface class
-	 * @param classLoader		class loader to load classes by their names
-	 * @param <T>				interface type
-	 * @return					list of sub-class types or {@code null}
+	 * @param clazz			service provider interface class
+	 * @param classLoader	class loader to load classes by their names
+	 * @param <T>			interface type
+	 * @return				list of sub-class types or {@code null}
 	 */
 	public static <T> List<Class<? extends T>> findSpiTypesOrNull(Class<T> clazz, ClassLoader classLoader) {
 		return findSpiTypesOrElse(clazz, (List<Class<? extends T>>) null, classLoader);
@@ -124,10 +124,10 @@ public final class UwBean {
 	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, List, ClassLoader)}
 	 * w/ {@code null} as the class loader.
 	 *
-	 * @param clazz					service provider interface class
-	 * @param defaultValue			default value to return on failure
-	 * @param <T>					interface type
-	 * @return						list of sub-class types or the default value
+	 * @param clazz			service provider interface class
+	 * @param defaultValue	default value to return on failure
+	 * @param <T>			interface type
+	 * @return				list of sub-class types or the default value
 	 */
 	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, List<Class<? extends T>> defaultValue) {
 		return findSpiTypesOrElse(clazz, defaultValue, null);
@@ -154,9 +154,9 @@ public final class UwBean {
 	 * <p>Wraps {@link UwBean#findSpiTypesOrNull(Class, ClassLoader)}
 	 * w/ {@code null} as the class loader.
 	 *
-	 * @param clazz				service provider interface class
-	 * @param <T>				interface type
-	 * @return					list of sub-class types or {@code null}
+	 * @param clazz		service provider interface class
+	 * @param <T>		interface type
+	 * @return			list of sub-class types or {@code null}
 	 */
 	public static <T> List<Class<? extends T>> findSpiTypesOrNull(Class<T> clazz) {
 		return findSpiTypesOrNull(clazz, null);
