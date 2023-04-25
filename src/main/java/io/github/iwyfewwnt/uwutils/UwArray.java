@@ -81,6 +81,28 @@ public final class UwArray {
 	}
 
 	/**
+	 * Safely propagate an item to a first {@code null} cell of the provided array.
+	 *
+	 * @param item		item to propagate
+	 * @param array		array to insert the item to
+	 * @param <T>		item type
+	 */
+	public static <T> void propagate(T item, T[] array) {
+		if (item == null || array == null) {
+			return;
+		}
+
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] != null) {
+				continue;
+			}
+
+			array[i] = item;
+			break;
+		}
+	}
+
+	/**
 	 * Create a new {@link java.lang.Iterable} instance for the provided array of elements.
 	 *
 	 * @param array		array of elements
