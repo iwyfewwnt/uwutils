@@ -103,6 +103,31 @@ public final class UwArray {
 	}
 
 	/**
+	 * Safely consume an items of the provided array until
+	 * a first {@code null} element occurred.
+	 *
+	 * @param consumer	consumer to pass an item to
+	 * @param array		array of elements
+	 * @param <T>		element type
+	 */
+	public static <T> void consume(Consumer<T> consumer, T[] array) {
+		if (consumer == null || array == null) {
+			return;
+		}
+
+		//noinspection ForLoopReplaceableByForEach
+		for (int i = 0; i < array.length; i++) {
+			T item = array[i];
+
+			if (item == null) {
+				break;
+			}
+
+			consumer.accept(item);
+		}
+	}
+
+	/**
 	 * Create a new {@link java.lang.Iterable} instance for the provided array of elements.
 	 *
 	 * @param array		array of elements
