@@ -68,10 +68,9 @@ public final class UwBean {
 				String[] content = read(urls.nextElement())
 						.split("\\R");
 
-				//noinspection ForLoopReplaceableByForEach
-				for (int i = 0; i < content.length; i++) {
+				for (String className : content) {
 					try {
-						result.add(classLoader.loadClass(content[i])
+						result.add(classLoader.loadClass(className)
 								.asSubclass(clazz)
 						);
 					} catch (ClassNotFoundException e) {

@@ -115,10 +115,7 @@ public final class UwArray {
 			return;
 		}
 
-		//noinspection ForLoopReplaceableByForEach
-		for (int i = 0; i < array.length; i++) {
-			T item = array[i];
-
+		for (T item : array) {
 			if (item == null) {
 				break;
 			}
