@@ -16,10 +16,8 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
 import java.util.function.Supplier;
 
 /**
@@ -31,6 +29,72 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class UwReflect {
+
+	/**
+	 * Get first item of the provided object array that is instance of
+	 * any class from the provided class array or return {@code null}
+	 * if failed.
+	 *
+	 * @param classes	array of classes
+	 * @param array		array of objects
+	 * @param <T>		item type
+	 * @return			item or {@code null}
+	 */
+	public static <T> T instanceOf(Class<?>[] classes, T[] array) {
+		if (classes == null || array == null) {
+			return null;
+		}
+
+		for (T item : array) {
+			if (item == null) {
+				continue;
+			}
+
+			for (Class<?> clazz : classes) {
+				if (clazz == null) {
+					continue;
+				}
+
+				if (clazz.isInstance(item)) {
+					return item;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Get first annotation from the provided {@link AnnotatedElement}
+	 * that is instance of any provided class or return {@code null}
+	 * if failed.
+	 *
+	 * @param classes	array of classes
+	 * @param element	annotated element
+	 * @return			annotation or {@code null}
+	 */
+	@SuppressWarnings("unchecked")
+	public static Annotation getAnnotation(Class<?>[] classes, AnnotatedElement element) {
+		if (classes == null || element == null) {
+			return null;
+		}
+
+		for (Class<?> clazz : classes) {
+			if (clazz == null
+					|| !Annotation.class.isAssignableFrom(clazz)) {
+				continue;
+			}
+
+			Annotation annotation
+					= element.getAnnotation((Class<Annotation>) clazz);
+
+			if (annotation != null) {
+				return annotation;
+			}
+		}
+
+		return null;
+	}
 
 	/**
 	 * Safely cast an array of objects to an array of their type or return a default value.
