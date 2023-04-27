@@ -673,10 +673,6 @@ public final class UwSystem {
 			OutputStream currentOutputStream
 					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
 
-			if (currentOutputStream == null) {
-				return;
-			}
-
 			if (!this.isEnabled(thread)) {
 				return;
 			}
