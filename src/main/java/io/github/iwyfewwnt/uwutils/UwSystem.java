@@ -695,12 +695,11 @@ public final class UwSystem {
 					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
 
 
-			Object[] context = new Object[] {
+			contextStack.push(new Object[] {
 					currentOutputStream,
 					this.isEnabled(thread)
-			};
+			});
 
-			contextStack.push(context);
 			this.streamMap.put(thread, this.defaultOutputStream);
 		}
 
@@ -719,8 +718,8 @@ public final class UwSystem {
 
 			Object[] context = contextStack.pop();
 
-			this.setStream(thread, (OutputStream) context[0]);
-			this.setEnabled(thread, (boolean) context[1]);
+			this.streamMap.put(thread, (OutputStream) context[0]);
+			this.stateMap.put(thread, (boolean) context[1]);
 		}
 
 		/**
@@ -819,9 +818,9 @@ public final class UwSystem {
 
 		int i = 1 + offset;
 		StackTraceElement returnValue
-				= UwArray.getOrNull(i++, stackTraceElements);
+				= UwArray.getOrNull(i, stackTraceElements);
 
-		for (; i < stackTraceElements.length; i++) {
+		for (i++; i < stackTraceElements.length; i++) {
 			StackTraceElement stackTraceElement = stackTraceElements[i];
 
 			String className = stackTraceElement.getClassName();
