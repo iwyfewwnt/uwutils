@@ -621,17 +621,17 @@ public final class UwSystem {
 		private final OutputStream defaultOutputStream;
 
 		/**
-		 * An output stream to delegate methods from.
+		 * A map to individually track the stream of threads.
 		 */
 		private final Map<Thread, OutputStream> streamMap;
 
 		/**
-		 * A map to individually track the state of the threads.
+		 * A map to individually track the state of threads.
 		 */
 		private final Map<Thread, Boolean> stateMap;
 
 		/**
-		 * A map to individually track the context of the threads.
+		 * A map to individually track the context of threads.
 		 */
 		private final Map<Thread, Stack<Object[]>> contextMap;
 
