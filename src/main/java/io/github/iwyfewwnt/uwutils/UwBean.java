@@ -168,6 +168,10 @@ public final class UwBean {
 	 * @return		content as string instance
 	 */
 	private static String read(URL url) {
+		if (url == null) {
+			throw new IllegalArgumentException("URL mustn't be <null>");
+		}
+
 		StringBuilder sb = new StringBuilder();
 
 		try {
