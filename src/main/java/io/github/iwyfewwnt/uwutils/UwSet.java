@@ -134,11 +134,7 @@ public final class UwSet {
 	 * @return				set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(T[] array, Set<T> defaultValue) {
-		if (array == null) {
-			return defaultValue;
-		}
-
-		return toSetOrElse(Arrays.asList(array), defaultValue);
+		return toSetOrElse((Collection<T>) UwObject.ifNotNull(array, Arrays::asList), defaultValue);
 	}
 
 	/**
@@ -251,11 +247,7 @@ public final class UwSet {
 	 * @return				set of integers or the default value
 	 */
 	public static Set<Integer> toSetOrElse(IntStream stream, Set<Integer> defaultValue) {
-		if (stream == null) {
-			return defaultValue;
-		}
-
-		return toSetOrElse(stream.boxed(), defaultValue);
+		return toSetOrElse(UwObject.ifNotNull(stream, IntStream::boxed), defaultValue);
 	}
 
 	/**
@@ -306,11 +298,7 @@ public final class UwSet {
 	 * @return				set of doubles or the default value
 	 */
 	public static Set<Double> toSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
-		if (stream == null) {
-			return defaultValue;
-		}
-
-		return toSetOrElse(stream.boxed(), defaultValue);
+		return toSetOrElse(UwObject.ifNotNull(stream, DoubleStream::boxed), defaultValue);
 	}
 
 	/**
@@ -361,11 +349,7 @@ public final class UwSet {
 	 * @return				set of longs or the default value
 	 */
 	public static Set<Long> toSetOrElse(LongStream stream, Set<Long> defaultValue) {
-		if (stream == null) {
-			return defaultValue;
-		}
-
-		return toSetOrElse(stream.boxed(), defaultValue);
+		return toSetOrElse(UwObject.ifNotNull(stream, LongStream::boxed), defaultValue);
 	}
 
 	/**
@@ -469,11 +453,7 @@ public final class UwSet {
 	 * @return				concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(T[] array, Set<T> defaultValue) {
-		if (array == null) {
-			return defaultValue;
-		}
-
-		return toConcurrentSetOrElse(Arrays.asList(array), defaultValue);
+		return toConcurrentSetOrElse((Collection<T>) UwObject.ifNotNull(array, Arrays::asList), defaultValue);
 	}
 
 	/**
@@ -586,11 +566,7 @@ public final class UwSet {
 	 * @return				concurrent set of integers or the default value
 	 */
 	public static Set<Integer> toConcurrentSetOrElse(IntStream stream, Set<Integer> defaultValue) {
-		if (stream == null) {
-			return defaultValue;
-		}
-
-		return toConcurrentSetOrElse(stream.boxed(), defaultValue);
+		return toConcurrentSetOrElse(UwObject.ifNotNull(stream, IntStream::boxed), defaultValue);
 	}
 
 	/**
@@ -641,11 +617,7 @@ public final class UwSet {
 	 * @return				concurrent set of doubles or the default value
 	 */
 	public static Set<Double> toConcurrentSetOrElse(DoubleStream stream, Set<Double> defaultValue) {
-		if (stream == null) {
-			return defaultValue;
-		}
-
-		return toConcurrentSetOrElse(stream.boxed(), defaultValue);
+		return toConcurrentSetOrElse(UwObject.ifNotNull(stream, DoubleStream::boxed), defaultValue);
 	}
 
 	/**
@@ -696,11 +668,7 @@ public final class UwSet {
 	 * @return				concurrent set of longs or the default value
 	 */
 	public static Set<Long> toConcurrentSetOrElse(LongStream stream, Set<Long> defaultValue) {
-		if (stream == null) {
-			return defaultValue;
-		}
-
-		return toConcurrentSetOrElse(stream.boxed(), defaultValue);
+		return toConcurrentSetOrElse(UwObject.ifNotNull(stream, LongStream::boxed), defaultValue);
 	}
 
 	/**
