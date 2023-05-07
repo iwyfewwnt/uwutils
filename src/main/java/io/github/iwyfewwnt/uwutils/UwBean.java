@@ -168,6 +168,8 @@ public final class UwBean {
 	 *
 	 * @param url	url from which read the content
 	 * @return		content as string instance
+	 *
+	 * @throws IllegalArgumentException		if URL is {@code null}
 	 */
 	private static String read(URL url) {
 		if (url == null) {

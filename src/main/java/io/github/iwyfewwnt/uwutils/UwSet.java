@@ -733,6 +733,8 @@ public final class UwSet {
 	 * @param collection	collection of objects
 	 * @param <T>			object type
 	 * @return				new concurrent set instance.
+	 *
+	 * @throws IllegalArgumentException		if collection is {@code null}
 	 */
 	private static <T> Set<T> newConcurrentSet(Collection<T> collection) {
 		if (collection == null) {
