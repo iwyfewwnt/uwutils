@@ -57,7 +57,7 @@ public final class UwBean {
 			return defaultValue;
 		}
 
-		classLoader = UwObject.getIfNull(classLoader, UDefault.CLASS_LOADER);
+		classLoader = UwObject.ifNull(classLoader, UDefault.CLASS_LOADER);
 
 		List<Class<? extends T>> result = new ArrayList<>();
 
@@ -99,7 +99,7 @@ public final class UwBean {
 	 * @return						list of sub-class types or the default value
 	 */
 	public static <T> List<Class<? extends T>> findSpiTypesOrElse(Class<T> clazz, Supplier<List<Class<? extends T>>> defaultValueSupplier, ClassLoader classLoader) {
-		return UwObject.getIfNull(findSpiTypesOrNull(clazz, classLoader), defaultValueSupplier);
+		return UwObject.ifNull(findSpiTypesOrNull(clazz, classLoader), defaultValueSupplier);
 	}
 
 	/**

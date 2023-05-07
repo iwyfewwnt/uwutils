@@ -91,7 +91,7 @@ public final class UwSet {
 	 * @return						set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(Collection<T> collection, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSetOrNull(collection), defaultValueSupplier);
+		return UwObject.ifNull(toSetOrNull(collection), defaultValueSupplier);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public final class UwSet {
 	 * @return						set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(T[] array, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSetOrNull(array), defaultValueSupplier);
+		return UwObject.ifNull(toSetOrNull(array), defaultValueSupplier);
 	}
 
 	/**
@@ -209,7 +209,7 @@ public final class UwSet {
 	 * @return						set of objects or the default value
 	 */
 	public static <T> Set<T> toSetOrElse(Stream<T> stream, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public final class UwSet {
 	 * @return						set of integers or the default value
 	 */
 	public static Set<Integer> toSetOrElse(IntStream stream, Supplier<Set<Integer>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -321,7 +321,7 @@ public final class UwSet {
 	 * @return						set of doubles or the default value
 	 */
 	public static Set<Double> toSetOrElse(DoubleStream stream, Supplier<Set<Double>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -376,7 +376,7 @@ public final class UwSet {
 	 * @return						set of longs or the default value
 	 */
 	public static Set<Long> toSetOrElse(LongStream stream, Supplier<Set<Long>> defaultValueSupplier) {
-		return UwObject.getIfNull(toSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -426,7 +426,7 @@ public final class UwSet {
 	 * @return						concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(Collection<T> collection, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toConcurrentSetOrNull(collection), defaultValueSupplier);
+		return UwObject.ifNull(toConcurrentSetOrNull(collection), defaultValueSupplier);
 	}
 
 	/**
@@ -485,7 +485,7 @@ public final class UwSet {
 	 * @return						concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(T[] array, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toConcurrentSetOrNull(array), defaultValueSupplier);
+		return UwObject.ifNull(toConcurrentSetOrNull(array), defaultValueSupplier);
 	}
 
 	/**
@@ -544,7 +544,7 @@ public final class UwSet {
 	 * @return						concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> toConcurrentSetOrElse(Stream<T> stream, Supplier<Set<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -601,7 +601,7 @@ public final class UwSet {
 	 * @return						concurrent set of integers or the default value
 	 */
 	public static Set<Integer> toConcurrentSetOrElse(IntStream stream, Supplier<Set<Integer>> defaultValueSupplier) {
-		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -656,7 +656,7 @@ public final class UwSet {
 	 * @return						concurrent set of doubles or the default value
 	 */
 	public static Set<Double> toConcurrentSetOrElse(DoubleStream stream, Supplier<Set<Double>> defaultValueSupplier) {
-		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -711,7 +711,7 @@ public final class UwSet {
 	 * @return						concurrent set of longs or the default value
 	 */
 	public static Set<Long> toConcurrentSetOrElse(LongStream stream, Supplier<Set<Long>> defaultValueSupplier) {
-		return UwObject.getIfNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
+		return UwObject.ifNull(toConcurrentSetOrNull(stream), defaultValueSupplier);
 	}
 
 	/**
@@ -756,7 +756,7 @@ public final class UwSet {
 			return defaultValue;
 		}
 
-		return UwObject.getIfNull(function.apply(object), defaultValue);
+		return UwObject.ifNull(function.apply(object), defaultValue);
 	}
 
 	/**

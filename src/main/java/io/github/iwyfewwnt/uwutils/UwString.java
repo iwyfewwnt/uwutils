@@ -83,7 +83,7 @@ public final class UwString {
 	 * @return						default value, empty or trimmed string
 	 */
 	public static String trimOrElse(String str, Integer diff, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(trimOrNull(str, diff), defaultValueSupplier);
+		return UwObject.ifNull(trimOrNull(str, diff), defaultValueSupplier);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public final class UwString {
 	 * @return						same or new string, or the default value
 	 */
 	public static String toBaseOrElse(String str, String currBase, String nextBase, Supplier<String> defaultValueSupplier) {
-		return UwObject.getIfNull(toBaseOrNull(str, currBase, nextBase), defaultValueSupplier);
+		return UwObject.ifNull(toBaseOrNull(str, currBase, nextBase), defaultValueSupplier);
 	}
 
 	/**

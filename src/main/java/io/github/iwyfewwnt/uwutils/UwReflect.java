@@ -125,7 +125,7 @@ public final class UwReflect {
 	 * @return						array of the object types or the default value
 	 */
 	public static Class<?>[] toClassArrayOrElse(Object[] objects, Supplier<Class<?>[]> defaultValueSupplier) {
-		return UwObject.getIfNull(toClassArrayOrNull(objects), defaultValueSupplier);
+		return UwObject.ifNull(toClassArrayOrNull(objects), defaultValueSupplier);
 	}
 
 	/**
@@ -189,7 +189,7 @@ public final class UwReflect {
 	 * @return						array of classes or the default value
 	 */
 	public static Class<?>[] toClassArrayOrElse(Type[] types, Supplier<Class<?>[]> defaultValueSupplier) {
-		return UwObject.getIfNull(toClassArrayOrNull(types), defaultValueSupplier);
+		return UwObject.ifNull(toClassArrayOrNull(types), defaultValueSupplier);
 	}
 
 	/**
@@ -272,7 +272,7 @@ public final class UwReflect {
 	 * @return						array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(ParameterizedType type, Supplier<Class<?>[]> defaultValueSupplier) {
-		return UwObject.getIfNull(getGenericTypesOrNull(type), defaultValueSupplier);
+		return UwObject.ifNull(getGenericTypesOrNull(type), defaultValueSupplier);
 	}
 
 	/**
@@ -283,7 +283,7 @@ public final class UwReflect {
 	 * @return						array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(Type type, Supplier<Class<?>[]> defaultValueSupplier) {
-		return UwObject.getIfNull(getGenericTypesOrNull(type), defaultValueSupplier);
+		return UwObject.ifNull(getGenericTypesOrNull(type), defaultValueSupplier);
 	}
 
 	/**
@@ -294,7 +294,7 @@ public final class UwReflect {
 	 * @return						array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(Class<?> clazz, Supplier<Class<?>[]> defaultValueSupplier) {
-		return UwObject.getIfNull(getGenericTypesOrNull(clazz), defaultValueSupplier);
+		return UwObject.ifNull(getGenericTypesOrNull(clazz), defaultValueSupplier);
 	}
 
 	/**
@@ -381,7 +381,7 @@ public final class UwReflect {
 	 * @return						generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(ParameterizedType type, Integer index, Supplier<Class<?>> defaultValueSupplier) {
-		return UwObject.getIfNull(getGenericTypeOrNull(type, index), defaultValueSupplier);
+		return UwObject.ifNull(getGenericTypeOrNull(type, index), defaultValueSupplier);
 	}
 
 	/**
@@ -393,7 +393,7 @@ public final class UwReflect {
 	 * @return						generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(Type type, Integer index, Supplier<Class<?>> defaultValueSupplier) {
-		return UwObject.getIfNull(getGenericTypeOrNull(type, index), defaultValueSupplier);
+		return UwObject.ifNull(getGenericTypeOrNull(type, index), defaultValueSupplier);
 	}
 
 	/**
@@ -405,7 +405,7 @@ public final class UwReflect {
 	 * @return						generic type or the default value
 	 */
 	public static Class<?> getGenericTypeOrElse(Class<?> clazz, Integer index, Supplier<Class<?>> defaultValueSupplier) {
-		return UwObject.getIfNull(getGenericTypeOrNull(clazz, index), defaultValueSupplier);
+		return UwObject.ifNull(getGenericTypeOrNull(clazz, index), defaultValueSupplier);
 	}
 
 	/**
@@ -587,7 +587,7 @@ public final class UwReflect {
 			return defaultValue;
 		}
 
-		types = UwObject.getIfNull(types, UwArray.CLASS_EMPTY);
+		types = UwObject.ifNull(types, UwArray.CLASS_EMPTY);
 
 		try {
 			return clazz.getConstructor(types);
@@ -623,7 +623,7 @@ public final class UwReflect {
 	 * @return						constructor or the default value
 	 */
 	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Class<?>[] types, Supplier<Constructor<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(getConstructorOrNull(clazz, types), defaultValueSupplier);
+		return UwObject.ifNull(getConstructorOrNull(clazz, types), defaultValueSupplier);
 	}
 
 	/**
@@ -635,7 +635,7 @@ public final class UwReflect {
 	 * @return						constructor or the default value
 	 */
 	public static <T> Constructor<T> getConstructorOrElse(Class<T> clazz, Supplier<Constructor<T>> defaultValueSupplier) {
-		return UwObject.getIfNull(getConstructorOrNull(clazz), defaultValueSupplier);
+		return UwObject.ifNull(getConstructorOrNull(clazz), defaultValueSupplier);
 	}
 
 	/**
@@ -723,7 +723,7 @@ public final class UwReflect {
 	 * @return						new instance or the default value
 	 */
 	public static <T> T newInstanceOrElse(Class<T> clazz, Object[] arguments, Supplier<T> defaultValueSupplier) {
-		return UwObject.getIfNull(newInstanceOrNull(clazz, arguments), defaultValueSupplier);
+		return UwObject.ifNull(newInstanceOrNull(clazz, arguments), defaultValueSupplier);
 	}
 
 	/**
@@ -735,7 +735,7 @@ public final class UwReflect {
 	 * @return						new instance or the default value
 	 */
 	public static <T> T newInstanceOrElse(Class<T> clazz, Supplier<T> defaultValueSupplier) {
-		return UwObject.getIfNull(newInstanceOrNull(clazz), defaultValueSupplier);
+		return UwObject.ifNull(newInstanceOrNull(clazz), defaultValueSupplier);
 	}
 
 	/**

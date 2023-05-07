@@ -108,7 +108,7 @@ public final class UwMap {
 			e.printStackTrace();
 		}
 
-		return UwObject.getIfNull(resultValue, defaultValue);
+		return UwObject.ifNull(resultValue, defaultValue);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public final class UwMap {
 	 * @return						value assigned to the key or the default one
 	 */
 	public static <K, T> T getOrElse(K key, Map<K, T> map, Supplier<T> defaultValueSupplier) {
-		return UwObject.getIfNull(getOrNull(key, map), defaultValueSupplier);
+		return UwObject.ifNull(getOrNull(key, map), defaultValueSupplier);
 	}
 
 	/**
@@ -278,7 +278,7 @@ public final class UwMap {
 	 * @return						new extended map instance or the default value
 	 */
 	public static <K, T, R extends Map<K, T>> R extendMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, R map, Supplier<R> createMapSupplier, Supplier<R> defaultValueSupplier) {
-		return UwObject.getIfNull(extendMapByFieldOrNull(getter, entries, map, createMapSupplier), defaultValueSupplier);
+		return UwObject.ifNull(extendMapByFieldOrNull(getter, entries, map, createMapSupplier), defaultValueSupplier);
 	}
 
 	/**
@@ -663,7 +663,7 @@ public final class UwMap {
 	 * @return						new extended map instance or the default value
 	 */
 	public static <K, T, R extends Map<K, T>> R newMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, Supplier<R> createMapSupplier, R defaultValue) {
-		R map = UwObject.applyIfNotNull(createMapSupplier, Supplier::get);
+		R map = UwObject.ifNotNull(createMapSupplier, Supplier::get);
 
 		return extendMapByFieldOrElse(getter, entries, map, createMapSupplier, defaultValue);
 	}
@@ -757,7 +757,7 @@ public final class UwMap {
 	 * @return						new extended map instance or the default value
 	 */
 	public static <K, T, R extends Map<K, T>> R newMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, Supplier<R> createMapSupplier, Supplier<R> defaultValueSupplier) {
-		return UwObject.getIfNull(newMapByFieldOrNull(getter, entries, createMapSupplier), defaultValueSupplier);
+		return UwObject.ifNull(newMapByFieldOrNull(getter, entries, createMapSupplier), defaultValueSupplier);
 	}
 
 	/**
@@ -852,7 +852,7 @@ public final class UwMap {
 	 * @return						new extended map instance or an empty one
 	 */
 	public static <K, T, R extends Map<K, T>> R newMapByFieldOrEmpty(Function<T, K> getter, Iterator<T> entries, Supplier<R> createMapSupplier) {
-		R map = UwObject.applyIfNotNull(createMapSupplier, Supplier::get);
+		R map = UwObject.ifNotNull(createMapSupplier, Supplier::get);
 
 		return extendMapByFieldOrElse(getter, entries, map, createMapSupplier, map);
 	}
@@ -1115,7 +1115,7 @@ public final class UwMap {
 	 * @return						new extended {@link HashMap} instance or the default value
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, Supplier<Map<K, T>> defaultValueSupplier) {
-		return UwObject.getIfNull(newMapByFieldOrNull(getter, entries, defaultValueSupplier), defaultValueSupplier);
+		return UwObject.ifNull(newMapByFieldOrNull(getter, entries, defaultValueSupplier), defaultValueSupplier);
 	}
 
 	/**
@@ -1442,7 +1442,7 @@ public final class UwMap {
 	 * @return						new extended {@link ConcurrentHashMap} instance or the default value
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrElse(Function<T, K> getter, Iterator<T> entries, Supplier<ConcurrentMap<K, T>> defaultValueSupplier) {
-		return UwObject.getIfNull(newConcurrentMapByFieldOrNull(getter, entries), defaultValueSupplier);
+		return UwObject.ifNull(newConcurrentMapByFieldOrNull(getter, entries), defaultValueSupplier);
 	}
 
 	/**

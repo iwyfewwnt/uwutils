@@ -686,7 +686,7 @@ public final class UwSystem {
 		 * @param thread	thread to set up the context for
 		 */
 		public void setup(Thread thread) {
-			thread = UwObject.getIfNull(thread, Thread.currentThread());
+			thread = UwObject.ifNull(thread, Thread.currentThread());
 
 			Stack<Object[]> contextStack
 					= this.contextMap.computeIfAbsent(thread, $ -> new Stack<>());
@@ -709,7 +709,7 @@ public final class UwSystem {
 		 * @param thread	thread to back up the context for
 		 */
 		public void backup(Thread thread) {
-			thread = UwObject.getIfNull(thread, Thread.currentThread());
+			thread = UwObject.ifNull(thread, Thread.currentThread());
 
 			Stack<Object[]> contextStack = this.contextMap.get(thread);
 			if (contextStack == null || contextStack.isEmpty()) {
@@ -730,7 +730,7 @@ public final class UwSystem {
 		 * 					or {@code false} if disabled
 		 */
 		public boolean isEnabled(Thread thread) {
-			thread = UwObject.getIfNull(thread, Thread.currentThread());
+			thread = UwObject.ifNull(thread, Thread.currentThread());
 
 			return this.stateMap.computeIfAbsent(thread, $ -> DEFAULT_ENABLED);
 		}
@@ -760,7 +760,7 @@ public final class UwSystem {
 		 * @param stream	value to associate w/ the thread
 		 */
 		public void setStream(Thread thread, OutputStream stream) {
-			thread = UwObject.getIfNull(thread, Thread.currentThread());
+			thread = UwObject.ifNull(thread, Thread.currentThread());
 
 			this.streamMap.put(thread, stream);
 		}
@@ -772,7 +772,7 @@ public final class UwSystem {
 		 * @param isEnabled		value to associate w/ the thread
 		 */
 		public void setEnabled(Thread thread, boolean isEnabled) {
-			thread = UwObject.getIfNull(thread, Thread.currentThread());
+			thread = UwObject.ifNull(thread, Thread.currentThread());
 
 			this.stateMap.put(thread, isEnabled);
 		}
@@ -811,7 +811,7 @@ public final class UwSystem {
 	 * @return			stack trace element
 	 */
 	public static StackTraceElement getCurrentStackTraceElement(Integer offset) {
-		offset = UwObject.getIfNull(offset, DEFAULT_STACK_TRACE_OFFSET);
+		offset = UwObject.ifNull(offset, DEFAULT_STACK_TRACE_OFFSET);
 
 		StackTraceElement[] stackTraceElements = Thread.currentThread()
 				.getStackTrace();

@@ -49,7 +49,7 @@ public final class UwArray {
 			return defaultValue;
 		}
 
-		return UwObject.getIfNull(array[index], defaultValue);
+		return UwObject.ifNull(array[index], defaultValue);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public final class UwArray {
 	 * @return						value assigned to the index or the default value
 	 */
 	public static <T> T getOrElse(Integer index, T[] array, Supplier<T> defaultValueSupplier) {
-		return UwObject.getIfNull(getOrNull(index, array), defaultValueSupplier);
+		return UwObject.ifNull(getOrNull(index, array), defaultValueSupplier);
 	}
 
 	/**

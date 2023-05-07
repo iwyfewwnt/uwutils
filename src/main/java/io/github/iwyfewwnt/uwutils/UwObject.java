@@ -39,12 +39,12 @@ public final class UwObject {
 	 * @param <R>			return type
 	 * @return				result of the function applying or the default value
 	 */
-	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, R defaultValue) {
+	public static <T, R> R ifNotNull(T object, Function<T, R> function, R defaultValue) {
 		if (object == null || function == null) {
 			return defaultValue;
 		}
 
-		return getIfNull(function.apply(object), defaultValue);
+		return ifNull(function.apply(object), defaultValue);
 	}
 
 	/**
@@ -57,14 +57,14 @@ public final class UwObject {
 	 * @param <R>					return type
 	 * @return						result of the function applying or the default value
 	 */
-	public static <T, R> R applyIfNotNull(T object, Function<T, R> function, Supplier<R> defaultValueSupplier) {
-		return getIfNull(applyIfNotNull(object, function), defaultValueSupplier);
+	public static <T, R> R ifNotNull(T object, Function<T, R> function, Supplier<R> defaultValueSupplier) {
+		return ifNull(ifNotNull(object, function), defaultValueSupplier);
 	}
 
 	/**
 	 * Safely apply argument to the specified function if argument isn't {@code null} or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwObject#applyIfNotNull(Object, Function, Object)}
+	 * <p>Wraps {@link UwObject#ifNotNull(Object, Function, Object)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param object	argument to apply
@@ -73,8 +73,8 @@ public final class UwObject {
 	 * @param <R>		return type
 	 * @return			result of the function applying or {@code null}
 	 */
-	public static <T, R> R applyIfNotNull(T object, Function<T, R> function) {
-		return applyIfNotNull(object, function, (R) null);
+	public static <T, R> R ifNotNull(T object, Function<T, R> function) {
+		return ifNotNull(object, function, (R) null);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public final class UwObject {
 	 * @return			default value if object is {@code null}
 	 * 					else the object
 	 */
-	public static <T> T getIfNull(T object, T value) {
+	public static <T> T ifNull(T object, T value) {
 		if (object == null) {
 			return value;
 		}
@@ -102,9 +102,9 @@ public final class UwObject {
 	 * @param <T>		object type
 	 * @return			default value if object is {@code null} else the object
 	 */
-	public static <T> T getIfNull(T object, Supplier<T> supplier) {
+	public static <T> T ifNull(T object, Supplier<T> supplier) {
 		if (object == null) {
-			return applyIfNotNull(supplier, Supplier::get);
+			return ifNotNull(supplier, Supplier::get);
 		}
 
 		return object;
