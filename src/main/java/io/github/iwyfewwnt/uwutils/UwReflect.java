@@ -173,7 +173,8 @@ public final class UwReflect {
 			System.arraycopy(types, 0, classes, 0, classes.length);
 
 			return classes;
-		} catch (IndexOutOfBoundsException | ArrayStoreException
+		} catch (IndexOutOfBoundsException
+				| ArrayStoreException
 				| NullPointerException e) {
 			e.printStackTrace();
 		}
@@ -689,8 +690,10 @@ public final class UwReflect {
 
 		try {
 			return constructor.newInstance(arguments);
-		} catch (IllegalAccessException | IllegalArgumentException
-				| InstantiationException | InvocationTargetException
+		} catch (IllegalAccessException
+				| IllegalArgumentException
+				| InstantiationException
+				| InvocationTargetException
 				| ExceptionInInitializerError e) {
 			e.printStackTrace();
 		}

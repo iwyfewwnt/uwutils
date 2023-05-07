@@ -73,12 +73,14 @@ public final class UwBean {
 						result.add(classLoader.loadClass(className)
 								.asSubclass(clazz)
 						);
-					} catch (ClassNotFoundException e) {
+					} catch (ClassNotFoundException | ClassCastException e) {
 						e.printStackTrace();
 					}
 				}
 			}
-		} catch (IOException | NullPointerException e) {
+		} catch (IOException
+				| NullPointerException
+				| IllegalArgumentException e) {
 			e.printStackTrace();
 		}
 
