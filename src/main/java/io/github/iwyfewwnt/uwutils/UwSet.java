@@ -743,9 +743,6 @@ public final class UwSet {
 
 		Set<T> set = newConcurrentSet();
 
-		// Collection is always non-null due to usage only
-		//  in the #toSetOrElse(Object, Function, Object) method
-		//  that checks passed object for nullability before a conversion.
 		set.addAll(collection);
 
 		return set;
