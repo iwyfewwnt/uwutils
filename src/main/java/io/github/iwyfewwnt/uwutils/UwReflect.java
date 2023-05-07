@@ -227,11 +227,7 @@ public final class UwReflect {
 	 * @return				array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(ParameterizedType type, Class<?>[] defaultValue) {
-		if (type == null) {
-			return defaultValue;
-		}
-
-		return toClassArrayOrElse(type.getActualTypeArguments(), defaultValue);
+		return toClassArrayOrElse(UwObject.ifNotNull(type, ParameterizedType::getActualTypeArguments), defaultValue);
 	}
 
 	/**
@@ -257,11 +253,7 @@ public final class UwReflect {
 	 * @return				array of generic types or the default value
 	 */
 	public static Class<?>[] getGenericTypesOrElse(Class<?> clazz, Class<?>[] defaultValue) {
-		if (clazz == null) {
-			return defaultValue;
-		}
-
-		return getGenericTypesOrElse(clazz.getGenericSuperclass(), defaultValue);
+		return getGenericTypesOrElse((Type) UwObject.ifNotNull(clazz, Class::getGenericSuperclass), defaultValue);
 	}
 
 
