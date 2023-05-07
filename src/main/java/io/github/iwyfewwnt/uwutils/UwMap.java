@@ -100,15 +100,13 @@ public final class UwMap {
 			return defaultValue;
 		}
 
-		T resultValue = null;
-
 		try {
-			resultValue = map.get(key);
+			return map.getOrDefault(key, defaultValue);
 		} catch (ClassCastException | NullPointerException e) {
 			e.printStackTrace();
 		}
 
-		return UwObject.ifNull(resultValue, defaultValue);
+		return defaultValue;
 	}
 
 	/**
