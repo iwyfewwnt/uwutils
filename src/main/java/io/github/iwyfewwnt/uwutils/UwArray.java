@@ -191,7 +191,7 @@ public final class UwArray {
 		/**
 		 * Perform the given action for each element of this array.
 		 *
-		 * <p><b>Doesn't throw any internal exception.</b>
+		 * <p><b>Doesn't throw any internal exceptions.</b>
 		 *
 		 * @param action	action to perform for each element of this array
 		 */
@@ -259,7 +259,7 @@ public final class UwArray {
 		/**
 		 * Get next element of the array or return {@code null}.
 		 *
-		 * <p><b>Doesn't throw any internal exception.</b>
+		 * <p><b>Doesn't throw any internal exceptions.</b>
 		 *
 		 * @return	next element or {@code null}
 		 */
@@ -271,7 +271,7 @@ public final class UwArray {
 		/**
 		 * Reset current element w/ assigning it to {@code null}.
 		 *
-		 * <p><b>Doesn't throw any internal exception.</b>
+		 * <p><b>Doesn't throw any internal exceptions.</b>
 		 */
 		@Override
 		public void remove() {
@@ -287,7 +287,7 @@ public final class UwArray {
 		/**
 		 * Perform the given action for each remaining element.
 		 *
-		 * <p><b>Doesn't throw any internal exception.</b>
+		 * <p><b>Doesn't throw any internal exceptions.</b>
 		 *
 		 * @param action	action to perform for each remaining element
 		 */
