@@ -689,7 +689,7 @@ public final class UwSystem {
 			thread = UwObject.ifNull(thread, Thread.currentThread());
 
 			Stack<Object[]> contextStack
-					= this.contextMap.computeIfAbsent(thread, $ -> new Stack<>());
+					= this.contextMap.computeIfAbsent(thread, unused -> new Stack<>());
 
 			OutputStream currentOutputStream
 					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
@@ -732,7 +732,7 @@ public final class UwSystem {
 		public boolean isEnabled(Thread thread) {
 			thread = UwObject.ifNull(thread, Thread.currentThread());
 
-			return this.stateMap.computeIfAbsent(thread, $ -> DEFAULT_ENABLED);
+			return this.stateMap.computeIfAbsent(thread, unused -> DEFAULT_ENABLED);
 		}
 
 		/**
