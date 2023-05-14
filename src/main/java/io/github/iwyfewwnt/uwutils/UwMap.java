@@ -1213,7 +1213,7 @@ public final class UwMap {
 	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, Iterable<T> entries) {
-		return newMapByFieldOrEmpty(getter, entries.iterator());
+		return newMapByFieldOrEmpty(getter, (Iterator<T>) UwObject.ifNotNull(entries, Iterable::iterator));
 	}
 
 	/**
@@ -1229,7 +1229,7 @@ public final class UwMap {
 	 * @return			new extended {@link HashMap} instance or an empty one
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrEmpty(Function<T, K> getter, BaseStream<T, ?> entries) {
-		return newMapByFieldOrEmpty(getter, entries.iterator());
+		return newMapByFieldOrEmpty(getter, (Iterator<T>) UwObject.ifNotNull(entries, BaseStream::iterator));
 	}
 
 	/**
@@ -1293,7 +1293,7 @@ public final class UwMap {
 	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, Iterable<T> entries) {
-		return newMapByFieldOrNull(getter, entries.iterator());
+		return newMapByFieldOrNull(getter, (Iterator<T>) UwObject.ifNotNull(entries, Iterable::iterator));
 	}
 
 	/**
@@ -1309,7 +1309,7 @@ public final class UwMap {
 	 * @return			new extended {@link HashMap} instance or {@code null}
 	 */
 	public static <K, T> Map<K, T> newMapByFieldOrNull(Function<T, K> getter, BaseStream<T, ?> entries) {
-		return newMapByFieldOrNull(getter, entries.iterator());
+		return newMapByFieldOrNull(getter, (Iterator<T>) UwObject.ifNotNull(entries, BaseStream::iterator));
 	}
 
 	/**
@@ -1540,7 +1540,7 @@ public final class UwMap {
 	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, Iterable<T> entries) {
-		return newConcurrentMapByFieldOrEmpty(getter, entries.iterator());
+		return newConcurrentMapByFieldOrEmpty(getter, (Iterator<T>) UwObject.ifNotNull(entries, Iterable::iterator));
 	}
 
 	/**
@@ -1556,7 +1556,7 @@ public final class UwMap {
 	 * @return			new extended {@link ConcurrentHashMap} instance or an empty one
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrEmpty(Function<T, K> getter, BaseStream<T, ?> entries) {
-		return newConcurrentMapByFieldOrEmpty(getter, entries.iterator());
+		return newConcurrentMapByFieldOrEmpty(getter, (Iterator<T>) UwObject.ifNotNull(entries, BaseStream::iterator));
 	}
 
 	/**
@@ -1620,7 +1620,7 @@ public final class UwMap {
 	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, Iterable<T> entries) {
-		return newConcurrentMapByFieldOrNull(getter, entries.iterator());
+		return newConcurrentMapByFieldOrNull(getter, (Iterator<T>) UwObject.ifNotNull(entries, Iterable::iterator));
 	}
 
 	/**
@@ -1636,7 +1636,7 @@ public final class UwMap {
 	 * @return			new extended {@link ConcurrentHashMap} instance or {@code null}
 	 */
 	public static <K, T> ConcurrentMap<K, T> newConcurrentMapByFieldOrNull(Function<T, K> getter, BaseStream<T, ?> entries) {
-		return newConcurrentMapByFieldOrNull(getter, entries.iterator());
+		return newConcurrentMapByFieldOrNull(getter, (Iterator<T>) UwObject.ifNotNull(entries, BaseStream::iterator));
 	}
 
 	/**
