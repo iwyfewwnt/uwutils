@@ -126,7 +126,7 @@ public final class UwMap {
 	/**
 	 * Safely get a value from a map by its key or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#getOrElse(Object, Map, Object)}
+	 * <p>Wraps {@link #getOrElse(Object, Map, Object)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param key	key assigned to the value
@@ -185,7 +185,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -205,7 +205,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -225,7 +225,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -245,7 +245,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Object[], Map, Supplier, Map)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Object[], Map, Supplier, Map)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -282,7 +282,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -302,7 +302,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -322,7 +322,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -342,7 +342,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Object[], Map, Supplier, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Object[], Map, Supplier, Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -362,7 +362,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Supplier)}
 	 * w/ create map supplier as the default value supplier.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -381,7 +381,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrEmpty(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrEmpty(Function, Iterator, Map, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -400,7 +400,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrEmpty(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrEmpty(Function, Iterator, Map, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -419,7 +419,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrEmpty(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrEmpty(Function, Iterator, Map, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -438,7 +438,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping enum constants by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrEmpty(Function, Object[], Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrEmpty(Function, Object[], Map, Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -457,7 +457,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -476,7 +476,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrNull(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrNull(Function, Iterator, Map, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -495,7 +495,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrNull(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrNull(Function, Iterator, Map, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -514,7 +514,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrNull(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrNull(Function, Iterator, Map, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -533,7 +533,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping enum constants by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrNull(Function, Object[], Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrNull(Function, Object[], Map, Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -552,7 +552,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return the unmodified map.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * <p>Wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ the provided map as the default value.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -571,7 +571,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return the unmodified map.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrSelf(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrSelf(Function, Iterator, Map, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -590,7 +590,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return the unmodified map.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrSelf(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrSelf(Function, Iterator, Map, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -609,7 +609,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return the unmodified map.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrSelf(Function, Iterator, Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrSelf(Function, Iterator, Map, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -628,7 +628,7 @@ public final class UwMap {
 	/**
 	 * Safely extend the provided map by mapping entries by theirs field or return the unmodified map.
 	 *
-	 * <p>Wraps {@link UwMap#extendMapByFieldOrSelf(Function, Object[], Map, Supplier)}
+	 * <p>Wraps {@link #extendMapByFieldOrSelf(Function, Object[], Map, Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -648,7 +648,7 @@ public final class UwMap {
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
 	 * <p>Creates a fresh map instance from the provided create map supplier
-	 * and wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * and wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ that map as the map argument.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -669,7 +669,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -688,7 +688,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -707,7 +707,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -726,7 +726,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Object[], Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Object[], Supplier, Map)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -761,7 +761,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -780,7 +780,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -799,7 +799,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -818,7 +818,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Object[], Supplier, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Object[], Supplier, Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -838,7 +838,7 @@ public final class UwMap {
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
 	 * <p>Creates a fresh map instance from the provided create map supplier
-	 * and wraps {@link UwMap#extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
+	 * and wraps {@link #extendMapByFieldOrElse(Function, Iterator, Map, Supplier, Map)}
 	 * w/ that map as the map {@literal &} default value arguments.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -858,7 +858,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -876,7 +876,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -894,7 +894,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -912,7 +912,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping enum constants by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Object[], Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Object[], Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -930,7 +930,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -948,7 +948,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Iterator, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -966,7 +966,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Iterator, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -984,7 +984,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Iterator, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1002,7 +1002,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new map instance and extend it by mapping enum constants by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Object[], Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Object[], Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -1020,7 +1020,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link HashMap#HashMap()} as the create map supplier.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1037,7 +1037,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1054,7 +1054,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1071,7 +1071,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1088,7 +1088,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Object[], Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Object[], Map)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter		supplier for getting an enum's field
@@ -1119,7 +1119,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1136,7 +1136,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1153,7 +1153,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1170,7 +1170,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Object[], Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Object[], Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -1187,7 +1187,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link HashMap#HashMap()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1203,7 +1203,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1219,7 +1219,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1235,7 +1235,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1251,7 +1251,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping enum constants by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Object[])}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter	supplier for getting an enum's field
@@ -1267,7 +1267,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Map)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1283,7 +1283,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1299,7 +1299,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1315,7 +1315,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Iterator)}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1331,7 +1331,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link HashMap} instance and extend it by mapping enum constants by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrNull(Function, Object[])}
+	 * <p>Wraps {@link #newMapByFieldOrNull(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter	supplier for getting an enum's field
@@ -1347,7 +1347,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
+	 * <p>Wraps {@link #newMapByFieldOrElse(Function, Iterator, Supplier, Map)}
 	 * w/ {@link ConcurrentHashMap#ConcurrentHashMap()} as the create map supplier.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1364,7 +1364,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1381,7 +1381,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1398,7 +1398,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter		supplier for getting an entry's field
@@ -1415,7 +1415,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Object[], ConcurrentMap)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Object[], ConcurrentMap)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter		supplier for getting an enum's field
@@ -1446,7 +1446,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, Supplier)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1463,7 +1463,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, Supplier)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1480,7 +1480,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, Supplier)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter				supplier for getting an entry's field
@@ -1497,7 +1497,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping enum constants by theirs field or return a default value.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Object[], Supplier)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Object[], Supplier)}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter				supplier for getting an enum's field
@@ -1514,7 +1514,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newMapByFieldOrEmpty(Function, Iterator, Supplier)}
+	 * <p>Wraps {@link #newMapByFieldOrEmpty(Function, Iterator, Supplier)}
 	 * w/ {@link ConcurrentHashMap#ConcurrentHashMap()} as the create map supplier.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1530,7 +1530,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Iterator)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1546,7 +1546,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Iterator)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1562,7 +1562,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Iterator)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrEmpty(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1578,7 +1578,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping enum constants by theirs field or return a new empty map instance.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrEmpty(Function, Object[])}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrEmpty(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter	supplier for getting an enum's field
@@ -1594,7 +1594,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrElse(Function, Iterator, ConcurrentMap)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1610,7 +1610,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Iterator)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link Iterable#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1626,7 +1626,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Iterator)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link BaseStream#iterator()} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1642,7 +1642,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping entries by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Iterator)}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrNull(Function, Iterator)}
 	 * w/ {@link UwArray#iterator(Object[])} call.
 	 *
 	 * @param getter	supplier for getting an entry's field
@@ -1658,7 +1658,7 @@ public final class UwMap {
 	/**
 	 * Safely create a new {@link ConcurrentHashMap} instance and extend it by mapping enum constants by theirs field or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwMap#newConcurrentMapByFieldOrNull(Function, Object[])}
+	 * <p>Wraps {@link #newConcurrentMapByFieldOrNull(Function, Object[])}
 	 * w/ {@link UwEnum#values(Class)} call.
 	 *
 	 * @param getter	supplier for getting an enum's field

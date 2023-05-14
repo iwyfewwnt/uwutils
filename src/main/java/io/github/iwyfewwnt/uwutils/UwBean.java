@@ -107,7 +107,7 @@ public final class UwBean {
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, List, ClassLoader)}
+	 * <p>Wraps {@link #findSpiTypesOrElse(Class, List, ClassLoader)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz			service provider interface class
@@ -122,7 +122,7 @@ public final class UwBean {
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return a default value.
 	 *
-	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, List, ClassLoader)}
+	 * <p>Wraps {@link #findSpiTypesOrElse(Class, List, ClassLoader)}
 	 * w/ {@code null} as the class loader.
 	 *
 	 * @param clazz			service provider interface class
@@ -137,7 +137,7 @@ public final class UwBean {
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return a default value.
 	 *
-	 * <p>Wraps {@link UwBean#findSpiTypesOrElse(Class, Supplier, ClassLoader)}
+	 * <p>Wraps {@link #findSpiTypesOrElse(Class, Supplier, ClassLoader)}
 	 * w/ {@code null} as the class loader.
 	 *
 	 * @param clazz					service provider interface class
@@ -152,7 +152,7 @@ public final class UwBean {
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwBean#findSpiTypesOrNull(Class, ClassLoader)}
+	 * <p>Wraps {@link #findSpiTypesOrNull(Class, ClassLoader)}
 	 * w/ {@code null} as the class loader.
 	 *
 	 * @param clazz		service provider interface class

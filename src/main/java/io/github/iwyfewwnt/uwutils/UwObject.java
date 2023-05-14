@@ -64,7 +64,7 @@ public final class UwObject {
 	/**
 	 * Safely apply argument to the specified function if argument isn't {@code null} or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwObject#ifNotNull(Object, Function, Object)}
+	 * <p>Wraps {@link #ifNotNull(Object, Function, Object)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param object	argument to apply

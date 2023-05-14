@@ -97,7 +97,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a collection of objects to a set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Supplier)}
+	 * <p>Wraps {@link #toSetOrElse(Collection, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
 	 * @param collection	collection of objects
@@ -111,7 +111,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a collection of objects to a set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Set)}
+	 * <p>Wraps {@link #toSetOrElse(Collection, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param collection	collection of objects
@@ -125,7 +125,7 @@ public final class UwSet {
 	/**
 	 * Safely convert an array of objects to a set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Collection, Set)}
+	 * <p>Wraps {@link #toSetOrElse(Collection, Set)}
 	 * w/ {@link Arrays#asList(Object[])} call.
 	 *
 	 * @param array			array of objects
@@ -152,7 +152,7 @@ public final class UwSet {
 	/**
 	 * Safely convert an array of objects to a set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Object[], Supplier)}
+	 * <p>Wraps {@link #toSetOrElse(Object[], Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
 	 * @param array		array of objects
@@ -166,7 +166,7 @@ public final class UwSet {
 	/**
 	 * Safely convert an array of objects to a set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Object[], Set)}
+	 * <p>Wraps {@link #toSetOrElse(Object[], Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param array		array of objects
@@ -211,7 +211,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of objects to a set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Supplier)}
+	 * <p>Wraps {@link #toSetOrElse(Stream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of objects
@@ -225,7 +225,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of objects to a set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(Stream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of objects
@@ -239,7 +239,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of integers to a set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(Stream, Set)}
 	 * w/ {@link IntStream#boxed()} call.
 	 *
 	 * @param stream		stream of integers
@@ -264,7 +264,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of integers to a set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(IntStream, Supplier)}
+	 * <p>Wraps {@link #toSetOrElse(IntStream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of integers
@@ -277,7 +277,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of integers to a set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(IntStream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(IntStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of integers
@@ -290,7 +290,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of doubles to a set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(Stream, Set)}
 	 * w/ {@link DoubleStream#boxed()} call.
 	 *
 	 * @param stream		stream of doubles
@@ -315,7 +315,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of doubles to a set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(DoubleStream, Supplier)}
+	 * <p>Wraps {@link #toSetOrElse(DoubleStream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of doubles
@@ -328,7 +328,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of doubles to a set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(DoubleStream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(DoubleStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of doubles
@@ -341,7 +341,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of longs to a set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(Stream, Set)}
 	 * w/ {@link LongStream#boxed()} call.
 	 *
 	 * @param stream		stream of longs
@@ -366,7 +366,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of longs to a set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(LongStream, Supplier)}
+	 * <p>Wraps {@link #toSetOrElse(LongStream, Supplier)}
 	 * w/ {@link HashSet#HashSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of longs
@@ -379,7 +379,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of longs to a set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toSetOrElse(LongStream, Set)}
+	 * <p>Wraps {@link #toSetOrElse(LongStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of longs
@@ -416,8 +416,8 @@ public final class UwSet {
 	/**
 	 * Safely convert a collection of objects to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Supplier)}
-	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Collection, Supplier)}
+	 * w/ {@link #newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param collection	collection of objects
 	 * @param <T>			object type
@@ -430,7 +430,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a collection of objects to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Collection, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param collection	collection of objects
@@ -444,7 +444,7 @@ public final class UwSet {
 	/**
 	 * Safely convert an array of objects to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Collection, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Collection, Set)}
 	 * w/ {@link Arrays#asList(Object[])} call.
 	 *
 	 * @param array			array of objects
@@ -471,8 +471,8 @@ public final class UwSet {
 	/**
 	 * Safely convert an array of objects to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Object[], Supplier)}
-	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Object[], Supplier)}
+	 * w/ {@link #newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param array		array of objects
 	 * @param <T>		object type
@@ -485,7 +485,7 @@ public final class UwSet {
 	/**
 	 * Safely convert an array of objects to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Object[], Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Object[], Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param array		array of objects
@@ -500,7 +500,8 @@ public final class UwSet {
 	 * Safely convert a stream of objects to a concurrent set or return a default value.
 	 *
 	 * <p>Wraps {@link Collections#synchronizedSet(Set)}
-	 * w/ {@link Stream#collect(Collector)} {@literal &} {@link Collectors#toSet()} calls.
+	 * w/ {@link Stream#collect(Collector)} {@literal &}
+	 * {@link Collectors#toSet()} calls.
 	 *
 	 * @param stream		stream of objects
 	 * @param defaultValue 	default value to return on failure
@@ -530,8 +531,8 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of objects to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Supplier)}
-	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Stream, Supplier)}
+	 * w/ {@link #newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of objects
 	 * @param <T>		object type
@@ -544,7 +545,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of objects to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of objects
@@ -558,7 +559,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of integers to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link IntStream#boxed()} call.
 	 *
 	 * @param stream		stream of integers
@@ -583,8 +584,8 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of integers to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(IntStream, Supplier)}
-	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
+	 * <p>Wraps {@link #toConcurrentSetOrElse(IntStream, Supplier)}
+	 * w/ {@link #newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of integers
 	 * @return			concurrent set of integers or the default value
@@ -596,7 +597,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of integers to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(IntStream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(IntStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of integers
@@ -609,7 +610,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of doubles to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link DoubleStream#boxed()} call.
 	 *
 	 * @param stream		stream of doubles
@@ -634,8 +635,8 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of doubles to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(DoubleStream, Supplier)}
-	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
+	 * <p>Wraps {@link #toConcurrentSetOrElse(DoubleStream, Supplier)}
+	 * w/ {@link #newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of doubles
 	 * @return			concurrent set of doubles or the default value
@@ -647,7 +648,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of doubles to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(DoubleStream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(DoubleStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of doubles
@@ -660,7 +661,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of longs to a concurrent set or return a default value.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(Stream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(Stream, Set)}
 	 * w/ {@link LongStream#boxed()} call.
 	 *
 	 * @param stream		stream of longs
@@ -685,8 +686,8 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of longs to a concurrent set or return an empty one.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(LongStream, Supplier)}
-	 * w/ {@link UwSet#newConcurrentSet()} as the default value supplier.
+	 * <p>Wraps {@link #toConcurrentSetOrElse(LongStream, Supplier)}
+	 * w/ {@link #newConcurrentSet()} as the default value supplier.
 	 *
 	 * @param stream	stream of longs
 	 * @return			concurrent set of longs
@@ -698,7 +699,7 @@ public final class UwSet {
 	/**
 	 * Safely convert a stream of longs to a concurrent set or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwSet#toConcurrentSetOrElse(LongStream, Set)}
+	 * <p>Wraps {@link #toConcurrentSetOrElse(LongStream, Set)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param stream	stream of longs

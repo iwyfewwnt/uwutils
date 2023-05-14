@@ -89,8 +89,8 @@ public final class UwString {
 	/**
 	 * Safely trim the specified number of characters at the beginning and end of string or return an empty one.
 	 *
-	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
-	 * w/ empty string as the default value.
+	 * <p>Wraps {@link #trimOrElse(String, Integer, String)}
+	 * w/ {@link #EMPTY} as the default value.
 	 *
 	 * @param str	string to trim
 	 * @param diff	number of characters to trim
@@ -103,7 +103,7 @@ public final class UwString {
 	/**
 	 * Safely trim the specified number of characters at the beginning and end of string or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
+	 * <p>Wraps {@link #trimOrElse(String, Integer, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param str	string to trim
@@ -117,7 +117,7 @@ public final class UwString {
 	/**
 	 * Safely trim the specified number of characters at the beginning and end of string or return the unchanged string.
 	 *
-	 * <p>Wraps {@link UwString#trimOrElse(String, Integer, String)}
+	 * <p>Wraps {@link #trimOrElse(String, Integer, String)}
 	 * w/ the input string as the default value.
 	 *
 	 * @param str	string to trim
@@ -183,8 +183,8 @@ public final class UwString {
 	/**
 	 * Safely replace certain characters from the provided string base w/ characters from the next base or return an empty string.
 	 *
-	 * <p>Wraps {@link UwString#toBaseOrElse(String, String, String, String)}
-	 * w/ {@link UwString#EMPTY} as the default value.
+	 * <p>Wraps {@link #toBaseOrElse(String, String, String, String)}
+	 * w/ {@link #EMPTY} as the default value.
 	 *
 	 * @param str		string to convert to the next character base
 	 * @param currBase	current character base the string represented in
@@ -198,7 +198,7 @@ public final class UwString {
 	/**
 	 * Safely replace certain characters from the provided string base w/ characters from the next base or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwString#toBaseOrElse(String, String, String, String)}
+	 * <p>Wraps {@link #toBaseOrElse(String, String, String, String)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param str		string to convert to the next character base
@@ -213,7 +213,7 @@ public final class UwString {
 	/**
 	 * Safely replace certain characters from the provided string base w/ characters from the next base or return the unchanged string.
 	 *
-	 * <p>Wraps {@link UwString#toBaseOrElse(String, String, String, String)}
+	 * <p>Wraps {@link #toBaseOrElse(String, String, String, String)}
 	 * w/ 1st argument as the default value.
 	 *
 	 * @param str		string to convert to the next character base

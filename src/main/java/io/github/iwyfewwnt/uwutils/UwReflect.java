@@ -131,7 +131,7 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of objects to an array of their type or return an empty array.
 	 *
-	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Object[], Class[])}
+	 * <p>Wraps {@link #toClassArrayOrElse(Object[], Class[])}
 	 * w/ {@link UwArray#CLASS_EMPTY} as the default value.
 	 *
 	 * @param objects	array of objects to cast
@@ -144,7 +144,7 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of objects to an array of their type or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Object[], Class[])}
+	 * <p>Wraps {@link #toClassArrayOrElse(Object[], Class[])}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param objects	array of objects to cast
@@ -196,7 +196,7 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of types to an array of classes or return an empty array.
 	 *
-	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Type[], Class[])}
+	 * <p>Wraps {@link #toClassArrayOrElse(Type[], Class[])}
 	 * w/ {@link UwArray#CLASS_EMPTY} as the default value.
 	 *
 	 * @param types		array of types to cast
@@ -209,7 +209,7 @@ public final class UwReflect {
 	/**
 	 * Safely cast an array of types to an array of classes or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#toClassArrayOrElse(Type[], Class[])}
+	 * <p>Wraps {@link #toClassArrayOrElse(Type[], Class[])}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param types		array of types to cast
@@ -293,7 +293,7 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided parameterized type or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypesOrElse(ParameterizedType, Class[])}
+	 * <p>Wraps {@link #getGenericTypesOrElse(ParameterizedType, Class[])}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param type	parameterized type from which get the generic types
@@ -306,7 +306,7 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided type or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypesOrElse(Type, Class[])}
+	 * <p>Wraps {@link #getGenericTypesOrElse(Type, Class[])}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param type	type from which get the generic types
@@ -319,7 +319,7 @@ public final class UwReflect {
 	/**
 	 * Safely get generic types of the provided class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypesOrElse(Class, Class[])}
+	 * <p>Wraps {@link #getGenericTypesOrElse(Class, Class[])}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz		class from which get the generic types
@@ -404,7 +404,7 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided parameterized type by its index or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Integer, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(ParameterizedType, Integer, Class)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param type		parameterized type from which get the generic type
@@ -418,7 +418,7 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided type by its index or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Integer, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Type, Integer, Class)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param type		type from which get the generic type
@@ -432,7 +432,7 @@ public final class UwReflect {
 	/**
 	 * Safely get generic type of the provided class by its index or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Class, Integer, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Class, Integer, Class)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz		class from which get the generic type
@@ -446,7 +446,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided parameterized type or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Integer, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(ParameterizedType, Integer, Class)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
 	 * @param type			parameterized type from which get the generic type
@@ -460,7 +460,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided type or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Integer, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Type, Integer, Class)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
 	 * @param type			type from which get the generic type
@@ -474,7 +474,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided class or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Class, Integer, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Class, Integer, Class)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
 	 * @param clazz			class from which get the generic type
@@ -488,7 +488,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided parameterized type or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Integer, Supplier)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(ParameterizedType, Integer, Supplier)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
 	 * @param type					parameterized type from which get the generic type
@@ -502,7 +502,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided type or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Integer, Supplier)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Type, Integer, Supplier)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
 	 * @param type					type from which get the generic type
@@ -516,7 +516,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided class or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Class, Integer, Supplier)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Class, Integer, Supplier)}
 	 * w/ {@code 0} as the index of the generic type.
 	 *
 	 * @param clazz					class from which get the generic type
@@ -530,7 +530,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided parameterized type or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(ParameterizedType, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(ParameterizedType, Class)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param type	parameterized type from which get the generic type
@@ -543,7 +543,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided type or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Type, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Type, Class)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param type	type from which get the generic type
@@ -556,7 +556,7 @@ public final class UwReflect {
 	/**
 	 * Safely get 1st generic type of the provided class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getGenericTypeOrElse(Class, Class)}
+	 * <p>Wraps {@link #getGenericTypeOrElse(Class, Class)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz		class from which get the generic type
@@ -594,7 +594,7 @@ public final class UwReflect {
 	/**
 	 * Safely get default constructor of the provided class or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#getConstructorOrElse(Class, Class[], Constructor)}
+	 * <p>Wraps {@link #getConstructorOrElse(Class, Class[], Constructor)}
 	 * w/ {@code null} as an array of the constructor argument types.
 	 *
 	 * @param clazz			class from which get the constructor
@@ -634,7 +634,7 @@ public final class UwReflect {
 	/**
 	 * Safely get constructor of the provided class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getConstructorOrElse(Class, Class[], Constructor)}
+	 * <p>Wraps {@link #getConstructorOrElse(Class, Class[], Constructor)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz		class from which get the constructor
@@ -649,7 +649,7 @@ public final class UwReflect {
 	/**
 	 * Safely get default constructor of the provided class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#getConstructorOrElse(Class, Constructor)}
+	 * <p>Wraps {@link #getConstructorOrElse(Class, Constructor)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz		class from which get the constructor
@@ -696,7 +696,7 @@ public final class UwReflect {
 	/**
 	 * Safely create a new instance of the provided class or return a default value.
 	 *
-	 * <p>Wraps {@link UwReflect#newInstanceOrElse(Class, Object[], Object)}
+	 * <p>Wraps {@link #newInstanceOrElse(Class, Object[], Object)}
 	 * w/ {@code null} as the array of constructor arguments.
 	 *
 	 * @param clazz			class from which create the new instance
@@ -736,7 +736,7 @@ public final class UwReflect {
 	/**
 	 * Safely create a new instance of the provided class or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#newInstanceOrElse(Class, Object[], Object)}
+	 * <p>Wraps {@link #newInstanceOrElse(Class, Object[], Object)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param clazz			class from which create the new instance
@@ -751,7 +751,7 @@ public final class UwReflect {
 	/**
 	 * Safely create a new instance of the provided class by its default constructor or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwReflect#newInstanceOrNull(Class, Object[])}
+	 * <p>Wraps {@link #newInstanceOrNull(Class, Object[])}
 	 * w/ {@code null} as the array of constructor arguments.
 	 *
 	 * @param clazz		class from which create the new instance

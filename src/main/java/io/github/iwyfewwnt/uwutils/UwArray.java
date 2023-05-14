@@ -68,7 +68,7 @@ public final class UwArray {
 	/**
 	 * Safely get a value from an array by its index or return {@code null}.
 	 *
-	 * <p>Wraps {@link UwArray#getOrElse(Integer, Object[], Object)}
+	 * <p>Wraps {@link #getOrElse(Integer, Object[], Object)}
 	 * w/ {@code null} as the default value.
 	 *
 	 * @param index		index of the value
@@ -170,7 +170,7 @@ public final class UwArray {
 		/**
 		 * Initialize an {@link UwArray.Iterable} instance.
 		 *
-		 * <p>Wraps {@link UwArray.Iterable#Iterable(Object[])}
+		 * <p>Wraps {@link #Iterable(Object[])}
 		 * w/ {@code null} as the array of elements.
 		 *
 		 */
@@ -237,7 +237,7 @@ public final class UwArray {
 		/**
 		 * Initialize an {@link UwArray.Iterator} instance.
 		 *
-		 * <p>Wraps {@link UwArray.Iterator#Iterator(Object[])}
+		 * <p>Wraps {@link #Iterator(Object[])}
 		 * w/ {@code null} as the array of elements.
 		 */
 		public Iterator() {

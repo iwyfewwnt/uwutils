@@ -70,7 +70,7 @@ public final class UwSystem {
 	/**
 	 * Setup parallel error output stream for the system.
 	 *
-	 * <p>Wraps {@link UwSystem#setupParallelErrorPrint(Thread)}
+	 * <p>Wraps {@link #setupParallelErrorPrint(Thread)}
 	 * w/ {@code null} as the thread.
 	 */
 	public static void setupParallelErrorPrint() {
@@ -89,7 +89,7 @@ public final class UwSystem {
 	/**
 	 * Backup the error system output stream.
 	 *
-	 * <p>Wraps {@link UwSystem#backupSystemErrorPrint(Thread)}
+	 * <p>Wraps {@link #backupSystemErrorPrint(Thread)}
 	 * w/ {@code null} as the thread.
 	 */
 	public static void backupSystemErrorPrint() {
@@ -108,7 +108,7 @@ public final class UwSystem {
 	/**
 	 * Setup parallel standard output stream for the system.
 	 *
-	 * <p>Wraps {@link UwSystem#setupParallelErrorPrint(Thread)}
+	 * <p>Wraps {@link #setupParallelErrorPrint(Thread)}
 	 * w/ {@code null} as the thread.
 	 */
 	public static void setupParallelOutputPrint() {
@@ -127,7 +127,7 @@ public final class UwSystem {
 	/**
 	 * Backup the standard system output stream.
 	 *
-	 * <p>Wraps {@link UwSystem#backupSystemOutputPrint(Thread)}
+	 * <p>Wraps {@link #backupSystemOutputPrint(Thread)}
 	 * w/ {@code null} as the thread.
 	 */
 	public static void backupSystemOutputPrint() {
@@ -838,7 +838,7 @@ public final class UwSystem {
 	/**
 	 * Get current stack trace element that points to the caller.
 	 *
-	 * <p>Wraps {@link UwSystem#getCurrentStackTraceElement(Integer)}
+	 * <p>Wraps {@link #getCurrentStackTraceElement(Integer)}
 	 * w/ {@code null} as the stack trace offset.
 	 *
 	 * @return	stack trace element
