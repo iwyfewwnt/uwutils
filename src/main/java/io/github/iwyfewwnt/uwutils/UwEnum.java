@@ -16,8 +16,8 @@
 
 package io.github.iwyfewwnt.uwutils;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * An enum utility.
@@ -32,7 +32,7 @@ public final class UwEnum {
 	/**
 	 * An enum values cache by the {@link Class} as the key and enum constants as the value.
 	 */
-	private static final Map<Class<Enum<?>>, Object[]> VALUES_CACHE = new ConcurrentHashMap<>();
+	private static final Map<Class<Enum<?>>, Object[]> VALUES_CACHE = new HashMap<>();
 
 	/**
 	 * Get an array of enum constants for the provided enum class.
@@ -50,8 +50,16 @@ public final class UwEnum {
 		}
 
 		T[] values = (T[]) VALUES_CACHE.get(clazz);
+		if (values != null) {
+			return values;
+		}
 
-		if (values == null) {
+		synchronized (VALUES_CACHE) {
+			values = (T[]) VALUES_CACHE.get(clazz);
+			if (values != null) {
+				return values;
+			}
+
 			VALUES_CACHE.put((Class<Enum<?>>) clazz, (values = clazz.getEnumConstants()));
 		}
 
