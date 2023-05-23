@@ -22,7 +22,7 @@ import java.util.concurrent.Callable;
  * A compatible interface w/ {@link Callable}.
  */
 @FunctionalInterface
-public interface UwCallable extends Callable<Void> {
+public interface UwCallable<T> extends Callable<T> {
 
 	/**
 	 * Dummy redirect to {@link Callable#call()}.
@@ -35,7 +35,7 @@ public interface UwCallable extends Callable<Void> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Void call() throws Exception {
+	default T call() throws Exception {
 		call0(); return null;
 	}
 }
