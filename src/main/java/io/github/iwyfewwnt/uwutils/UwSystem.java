@@ -694,7 +694,6 @@ public final class UwSystem {
 			OutputStream currentOutputStream
 					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
 
-
 			contextStack.push(new Object[] {
 					currentOutputStream,
 					this.isEnabled(thread)
