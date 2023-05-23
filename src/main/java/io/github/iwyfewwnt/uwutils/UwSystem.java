@@ -592,7 +592,7 @@ public final class UwSystem {
 
 		try {
 			returnValue = callable.call();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			throwable = e;
 		}
 
