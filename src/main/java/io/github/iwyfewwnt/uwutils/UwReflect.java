@@ -74,7 +74,7 @@ public final class UwReflect {
 	 * @return			annotation or {@code null}
 	 */
 	@SuppressWarnings("unchecked")
-	public static Annotation getAnnotation(Class<?>[] classes, AnnotatedElement element) {
+	public static Annotation annotationOf(Class<?>[] classes, AnnotatedElement element) {
 		if (classes == null || element == null) {
 			return null;
 		}
