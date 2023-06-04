@@ -65,10 +65,10 @@ public final class UwBean {
 			Enumeration<URL> urls = classLoader.getResources(String.format(SPI_PATH_FMT, clazz.getName()));
 
 			while (urls.hasMoreElements()) {
-				String[] content = read(urls.nextElement())
+				String[] classNames = read(urls.nextElement())
 						.split("\\R");
 
-				for (String className : content) {
+				for (String className : classNames) {
 					try {
 						result.add(classLoader.loadClass(className)
 								.asSubclass(clazz)
@@ -78,9 +78,7 @@ public final class UwBean {
 					}
 				}
 			}
-		} catch (IOException
-				| NullPointerException
-				| IllegalArgumentException e) {
+		} catch (IOException | NullPointerException | IllegalArgumentException e) {
 			e.printStackTrace();
 		}
 
