@@ -816,6 +816,7 @@ public final class UwSystem {
 				.getStackTrace();
 
 		int i = 1 + offset;
+
 		StackTraceElement returnValue
 				= UwArray.getOrNull(i, stackTraceElements);
 
