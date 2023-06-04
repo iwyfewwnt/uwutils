@@ -173,9 +173,7 @@ public final class UwReflect {
 			System.arraycopy(types, 0, classes, 0, classes.length);
 
 			return classes;
-		} catch (IndexOutOfBoundsException
-				| ArrayStoreException
-				| NullPointerException e) {
+		} catch (IndexOutOfBoundsException | ArrayStoreException | NullPointerException e) {
 			e.printStackTrace();
 		}
 
