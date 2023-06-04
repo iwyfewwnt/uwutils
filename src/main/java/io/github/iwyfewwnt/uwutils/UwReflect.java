@@ -680,11 +680,7 @@ public final class UwReflect {
 
 		try {
 			return constructor.newInstance(arguments);
-		} catch (IllegalAccessException
-				| IllegalArgumentException
-				| InstantiationException
-				| InvocationTargetException
-				| ExceptionInInitializerError e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 
