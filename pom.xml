@@ -53,13 +53,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Project Resources -->
-        <project.resources.dirPath>${project.basedir}/src/main/resources</project.resources.dirPath>
-
-        <!-- Javadoc Stylesheet -->
-        <javadoc.stylesheet.fileName>javadoc-drakula.css</javadoc.stylesheet.fileName>
-        <javadoc.stylesheet.filePath>${project.resources.dirPath}/${javadoc.stylesheet.fileName}</javadoc.stylesheet.filePath>
-
         <!-- Maven Plugin Versions -->
         <maven.install.version>2.5.2</maven.install.version>
         <maven.source.version>3.2.1</maven.source.version>
@@ -69,14 +62,6 @@
     </properties>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.resources.dirPath}</directory>
-                <excludes>
-                    <exclude>${javadoc.stylesheet.fileName}</exclude>
-                </excludes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -130,9 +115,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>${maven.javadoc.version}</version>
-                        <configuration>
-                            <stylesheetfile>${javadoc.stylesheet.filePath}</stylesheetfile>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
