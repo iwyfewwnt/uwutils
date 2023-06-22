@@ -16,7 +16,7 @@
 
 package io.github.iwyfewwnt.uwutils;
 
-import io.github.iwyfewwnt.uwutils.interfaces.UwCallable;
+import io.github.iwyfewwnt.uwutils.interfaces.VoidCallable;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -240,7 +240,7 @@ public final class UwSystem {
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableErrorPrint(Thread thread, UwCallable<?> callable) {
+	public static void enableErrorPrint(Thread thread, VoidCallable<?> callable) {
 		enableErrorPrint(thread, (Callable<?>) callable);
 	}
 
@@ -276,7 +276,7 @@ public final class UwSystem {
 	 *
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableErrorPrint(UwCallable<?> callable) {
+	public static void enableErrorPrint(VoidCallable<?> callable) {
 		enableErrorPrint((Callable<?>) callable);
 	}
 
@@ -316,7 +316,7 @@ public final class UwSystem {
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableErrorPrint(Thread thread, UwCallable<?> callable) {
+	public static void disableErrorPrint(Thread thread, VoidCallable<?> callable) {
 		disableErrorPrint(thread, (Callable<?>) callable);
 	}
 
@@ -352,7 +352,7 @@ public final class UwSystem {
 	 *
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableErrorPrint(UwCallable<?> callable) {
+	public static void disableErrorPrint(VoidCallable<?> callable) {
 		disableErrorPrint((Callable<?>) callable);
 	}
 
@@ -413,7 +413,7 @@ public final class UwSystem {
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableOutputPrint(Thread thread, UwCallable<?> callable) {
+	public static void enableOutputPrint(Thread thread, VoidCallable<?> callable) {
 		enableOutputPrint(thread, (Callable<?>) callable);
 	}
 
@@ -449,7 +449,7 @@ public final class UwSystem {
 	 *
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void enableOutputPrint(UwCallable<?> callable) {
+	public static void enableOutputPrint(VoidCallable<?> callable) {
 		enableOutputPrint((Callable<?>) callable);
 	}
 
@@ -489,7 +489,7 @@ public final class UwSystem {
 	 * @param thread	thread to enable the stream for
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableOutputPrint(Thread thread, UwCallable<?> callable) {
+	public static void disableOutputPrint(Thread thread, VoidCallable<?> callable) {
 		disableOutputPrint(thread, (Callable<?>) callable);
 	}
 
@@ -525,7 +525,7 @@ public final class UwSystem {
 	 *
 	 * @param callable 	callable to call after the switch
 	 */
-	public static void disableOutputPrint(UwCallable<?> callable) {
+	public static void disableOutputPrint(VoidCallable<?> callable) {
 		disableOutputPrint((Callable<?>) callable);
 	}
 

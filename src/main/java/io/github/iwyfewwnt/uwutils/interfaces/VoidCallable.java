@@ -19,10 +19,12 @@ package io.github.iwyfewwnt.uwutils.interfaces;
 import java.util.concurrent.Callable;
 
 /**
- * A compatible interface w/ {@link Callable}.
+ * A void callable functional interface.
+ *
+ * <p>A compatible interface w/ {@link Callable}.
  */
 @FunctionalInterface
-public interface UwCallable<T> extends Callable<T> {
+public interface VoidCallable<T> extends Callable<T> {
 
 	/**
 	 * Dummy redirect to {@link Callable#call()}.
