@@ -670,12 +670,12 @@ public final class UwSystem {
 		public void write(int b) throws IOException {
 			Thread thread = Thread.currentThread();
 
-			OutputStream currentOutputStream
-					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
-
 			if (!this.isEnabled(thread)) {
 				return;
 			}
+
+			OutputStream currentOutputStream
+					= this.streamMap.getOrDefault(thread, this.defaultOutputStream);
 
 			currentOutputStream.write(b);
 		}
