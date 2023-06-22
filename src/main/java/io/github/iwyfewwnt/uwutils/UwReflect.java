@@ -660,6 +660,74 @@ public final class UwReflect {
 	/**
 	 * Safely create a new instance of the provided class or return a default value.
 	 *
+	 * @param clazz				class from which create the new instance
+	 * @param argumentTypes 	array of constructor argument types
+	 * @param argumentValues	array of constructor argument values
+	 * @param defaultValue		default value to return on failure
+	 * @param <T>				object type
+	 * @return					new instance or the default value
+	 */
+	public static <T> T newInstanceOrElse(Class<T> clazz, Class<?>[] argumentTypes, Object[] argumentValues, T defaultValue) {
+		if (clazz == null) {
+			return defaultValue;
+		}
+
+		if (argumentTypes == null) {
+			argumentTypes = UwReflect.toClassArrayOrNull(argumentValues);
+		}
+
+		Constructor<T> constructor = getConstructorOrNull(clazz, argumentTypes);
+		if (constructor == null) {
+			return defaultValue;
+		}
+
+		argumentValues = UwObject.ifNull(argumentValues, UwArray.OBJECT_EMPTY);
+
+		try {
+			return constructor.newInstance(argumentValues);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+
+		return defaultValue;
+	}
+
+	/**
+	 * Safely create a new instance of the provided class or return a default value.
+	 *
+	 * @param clazz					class from which create the new instance
+	 * @param argumentTypes 		array of constructor argument types
+	 * @param argumentValues		array of constructor argument values
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @param <T>					object type
+	 * @return						new instance or the default value
+	 */
+	public static <T> T newInstanceOrElse(Class<T> clazz, Class<?>[] argumentTypes, Object[] argumentValues, Supplier<T> defaultValueSupplier) {
+		return UwObject.ifNull(newInstanceOrNull(clazz, argumentTypes, argumentValues), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely create a new instance of the provided class or return {@code null}.
+	 *
+	 * <p>Wraps {@link #newInstanceOrElse(Class, Class[], Object[], Object)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param clazz					class from which create the new instance
+	 * @param argumentTypes 		array of constructor argument types
+	 * @param argumentValues		array of constructor argument values
+	 * @param <T>					object type
+	 * @return						new instance or the default value
+	 */
+	public static <T> T newInstanceOrNull(Class<T> clazz, Class<?>[] argumentTypes, Object[] argumentValues) {
+		return newInstanceOrElse(clazz, argumentTypes, argumentValues, (T) null);
+	}
+
+	/**
+	 * Safely create a new instance of the provided class or return a default value.
+	 *
+	 * <p>Wraps {@link #newInstanceOrElse(Class, Class[], Object[], Object)}
+	 * w/ {@code null} as the array of constructor argument types.
+	 *
 	 * @param clazz			class from which create the new instance
 	 * @param arguments		array of constructor arguments
 	 * @param defaultValue	default value to return on failure
@@ -667,23 +735,7 @@ public final class UwReflect {
 	 * @return				new instance or the default value
 	 */
 	public static <T> T newInstanceOrElse(Class<T> clazz, Object[] arguments, T defaultValue) {
-		if (clazz == null) {
-			return defaultValue;
-		}
-
-		Constructor<T> constructor = getConstructorOrNull(clazz, toClassArrayOrNull(arguments));
-
-		if (constructor == null) {
-			return defaultValue;
-		}
-
-		try {
-			return constructor.newInstance(arguments);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
-		return defaultValue;
+		return newInstanceOrElse(clazz, null, arguments, defaultValue);
 	}
 
 	/**
