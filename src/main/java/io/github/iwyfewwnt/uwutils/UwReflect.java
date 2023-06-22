@@ -110,7 +110,7 @@ public final class UwReflect {
 		Class<?>[] types = new Class<?>[objects.length];
 
 		for (int i = 0; i < types.length; i++) {
-			types[i] = objects[i].getClass();
+			types[i] = UwObject.ifNotNull(objects[i], Object::getClass);
 		}
 
 		return types;
