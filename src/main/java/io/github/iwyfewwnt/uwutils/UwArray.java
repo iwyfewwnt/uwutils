@@ -35,6 +35,11 @@ public final class UwArray {
 	public static final Class<?>[] CLASS_EMPTY = new Class<?>[0];
 
 	/**
+	 * An empty object array instance.
+	 */
+	public static final Object[] OBJECT_EMPTY = new Object[0];
+
+	/**
 	 * Safely get a value from an array by its index or return a default value.
 	 *
 	 * @param index			index of the value
