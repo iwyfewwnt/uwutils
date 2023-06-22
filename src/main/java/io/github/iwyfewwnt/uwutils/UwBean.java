@@ -71,8 +71,7 @@ public final class UwBean {
 				for (String className : classNames) {
 					try {
 						result.add(classLoader.loadClass(className)
-								.asSubclass(clazz)
-						);
+								.asSubclass(clazz));
 					} catch (ClassNotFoundException | ClassCastException e) {
 						e.printStackTrace();
 					}
