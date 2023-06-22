@@ -65,35 +65,34 @@ public final class UwReflect {
 	}
 
 	/**
+	 * Get first annotation of the provided annotation array
+	 * that is instance of any provided class or return {@code null}
+	 * if failed.
+	 *
+	 * <p>Wraps {@link #instanceOf(Class[], Object[])}.
+	 *
+	 * @param classes		array of classes
+	 * @param annotations	array of annotations
+	 * @return				annotation or {@code null}
+	 */
+	public static Annotation annotationOf(Class<?>[] classes, Annotation[] annotations) {
+		return instanceOf(classes, annotations);
+	}
+
+	/**
 	 * Get first annotation from the provided {@link AnnotatedElement}
 	 * that is instance of any provided class or return {@code null}
 	 * if failed.
+	 *
+	 * <p>Wraps {@link #annotationOf(Class[], Annotation[])}
+	 * w/ {@link AnnotatedElement#getAnnotations()} as the annotation array.
 	 *
 	 * @param classes	array of classes
 	 * @param element	annotated element
 	 * @return			annotation or {@code null}
 	 */
-	@SuppressWarnings("unchecked")
 	public static Annotation annotationOf(Class<?>[] classes, AnnotatedElement element) {
-		if (classes == null || element == null) {
-			return null;
-		}
-
-		for (Class<?> clazz : classes) {
-			if (clazz == null
-					|| !Annotation.class.isAssignableFrom(clazz)) {
-				continue;
-			}
-
-			Annotation annotation
-					= element.getAnnotation((Class<Annotation>) clazz);
-
-			if (annotation != null) {
-				return annotation;
-			}
-		}
-
-		return null;
+		return annotationOf(classes, UwObject.ifNotNull(element, AnnotatedElement::getAnnotations));
 	}
 
 	/**
