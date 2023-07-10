@@ -79,7 +79,9 @@ public final class UwResource {
 		Path nioPath = null;
 		try {
 			nioPath = Paths.get(uri);
-		} catch (IllegalArgumentException | FileSystemNotFoundException | SecurityException ignored) {
+		} catch (FileSystemNotFoundException | SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException ignored) {
 		}
 
 		if (nioPath == null) {
@@ -89,7 +91,9 @@ public final class UwResource {
 		byte[] bytes = null;
 		try {
 			bytes = Files.readAllBytes(nioPath);
-		} catch (IOException | OutOfMemoryError | SecurityException ignored) {
+		} catch (OutOfMemoryError | SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException ignored) {
 		}
 
 		if (bytes == null) {
