@@ -34,14 +34,9 @@ import java.util.function.Supplier;
 public final class UwBean {
 
 	/**
-	 * SPI path format string.
-	 *
-	 * <p>Arguments in order:
-	 * <ul>
-	 *     <li>String :: Class name.
-	 * </ul>
+	 * SPI base path string.
 	 */
-	private static final String SPI_PATH_FMT = "META-INF/services/%s";
+	private static final String SPI_BASE_PATH = "META-INF/services/";
 
 	/**
 	 * Find all sub-class types of the specified service provider interface class or return a default value.
@@ -62,7 +57,7 @@ public final class UwBean {
 		List<Class<? extends T>> result = new ArrayList<>();
 
 		try {
-			Enumeration<URL> urls = classLoader.getResources(String.format(SPI_PATH_FMT, clazz.getName()));
+			Enumeration<URL> urls = classLoader.getResources(SPI_BASE_PATH + clazz.getName());
 
 			while (urls.hasMoreElements()) {
 				String[] classNames = read(urls.nextElement())
