@@ -807,27 +807,25 @@ public final class UwSystem {
 	public static StackTraceElement getCurrentStackTraceElement(Integer offset) {
 		offset = UwObject.ifNull(offset, UDefault.STACK_TRACE_OFFSET);
 
-		StackTraceElement[] stackTraceElements = Thread.currentThread()
+		StackTraceElement[] stackTrace = Thread.currentThread()
 				.getStackTrace();
 
 		int i = 1 + offset;
+		StackTraceElement result = UwArray.getOrNull(i, stackTrace);
 
-		StackTraceElement returnValue
-				= UwArray.getOrNull(i, stackTraceElements);
-
-		for (i++; i < stackTraceElements.length; i++) {
-			StackTraceElement stackTraceElement = stackTraceElements[i];
+		for (i++; i < stackTrace.length; i++) {
+			StackTraceElement stackTraceElement = stackTrace[i];
 
 			String className = stackTraceElement.getClassName();
 			if (className.equals(CLASS_NAME)) {
 				continue;
 			}
 
-			returnValue = stackTraceElement;
+			result = stackTraceElement;
 			break;
 		}
 
-		return returnValue;
+		return result;
 	}
 
 	/**
