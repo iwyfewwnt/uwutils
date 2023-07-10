@@ -851,16 +851,30 @@ public final class UwSystem {
 	public static ClassLoader getContextClassLoader(Class<?> clazz) {
 		ClassLoader classLoader = null;
 
+		Throwable throwable0 = null;
+		Throwable throwable1 = null;
+
 		try {
 			classLoader = Thread.currentThread()
 					.getContextClassLoader();
-		} catch (SecurityException ignored) {
+		} catch (SecurityException e) {
+			throwable0 = e;
 		}
 
 		if (classLoader == null) {
 			try {
 				classLoader = UwObject.ifNotNull(clazz, Class::getClassLoader);
-			} catch (SecurityException ignored) {
+			} catch (SecurityException e) {
+				throwable1 = e;
+			}
+		}
+
+		if (classLoader == null) {
+			if (throwable0 != null) {
+				throwable0.printStackTrace();
+			}
+			if (throwable1 != null) {
+				throwable1.printStackTrace();
 			}
 		}
 
