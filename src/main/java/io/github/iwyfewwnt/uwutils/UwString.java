@@ -225,6 +225,69 @@ public final class UwString {
 		return toBaseOrElse(str, currBase, nextBase, str);
 	}
 
+	/**
+	 * Safely capitalize provided string or return a default value.
+	 *
+	 * @param str			string to capitalize
+	 * @param defaultValue	default value to return on failure
+	 * @return				capitalized string or the default value
+	 */
+	public static String capitalizeOrElse(String str, String defaultValue) {
+		if (str == null) {
+			return defaultValue;
+		}
+
+		if (str.isEmpty()) {
+			return str;
+		}
+
+		String firstLetter = str.substring(0, 1)
+				.toUpperCase();
+
+		if (str.length() == 1) {
+			return firstLetter;
+		}
+
+		return firstLetter + str.substring(1);
+	}
+
+	/**
+	 * Safely capitalize provided string or return a default value.
+	 *
+	 * @param str					string to capitalize
+	 * @param defaultValueSupplier	supplier from which get the default value
+	 * @return						capitalized string or the default value
+	 */
+	public static String capitalizeOrElse(String str, Supplier<String> defaultValueSupplier) {
+		return UwObject.ifNull(capitalizeOrNull(str), defaultValueSupplier);
+	}
+
+	/**
+	 * Safely capitalize provided string or return an empty string.
+	 *
+	 * <p>Wraps {@link #capitalizeOrElse(String, String)}
+	 * w/ {@link #EMPTY} as the default value.
+	 *
+	 * @param str	string to capitalize
+	 * @return		capitalized string or the empty one
+	 */
+	public static String capitalizeOrEmpty(String str) {
+		return capitalizeOrElse(str, EMPTY);
+	}
+
+	/**
+	 * Safely capitalize provided string or return {@code null}.
+	 *
+	 * <p>Wraps {@link #capitalizeOrElse(String, String)}
+	 * w/ {@code null} as the default value.
+	 *
+	 * @param str	string to capitalize
+	 * @return		capitalized string or {@code null}
+	 */
+	public static String capitalizeOrNull(String str) {
+		return capitalizeOrElse(str, (String) null);
+	}
+
 	private UwString() {
 		throw new UnsupportedOperationException();
 	}
