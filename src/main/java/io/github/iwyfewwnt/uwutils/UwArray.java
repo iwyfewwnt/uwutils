@@ -108,7 +108,7 @@ public final class UwArray {
 	}
 
 	/**
-	 * Safely consume an items of the provided array until
+	 * Safely consume items of the provided array until
 	 * a first {@code null} element occurred.
 	 *
 	 * @param consumer	consumer to pass an item to
