@@ -16,31 +16,23 @@
 
 package io.github.iwyfewwnt.uwutils;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * A set of default values.
  */
 final class UDefault {
 
 	/**
-	 * A default class loader instance.
+	 * A default charset instance.
 	 */
-	public static final ClassLoader CLASS_LOADER = initContextClassLoader();
+	public static final Charset CHARSET = StandardCharsets.UTF_8;
 
 	/**
-	 * Initialize a thread context class loader.
-	 *
-	 * @return	class loader or {@code null}
+	 * A default stack trace offset.
 	 */
-	private static ClassLoader initContextClassLoader() {
-		try {
-			return Thread.currentThread()
-					.getContextClassLoader();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
+	public static final int STACK_TRACE_OFFSET = 0;
 
 	private UDefault() {
 		throw new UnsupportedOperationException();

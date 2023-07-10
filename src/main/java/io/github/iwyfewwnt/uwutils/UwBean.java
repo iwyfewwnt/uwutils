@@ -34,7 +34,12 @@ import java.util.function.Supplier;
 public final class UwBean {
 
 	/**
-	 * SPI base path string.
+	 * A class instance of this class.
+	 */
+	private static final Class<?> CLASS = UwBean.class;
+
+	/**
+	 * A SPI base path string.
 	 */
 	private static final String SPI_BASE_PATH = "META-INF/services/";
 
@@ -52,7 +57,7 @@ public final class UwBean {
 			return defaultValue;
 		}
 
-		classLoader = UwObject.ifNull(classLoader, UDefault.CLASS_LOADER);
+		classLoader = UwObject.ifNull(classLoader, UwSystem.getContextClassLoader(CLASS));
 
 		List<Class<? extends T>> result = new ArrayList<>();
 

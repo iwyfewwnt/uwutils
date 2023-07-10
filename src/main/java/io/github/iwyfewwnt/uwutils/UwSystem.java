@@ -799,18 +799,13 @@ public final class UwSystem {
 	private static final String CLASS_NAME = UwSystem.class.getName();
 
 	/**
-	 * A default stack trace offset.
-	 */
-	private static final int DEFAULT_STACK_TRACE_OFFSET = 0;
-
-	/**
 	 * Get current stack trace element that points to the caller.
 	 *
 	 * @param offset	stack trace offset
 	 * @return			stack trace element
 	 */
 	public static StackTraceElement getCurrentStackTraceElement(Integer offset) {
-		offset = UwObject.ifNull(offset, DEFAULT_STACK_TRACE_OFFSET);
+		offset = UwObject.ifNull(offset, UDefault.STACK_TRACE_OFFSET);
 
 		StackTraceElement[] stackTraceElements = Thread.currentThread()
 				.getStackTrace();
@@ -845,5 +840,55 @@ public final class UwSystem {
 	 */
 	public static StackTraceElement getCurrentStackTraceElement() {
 		return getCurrentStackTraceElement(null);
+	}
+
+	/**
+	 * Get a context class loader.
+	 *
+	 * @param clazz		class to get a default class loader from
+	 * @return			class loader or {@code null}
+	 */
+	public static ClassLoader getContextClassLoader(Class<?> clazz) {
+		ClassLoader classLoader = null;
+
+		try {
+			classLoader = Thread.currentThread()
+					.getContextClassLoader();
+		} catch (SecurityException ignored) {
+		}
+
+		if (classLoader == null) {
+			try {
+				classLoader = UwObject.ifNotNull(clazz, Class::getClassLoader);
+			} catch (SecurityException ignored) {
+			}
+		}
+
+		return classLoader;
+	}
+
+	/**
+	 * Get a context class loader.
+	 *
+	 * <p>Wraps {@link #getContextClassLoader(Class)}
+	 * w/ {@link Object#getClass()} as the class.
+	 *
+	 * @param obj	object to get a default class loader from
+	 * @return		class loader or {@code null}
+	 */
+	public static ClassLoader getContextClassLoader(Object obj) {
+		return getContextClassLoader(UwObject.ifNotNull(obj, Object::getClass));
+	}
+
+	/**
+	 * Get a context class loader.
+	 *
+	 * <p>Wraps {@link #getContextClassLoader(Class)}
+	 * w/ {@code null} as the class.
+	 *
+	 * @return	class loader or {@code null}
+	 */
+	public static ClassLoader getContextClassLoader() {
+		return getContextClassLoader(null);
 	}
 }
