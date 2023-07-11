@@ -509,11 +509,13 @@ public final class UwSet {
 	 * @return				concurrent set of objects or the default value
 	 */
 	public static <T> Set<T> createConcurrentOrElse(Stream<T> stream, Set<T> defaultValue) {
-		if (stream == null) {
+		Set<T> set = createOrNull(stream);
+
+		if (set == null) {
 			return defaultValue;
 		}
 
-		return Collections.synchronizedSet(stream.collect(Collectors.toSet()));
+		return Collections.synchronizedSet(set);
 	}
 
 	/**
